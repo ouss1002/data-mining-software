@@ -14,7 +14,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("/application2.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/application.fxml"));
         primaryStage.setTitle("Data Mining Software");
         Scene s = new Scene(root);
         primaryStage.setScene(s);
