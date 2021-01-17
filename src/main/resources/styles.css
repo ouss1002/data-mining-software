@@ -1,0 +1,58 @@
+* {
+    -fx-primary: #2A2E37;
+    -fx-secondary: #FFFF8D;
+    -fx-primary-text: #B2B2B2;
+    -fx-red: #FF0000;
+    -fx-gray: rgba(210, 210, 210, 1);
+}
+
+.root {
+    -fx-background-color: -fx-primary;
+    -fx-font-family: 'Calibri';
+    -fx-text-fill: -fx-gray;
+}
+
+.label {
+    -fx-text-fill: -fx-gray;
+}
+
+.tab {
+    -fx-background-color: -fx-primary;
+    -fx-pref-width: 150;
+}
+
+.tab-header-background {
+    -fx-background-color: -fx-primary;
+}
+
+.tree-table-view {
+    -fx-tree-table-color: rgba(0, 150, 0, 0.5);
+    -fx-background-color: -fx-primary;
+    -fx-border-color: -fx-gray;
+    -fx-border-radius: 0.5em;
+    -fx-border-width: 2;
+}
+
+.button {
+    -fx-background-color: -fx-primary;
+    -fx-text-fill: -fx-gray;
+    -fx-border-color: -fx-gray;
+    -fx-border-radius: 0.5em;
+    -fx-background-radius: 0.5em;
+    -fx-border-width: 2;
+}
+
+.button:hover {
+    -fx-background-color: -fx-secondary;
+    -fx-text-fill: -fx-primary;
+    -fx-border-color: -fx-secondary;
+}
+
+.combo-box {
+
+}
+
+.label.borderized {
+    -fx-border-width: 1;
+    -fx-border-color: -fx-gray;
+}

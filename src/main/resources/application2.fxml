@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.web.WebView?>
+
+<JFXTabPane stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.app.ApplicationController">
+   <tabs>
+      <Tab text="DATASET">
+         <content>
+            <AnchorPane>
+               <children>
+                  <HBox alignment="CENTER_LEFT" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane HBox.hgrow="ALWAYS">
+                           <children>
+                              <JFXTreeTableView fx:id="tableDataset" editable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane>
+                           <children>
+                              <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" prefHeight="324.0" prefWidth="218.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="164.0" text="ATTRIBUTE:">
+                                                   <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <JFXComboBox fx:id="cbDatasetTabAttribute" prefHeight="22.0" prefWidth="137.0" />
+                                                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="194.0" spacing="5.0">
+                                                   <children>
+                                                      <Label alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="102.0" text="TYPE:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblDatasetType" prefHeight="14.0" prefWidth="102.0" text="1000">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="194.0" spacing="5.0">
+                                                   <children>
+                                                      <Label alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="102.0" text="MEAN:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblDatasetMean" prefHeight="14.0" prefWidth="102.0" text="1000">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="194.0" spacing="5.0">
+                                                   <children>
+                                                      <Label alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="102.0" text="MEDIAN">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblDatasetMedian" prefHeight="14.0" prefWidth="102.0" text="1000">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="194.0" spacing="5.0">
+                                                   <children>
+                                                      <Label alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="102.0" text="MODE:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblDatasetMode" prefHeight="14.0" prefWidth="102.0" text="1000">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="31.0" prefWidth="194.0" spacing="5.0">
+                                                   <children>
+                                                      <Label alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="102.0" text="SYMMETRY:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblDatasetSymmetry" prefHeight="14.0" prefWidth="102.0" text="1000">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="2.0" left="5.0" right="5.0" top="2.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin></AnchorPane>
+                                    <AnchorPane prefHeight="134.0" prefWidth="218.0">
+                                       <children>
+                                          <JFXButton fx:id="btnDatasetImport" alignment="CENTER" layoutX="19.0" layoutY="83.0" prefHeight="50.0" prefWidth="179.0" text="IMPORT DATASET" textFill="RED">
+                                             <font>
+                                                <Font name="System Bold" size="14.0" />
+                                             </font>
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor></JFXButton>
+                                          <HBox alignment="CENTER" layoutX="-3.0" prefHeight="66.0" prefWidth="218.0" spacing="2.0">
+                                             <children>
+                                                <Label alignment="CENTER" prefHeight="38.0" prefWidth="82.0" text="DATASET:" textFill="RED">
+                                                   <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <JFXComboBox fx:id="cbDatasetImport" prefHeight="26.0" prefWidth="126.0" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <padding>
+                                          <Insets top="20.0" />
+                                       </padding>
+                                    </AnchorPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab text="BOXPLOT">
+         <content>
+            <AnchorPane>
+               <children>
+                  <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane HBox.hgrow="ALWAYS">
+                           <children>
+                              <WebView fx:id="wvBoxTab" layoutX="99.0" layoutY="54.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" opacity="0.14" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane HBox.hgrow="NEVER">
+                           <children>
+                              <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane minHeight="270.0" prefHeight="270.0" prefWidth="219.0" VBox.vgrow="NEVER">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" prefHeight="267.0" prefWidth="219.0">
+                                             <children>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                   <children>
+                                                      <Label text="Attribute:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXComboBox fx:id="cbBoxTabAttribute" prefHeight="22.0" prefWidth="129.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="33.0" prefWidth="212.0" spacing="5.0">
+                                                   <children>
+                                                      <Label alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="105.0" text="MINIMUM:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblBoxTabMin" prefHeight="14.0" prefWidth="69.0" text="100">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="33.0" prefWidth="212.0" spacing="5.0">
+                                                   <children>
+                                                      <Label alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="105.0" text="Q1:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblBoxTabQ1" prefHeight="14.0" prefWidth="69.0" text="100">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="33.0" prefWidth="212.0" spacing="5.0">
+                                                   <children>
+                                                      <Label alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="105.0" text="MEDIAN:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblBoxTabMedian" prefHeight="14.0" prefWidth="69.0" text="100">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="33.0" prefWidth="212.0" spacing="5.0">
+                                                   <children>
+                                                      <Label alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="105.0" text="Q3:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblBoxTabQ3" prefHeight="14.0" prefWidth="69.0" text="100">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="33.0" prefWidth="212.0" spacing="5.0">
+                                                   <children>
+                                                      <Label alignment="CENTER_RIGHT" prefHeight="14.0" prefWidth="105.0" text="MAXIMUM:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblBoxTabMax" prefHeight="14.0" prefWidth="69.0" text="100">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <VBox layoutY="-40.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Label prefHeight="26.0" prefWidth="215.0" text="Outliers:">
+                                                   <font>
+                                                      <Font name="System Bold" size="16.0" />
+                                                   </font>
+                                                </Label>
+                                                <JFXTreeTableView fx:id="tableBoxTab" prefHeight="200.0" VBox.vgrow="ALWAYS" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content></Tab>
+      <Tab text="HISTOGRAM">
+         <content>
+            <AnchorPane>
+               <children>
+                  <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane HBox.hgrow="ALWAYS">
+                           <children>
+                              <WebView fx:id="wvHistogramTab" layoutX="99.0" layoutY="54.0" opacity="0.14" prefHeight="464.0" prefWidth="572.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane HBox.hgrow="NEVER">
+                           <children>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <AnchorPane>
+                                       <children>
+                                          <VBox alignment="TOP_CENTER">
+                                             <children>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                   <children>
+                                                      <Label text="Attribute:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXComboBox fx:id="cbHistogramTabAttribute" prefHeight="22.0" prefWidth="129.0" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content></Tab>
+      <Tab text="SCATTERPLOT">
+         <content>
+            <AnchorPane>
+               <children>
+                  <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane HBox.hgrow="ALWAYS">
+                           <children>
+                              <WebView fx:id="wvScatterTab" layoutX="99.0" layoutY="54.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" opacity="0.14" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane HBox.hgrow="NEVER">
+                           <children>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <AnchorPane>
+                                       <children>
+                                          <VBox alignment="TOP_CENTER">
+                                             <children>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                   <children>
+                                                      <Label text="Attribute1:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXComboBox fx:id="cbScatterTabAttribute1" prefHeight="22.0" prefWidth="113.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                   <children>
+                                                      <Label text="Attribute1:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXComboBox fx:id="cbScatterTabAttribute2" prefHeight="22.0" prefWidth="113.0" />
+                                                   </children>
+                                                </HBox>
+                                                <JFXButton fx:id="btnScatterTabPlot" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="PLOT" textFill="RED">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <VBox.margin>
+                                                      <Insets top="20.0" />
+                                                   </VBox.margin>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+   </tabs>
+</JFXTabPane>
