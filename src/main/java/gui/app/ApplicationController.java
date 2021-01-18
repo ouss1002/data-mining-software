@@ -10,8 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
-import tech.tablesaw.api.Table;
-import tech.tablesaw.io.csv.CsvReadOptions;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -100,18 +99,18 @@ public class ApplicationController {
 
         btnDatasetImport.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent2) {
-                String str = ApplicationController.this.fileChooserClick();
+                /*String str = ApplicationController.this.fileChooserClick();
                 fileChosen = str;
                 try {
                     trythis();
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }*/
             }
         });
     }
 
-    private void trythis() throws IOException {
+    /*private void trythis() throws IOException {
         Table tt = readData(fileChosen);
         System.out.println(tt);
 
@@ -135,6 +134,6 @@ public class ApplicationController {
             t.column(i).setName(column_names[i]);
         }
         return t;
-    }
+    }*/
 
 }
