@@ -3,7 +3,7 @@ package gui.app;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTreeTableView;
-import javafx.collections.FXCollections;
+import datamining.DataSet;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -13,7 +13,6 @@ import javafx.stage.FileChooser;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ApplicationController {
@@ -88,17 +87,25 @@ public class ApplicationController {
     private JFXButton btnScatterTabPlot;
 
     public FileChooser fileChooserObject = new FileChooser();
-    public String fileChosen = "";
+    DataSet dataset;
 
-    public ApplicationController() throws Exception {
+    public ApplicationController() {
 
     }
 
-    public void initialize(){
+    public void initialize() {
         fileChooserObject.getExtensionFilters().add(new FileChooser.ExtensionFilter("files", "*.txt"));
 
         btnDatasetImport.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent2) {
+                File selectedFile = fileChooserObject.showOpenDialog(null);
+
+                try {
+                     dataset = new DataSet(selectedFile.getAbsolutePath());
+                     //System.out.println("perfect");
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
