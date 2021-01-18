@@ -99,41 +99,9 @@ public class ApplicationController {
 
         btnDatasetImport.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent actionEvent2) {
-                /*String str = ApplicationController.this.fileChooserClick();
-                fileChosen = str;
-                try {
-                    trythis();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
             }
         });
     }
 
-    /*private void trythis() throws IOException {
-        Table tt = readData(fileChosen);
-        System.out.println(tt);
-
-        System.out.println(tableDataset.getTreeItem(0));
-    }
-
-    private String fileChooserClick() {
-        File selectedFile = fileChooserObject.showOpenDialog(null);
-
-        return selectedFile.getPath();
-    }
-
-    private Table readData(String path) throws IOException {
-        CsvReadOptions.Builder builder = CsvReadOptions.builder(path).
-                header(false).tableName("Thyroid Dataset");
-
-        CsvReadOptions options = builder.build();
-        Table t = Table.read().usingOptions(options);
-        String[] column_names = {"class", "t3_resin", "total_thyroxin", "total_triio", "tsh", "max_diff_tsh"};
-        for(int i=0;i<column_names.length;i++){
-            t.column(i).setName(column_names[i]);
-        }
-        return t;
-    }*/
 
 }
