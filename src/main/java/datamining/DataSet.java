@@ -34,14 +34,4 @@ public class DataSet {
 
     }
 
-    public ArrayList<Double> getColumn(String name) {
-        ArrayList<Double> column = new ArrayList<Double>();
-        for (Instance instance: this.instances) {
-            for (Variable variable: instance.variables) {
-                column.add(variable.getDouble());
-            }
-        }
-        return column;
-    }
-
 }
