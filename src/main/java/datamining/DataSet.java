@@ -4,12 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class DataSet {
     String filePath;
     ArrayList<Instance> instances = new ArrayList<Instance>();
-    ArrayList<String> variablesNames;
+    HashMap<String, Integer> variablesNames = new HashMap<String, Integer>();
     Integer variablesNumber;
 
     public DataSet(String filePath) throws IOException {
@@ -28,7 +28,10 @@ public class DataSet {
         }
         // because we have only one dataset for now, columns are static
         String[] names = {"class", "t3_resin", "total_thyroxin", "total_triio", "tsh", "max_diff_tsh"};
-        variablesNames = new ArrayList<String>(Arrays.asList(names));
+        for (int i = 0; i < names.length; i++) {
+            variablesNames.put(names[i], i);
+        }
+
 
         variablesNumber = variablesNames.size();
 
