@@ -37,4 +37,12 @@ public class DataSet {
 
     }
 
+    public ArrayList<Double> getColumn(String name) {
+        ArrayList<Double> column = new ArrayList<Double>();
+        for (Instance instance: this.instances) {
+            column.add(instance.variables.get(this.variablesNames.get(name)).getDouble());
+        }
+        return column;
+    }
+
 }
