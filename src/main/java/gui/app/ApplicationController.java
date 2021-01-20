@@ -104,7 +104,7 @@ public class ApplicationController {
     private Tab tabScatter;
 
     public FileChooser fileChooserObject = new FileChooser();
-    public static DataSet dataset;
+    public DataSet dataset;
 
     public ApplicationController() {
 
