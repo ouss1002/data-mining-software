@@ -39,6 +39,13 @@ public class DataSet {
 
     }
 
+    public boolean isSymmetrical(String name) {
+        Double mean = this.getMean(name);
+        Double median = this.getMedian(name);
+        HashMap<Double, Integer> mode = this.getModeDictionary(name);
+        return mode.size() == 1 && mean.equals(median) && median.equals(mode.keySet().toArray()[0]);
+    }
+
     public ArrayList<String> getVariablesNames() {
         return new ArrayList<String>(variablesNames.keySet());
     }
@@ -96,7 +103,5 @@ public class DataSet {
         }
         return countingMax;
     }
-
-
-
+    
 }
