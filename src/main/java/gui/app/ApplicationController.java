@@ -13,10 +13,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
-
-import javax.swing.event.ChangeEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -72,13 +69,13 @@ public class ApplicationController {
     private Label lblBoxTabMax;
 
     @FXML
-    private JFXComboBox cbHistogramTabAttribute;
+    private JFXComboBox<String> cbHistogramTabAttribute;
 
     @FXML
-    private JFXComboBox cbScatterTabAttribute1;
+    private JFXComboBox<String> cbScatterTabAttribute1;
 
     @FXML
-    private JFXComboBox cbScatterTabAttribute2;
+    private JFXComboBox<String> cbScatterTabAttribute2;
 
     @FXML
     private JFXButton btnScatterTabPlot;
@@ -123,6 +120,7 @@ public class ApplicationController {
         tableBoxTab.getItems().clear();
         if(dataset != null) {
             this.enableTabs();
+            this.enableComboBoxes();
             ObservableList<String> attrs = this.getAttributes();
             cbDatasetTabAttribute.setItems(attrs);
             cbBoxTabAttribute.setItems(attrs);
@@ -130,7 +128,11 @@ public class ApplicationController {
             cbScatterTabAttribute1.setItems(attrs);
             cbScatterTabAttribute2.setItems(attrs);
         }
+        this.assignEventListeners();
+    }
 
+    private void enableComboBoxes() {
+        cbDatasetTabAttribute.setDisable(false);
     }
 
     public ObservableList<String>  getAttributes() {
@@ -193,9 +195,11 @@ public class ApplicationController {
     private void importDatasetEvent(ActionEvent actionEvent) throws IOException {
         fileChooserObject.getExtensionFilters().add(new FileChooser.ExtensionFilter("files", "*.txt"));
         File selectedFile = fileChooserObject.showOpenDialog(null);
-        String path = selectedFile.getAbsolutePath();
-        dataset = new DataSet(path);
-        prepare();
+        if(selectedFile != null) {
+            String path = selectedFile.getAbsolutePath();
+            dataset = new DataSet(path);
+            prepare();
+        }
     }
 
     private void plotScatter(ActionEvent actionEvent) {
@@ -211,6 +215,7 @@ public class ApplicationController {
     }
 
     private void refreshBoxTabEvent(Event event) {
+        cbBoxTabAttribute.setPromptText(cbBoxTabAttribute.getValue().toString());
         this.refreshBoxTabValues();
     }
 
@@ -238,6 +243,8 @@ public class ApplicationController {
     }
 
     private void refreshDatasetEvent(Event event) {
+        cbDatasetTabAttribute.setPromptText(cbDatasetTabAttribute.getValue().toString());
+
         this.refreshDatasetValues();
     }
 
