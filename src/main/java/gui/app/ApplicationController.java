@@ -10,7 +10,9 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 
@@ -127,6 +129,7 @@ public class ApplicationController {
             cbHistogramTabAttribute.setItems(attrs);
             cbScatterTabAttribute1.setItems(attrs);
             cbScatterTabAttribute2.setItems(attrs);
+            this.fillDatasetTable();
         }
         this.assignEventListeners();
     }
@@ -175,7 +178,19 @@ public class ApplicationController {
     }
 
     public void fillDatasetTable() {
-        // TODO: fill the table after importing the dataset
+        ArrayList<String> arr = dataset.getVariablesNames();
+        ArrayList<TableColumn> columns = new ArrayList<>();
+        TableColumn nameColumn;
+
+        for(String str : arr) {
+            nameColumn = new TableColumn(str);
+            nameColumn.setCellFactory(new PropertyValueFactory<>(str));
+            columns.add(nameColumn);
+        }
+
+        for(TableColumn tc : columns) {
+            tableDataset.getColumns().add(tc);
+        }
     }
 
     public void assignEventListeners() {
