@@ -119,6 +119,7 @@ public class ApplicationController {
     public void prepare() throws IOException {
 
         tableDataset.getItems().clear();
+        tableBoxTab.getItems().clear();
         dataset = new DataSet("ADD FILE PATH HERE");
         this.enableTabs();
         ObservableList<String> attrs = this.getAttributes();
@@ -176,6 +177,20 @@ public class ApplicationController {
     public void assignEventListeners() {
         cbDatasetTabAttribute.setOnAction(this::refreshDatasetEvent);
         cbBoxTabAttribute.setOnAction(this::refreshBoxTabEvent);
+        cbHistogramTabAttribute.setOnAction(this::refreshHistoEvent);
+        btnScatterTabPlot.setOnAction(this::plotScatter);
+    }
+
+    private void plotScatter(ActionEvent actionEvent) {
+        // TODO: plot the scatter graph
+    }
+
+    private void refreshHistoEvent(Event event) {
+        this.refreshHistoValues();
+    }
+
+    private void refreshHistoValues() {
+        // TODO: prepare the histogram
     }
 
     private void refreshBoxTabEvent(Event event) {
@@ -194,8 +209,15 @@ public class ApplicationController {
             lblBoxTabMax.setText(dataset.getMax(cbString).toString());
         }
         else{
-            this.emptyDatasetLabels();
+            this.emptyBoxPlotLabels();
         }
+
+        tableBoxTab.getItems().clear();
+        this.fillBoxTabTable();
+    }
+
+    private void fillBoxTabTable() {
+        // TODO: fill the BoxTab table with outliers
     }
 
     private void refreshDatasetEvent(Event event) {
