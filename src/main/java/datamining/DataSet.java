@@ -114,5 +114,15 @@ public class DataSet {
         }
     }
 
+    public Double getMin(String name) {
+        ArrayList<Double> column = this.getColumn(name);
+        Double minValue = column.get(0);
+        for (Double value: column) {
+            if (value < minValue) {
+                minValue = value;
+            }
+        }
+        return minValue;
+    }
 
 }
