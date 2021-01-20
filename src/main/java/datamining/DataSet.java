@@ -9,8 +9,8 @@ import java.util.HashMap;
 
 public class DataSet {
     String filePath;
-    ArrayList<Instance> instances = new ArrayList<Instance>();
-    HashMap<String, Integer> variablesNames = new HashMap<String, Integer>();
+    ArrayList<Instance> instances = new ArrayList<>();
+    HashMap<String, Integer> variablesNames = new HashMap<>();
     Integer variablesNumber;
     Integer instancesNumber;
 
@@ -19,14 +19,16 @@ public class DataSet {
 
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
+        int j = 1;
         while ((line = reader.readLine()) != null) {
             String[] observation = line.split(",");
             ArrayList<Variable> variables = new ArrayList<Variable>();
             for (String var: observation) {
                 variables.add(new Variable(var));
             }
-            instances.add(new Instance(variables));
+            instances.add(new Instance(variables, j));
             //System.out.println(Arrays.toString(observation));
+            j++;
         }
         // because we have only one dataset for now, columns are static
         String[] names = {"class", "t3_resin", "total_thyroxin", "total_triio", "tsh", "max_diff_tsh"};
