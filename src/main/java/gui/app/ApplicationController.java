@@ -31,12 +31,6 @@ import java.util.ArrayList;
 public class ApplicationController {
 
     @FXML
-    private TableView<ObservableList<String>> tableDataset;
-
-    //@FXML
-    //private TableView tableBoxTab;
-
-    @FXML
     private JFXComboBox cbDatasetTabAttribute;
 
     @FXML
@@ -117,6 +111,17 @@ public class ApplicationController {
     // Observable list to show all rules in tableview
     ObservableList<OutliersTableItem> outliers = FXCollections.observableArrayList();
 
+    @FXML private TableView<DatasetTableItem> tableDataset;
+    @FXML private TableColumn<DatasetTableItem, SimpleStringProperty> numberColumn;
+    @FXML private TableColumn<DatasetTableItem, SimpleStringProperty> classsColumn;
+    @FXML private TableColumn<DatasetTableItem, SimpleStringProperty> t3ResinColumn;
+    @FXML private TableColumn<DatasetTableItem, SimpleStringProperty> totalThyroxinColumn;
+    @FXML private TableColumn<DatasetTableItem, SimpleStringProperty> totalTriioColumn;
+    @FXML private TableColumn<DatasetTableItem, SimpleStringProperty> tshColumn;
+    @FXML private TableColumn<DatasetTableItem, SimpleStringProperty> maxDiffTshColumn;
+    // Observable list to show all rules in tableview
+    ObservableList<OutliersTableItem> datas = FXCollections.observableArrayList();
+
     public FileChooser fileChooserObject = new FileChooser();
     public DataSet dataset;
 
@@ -130,6 +135,13 @@ public class ApplicationController {
         instanceColumn.setCellValueFactory(new PropertyValueFactory<>("instanceColumn"));
         valueColumn.setCellValueFactory(new PropertyValueFactory<>("valueColumn"));
 
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("numberColumn"));
+        classsColumn.setCellValueFactory(new PropertyValueFactory<>("classsColumn"));
+        t3ResinColumn.setCellValueFactory(new PropertyValueFactory<>("t3ResinColumn"));
+        totalThyroxinColumn.setCellValueFactory(new PropertyValueFactory<>("totalThyroxinColumn"));
+        totalTriioColumn.setCellValueFactory(new PropertyValueFactory<>("totalTriioColumn"));
+        tshColumn.setCellValueFactory(new PropertyValueFactory<>("tshColumn"));
+        maxDiffTshColumn.setCellValueFactory(new PropertyValueFactory<>("maxDiffTshColumn"));
 
         prepare();
     }
@@ -148,7 +160,6 @@ public class ApplicationController {
             cbScatterTabAttribute1.setItems(attrs);
             cbScatterTabAttribute2.setItems(attrs);
             this.fillDatasetTable();
-            System.out.println("ok");
         }
         this.assignEventListeners();
     }
@@ -197,31 +208,17 @@ public class ApplicationController {
     }
 
     public void fillDatasetTable() {
-        TableColumn numberColumn = new TableColumn("Number");
-        numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
-
-        TableColumn classsColumn = new TableColumn("Classs");
-        classsColumn.setCellValueFactory(new PropertyValueFactory<>("classs"));
-
-        TableColumn t3ResinColumn = new TableColumn("T3Resin");
-        t3ResinColumn.setCellValueFactory(new PropertyValueFactory<>("t3Resin"));
-
-        TableColumn totalThyroxin = new TableColumn("TotalThyroxin");
-        totalThyroxin.setCellValueFactory(new PropertyValueFactory<>("totalThyroxin"));
-
-        TableColumn totalTriio = new TableColumn("TotalTriio");
-        totalTriio.setCellValueFactory(new PropertyValueFactory<>("totalTriio"));
-
-        TableColumn tsh = new TableColumn("Tsh");
-        tsh.setCellValueFactory(new PropertyValueFactory<>("tsh"));
-
-        TableColumn maxDiffTsh = new TableColumn("MaxDiffTsh");
-        maxDiffTsh.setCellValueFactory(new PropertyValueFactory<>("maxDiffTsh"));
-
-        this.tableDataset.getColumns().addAll(numberColumn, classsColumn, t3ResinColumn, totalThyroxin, totalTriio, tsh, maxDiffTsh);
-
-        for(Instance i : this.dataset.getInstances()) {
-            tableDataset.getItems().add((ObservableList<String>) i);
+        for (Instance i : dataset.getInstances()) {
+            datas.add(new DatasetTableItem(
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(0))),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(1))),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(2))),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(3))),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(4))),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(5))),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(6)))
+            ));
+            tableBoxTab.setItems(datas);
         }
     }
 
@@ -300,11 +297,13 @@ public class ApplicationController {
         ArrayList<Double> outliersTMP = dataset.getOutliers(name);
         Integer i = 1;
         for (Double outlier: outliersTMP) {
-            outliers.add(new OutliersTableItem(new SimpleStringProperty(String.valueOf(i)), new SimpleStringProperty(String.valueOf(outlier))));
+            outliers.add(new OutliersTableItem(
+                    new SimpleStringProperty(String.valueOf(i)),
+                    new SimpleStringProperty(String.valueOf(outlier)))
+            );
             tableBoxTab.setItems(outliers);
             i++;
         }
-
     }
 
     private void refreshBoxTabValues() throws IOException {
