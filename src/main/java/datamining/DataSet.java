@@ -22,7 +22,8 @@ public class DataSet {
         int j = 1;
         while ((line = reader.readLine()) != null) {
             String[] observation = line.split(",");
-            ArrayList<Variable> variables = new ArrayList<Variable>();
+            ArrayList<Variable> variables = new ArrayList<>();
+            variables.add(new Variable(String.valueOf(j)));
             for (String var: observation) {
                 variables.add(new Variable(var));
             }
@@ -31,7 +32,7 @@ public class DataSet {
             j++;
         }
         // because we have only one dataset for now, columns are static
-        String[] names = {"class", "t3_resin", "total_thyroxin", "total_triio", "tsh", "max_diff_tsh"};
+        String[] names = {"#", "class", "t3_resin", "total_thyroxin", "total_triio", "tsh", "max_diff_tsh"};
         for (int i = 0; i < names.length; i++) {
             variablesNames.put(names[i], i);
         }
