@@ -3,18 +3,17 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTabPane?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.web.WebView?>
 
-<JFXTabPane stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.app.ApplicationController">
+<JFXTabPane minHeight="548.0" minWidth="834.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.app.ApplicationController">
    <tabs>
       <Tab text="DATASET">
          <content>
@@ -24,7 +23,7 @@
                      <children>
                         <AnchorPane HBox.hgrow="ALWAYS">
                            <children>
-                              <JFXTreeTableView fx:id="tableDataset" editable="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <TableView fx:id="tableDataset" layoutX="176.0" layoutY="118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                         <AnchorPane>
@@ -163,11 +162,7 @@
                <children>
                   <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane HBox.hgrow="ALWAYS">
-                           <children>
-                              <WebView fx:id="wvBoxTab" layoutX="99.0" layoutY="54.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" opacity="0.14" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
+                        <AnchorPane fx:id="apBoxTab" HBox.hgrow="ALWAYS" />
                         <AnchorPane HBox.hgrow="NEVER">
                            <children>
                               <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -272,7 +267,7 @@
                                                       <Font name="System Bold" size="16.0" />
                                                    </font>
                                                 </Label>
-                                                <JFXTreeTableView fx:id="tableBoxTab" prefHeight="200.0" VBox.vgrow="ALWAYS" />
+                                                <TableView fx:id="tableBoxTab" prefHeight="200.0" VBox.vgrow="ALWAYS" />
                                              </children>
                                           </VBox>
                                        </children>
@@ -295,11 +290,7 @@
                <children>
                   <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane HBox.hgrow="ALWAYS">
-                           <children>
-                              <WebView fx:id="wvHistogramTab" layoutX="99.0" layoutY="54.0" opacity="0.14" prefHeight="464.0" prefWidth="572.0" AnchorPane.bottomAnchor="-3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
+                        <AnchorPane fx:id="apHistoTab" HBox.hgrow="ALWAYS" />
                         <AnchorPane HBox.hgrow="NEVER">
                            <children>
                               <VBox alignment="CENTER">
@@ -344,11 +335,7 @@
                <children>
                   <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane HBox.hgrow="ALWAYS">
-                           <children>
-                              <WebView fx:id="wvScatterTab" layoutX="99.0" layoutY="54.0" maxHeight="-1.0" maxWidth="-1.0" minHeight="-1.0" minWidth="-1.0" opacity="0.14" prefHeight="-1.0" prefWidth="-1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
+                        <AnchorPane fx:id="apScatterTab" HBox.hgrow="ALWAYS" />
                         <AnchorPane HBox.hgrow="NEVER">
                            <children>
                               <VBox alignment="CENTER">

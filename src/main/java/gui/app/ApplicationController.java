@@ -8,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 
@@ -18,7 +20,10 @@ import java.io.IOException;
 public class ApplicationController {
 
     @FXML
-    private JFXTreeTableView<?> tableDataset;
+    private TableView<?> tableDataset;
+
+    @FXML
+    private TableView<?> tableBoxTab;
 
     @FXML
     private JFXComboBox<?> cbDatasetTabAttribute;
@@ -45,9 +50,6 @@ public class ApplicationController {
     private JFXComboBox<?> cbDatasetImport;
 
     @FXML
-    private WebView wvBoxTab;
-
-    @FXML
     private JFXComboBox<?> cbBoxTabAttribute;
 
     @FXML
@@ -69,13 +71,7 @@ public class ApplicationController {
     private JFXTreeTableView<?> tableBoxTab;
 
     @FXML
-    private WebView wvHistogramTab;
-
-    @FXML
     private JFXComboBox<?> cbHistogramTabAttribute;
-
-    @FXML
-    private WebView wvScatterTab;
 
     @FXML
     private JFXComboBox<?> cbScatterTabAttribute1;
@@ -85,6 +81,15 @@ public class ApplicationController {
 
     @FXML
     private JFXButton btnScatterTabPlot;
+
+    @FXML
+    private AnchorPane apBoxTab;
+
+    @FXML
+    private AnchorPane apScatterTab;
+
+    @FXML
+    private AnchorPane apHistoTab;
 
     public FileChooser fileChooserObject = new FileChooser();
     DataSet dataset;
