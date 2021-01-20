@@ -137,7 +137,7 @@ public class ApplicationController {
         return choices;
     }
 
-    public void refreshValues() {
+    public void refreshDatasetValues() {
         String cbString = (String)cbDatasetTabAttribute.getValue();
         ArrayList<String> columns = dataset.getVariablesNames();
 
@@ -149,11 +149,11 @@ public class ApplicationController {
             lblDatasetSymmetry.setText(dataset.isSymmetrical(cbString).toString() ? "YES" : "NO");
         }
         else{
-            this.emptyLabels();
+            this.emptyDatasetLabels();
         }
     }
 
-    public void emptyLabels() {
+    public void emptyDatasetLabels() {
         lblDatasetType.setText("");
         lblDatasetMean.setText("");
         lblDatasetMedian.setText("");
@@ -161,16 +161,45 @@ public class ApplicationController {
         lblDatasetSymmetry.setText("");
     }
 
+    public void emptyBoxPlotLabels() {
+        lblBoxTabMin.setText("");
+        lblBoxTabQ1.setText("");
+        lblBoxTabMedian.setText("");
+        lblBoxTabQ3.setText("");
+        lblBoxTabMax.setText("");
+    }
+
     public void fillDatasetTable() {
         // TODO: fill the table after importing the dataset
     }
 
     public void assignEventListeners() {
-        cbDatasetTabAttribute.setOnAction(this::refreshEvent);
+        cbDatasetTabAttribute.setOnAction(this::refreshDatasetEvent);
+        cbBoxTabAttribute.setOnAction(this::refreshBoxTabEvent);
     }
 
-    private void refreshEvent(Event event) {
-        this.refreshValues();
+    private void refreshBoxTabEvent(Event event) {
+        this.refreshBoxTabValues();
+    }
+
+    private void refreshBoxTabValues() {
+        String cbString = (String)cbBoxTabAttribute.getValue();
+        ArrayList<String> columns = dataset.getVariablesNames();
+
+        if(columns.contains(cbString)) {
+            lblBoxTabMin.setText(dataset.getMin(cbString).toString());
+            lblBoxTabQ1.setText(dataset.getQ1(cbString).toString());
+            lblBoxTabMedian.setText(dataset.getMedian(cbString).toString());
+            lblBoxTabQ3.setText(dataset.getQ3(cbString).toString());
+            lblBoxTabMax.setText(dataset.getMax(cbString).toString());
+        }
+        else{
+            this.emptyDatasetLabels();
+        }
+    }
+
+    private void refreshDatasetEvent(Event event) {
+        this.refreshDatasetValues();
     }
 
     public void enableTabs() {
