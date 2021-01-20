@@ -3,6 +3,7 @@ package gui.app;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import datamining.DataSet;
+import datamining.Instance;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -190,6 +191,11 @@ public class ApplicationController {
 
         for(TableColumn tc : columns) {
             tableDataset.getColumns().add(tc);
+        }
+
+        ArrayList<Instance> instances = dataset.getInstances();
+        for(Instance i : instances) {
+            tableDataset.getItems().add(i);
         }
     }
 

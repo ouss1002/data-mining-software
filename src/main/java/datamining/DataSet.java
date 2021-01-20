@@ -147,4 +147,8 @@ public class DataSet {
         Collections.sort(column);
         return column.get((this.instancesNumber / 4)*3);
     }
+
+    public ArrayList<Instance> getInstances() {
+        return this.instances;
+    }
 }
