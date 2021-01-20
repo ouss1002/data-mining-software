@@ -42,7 +42,6 @@ public final class Charts {
         chart.getStyler().setToolTipsEnabled(false);
         chart.getStyler().setLegendVisible(false);
         chart.addSeries(name, new ArrayList<>(counting.keySet()), new ArrayList<>(counting.values()));
-        BitmapEncoder.saveBitmapWithDPI(chart, "./Histogram_300_DPI", BitmapEncoder.BitmapFormat.PNG, 300);
         return chart;
     }
 
@@ -56,7 +55,6 @@ public final class Charts {
         chart.getStyler().setMarkerSize(13);
 
         chart.addSeries(name1+ " " + name2, column1, column2);
-        BitmapEncoder.saveBitmapWithDPI(chart, "./ScatterPlot_300_DPI", BitmapEncoder.BitmapFormat.PNG, 300);
         return chart;
     }
 
