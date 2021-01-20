@@ -108,7 +108,7 @@ public class ApplicationController {
     }
 
     public ObservableList<String>  getAttributes() {
-        ArrayList<String> names = dataset.getColumnNames();
+        ArrayList<String> names = dataset.getVariablesNames();
         ObservableList<String> choices = FXCollections.observableArrayList(names);
 
         return choices;
