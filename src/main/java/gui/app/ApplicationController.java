@@ -1,5 +1,6 @@
 package gui.app;
 
+import charts.Charts;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import datamining.DataSet;
@@ -16,6 +17,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import org.knowm.xchart.BoxChart;
+import org.knowm.xchart.CategoryChart;
+import org.knowm.xchart.XYChart;
 
 import java.io.File;
 import java.io.IOException;
@@ -195,15 +199,33 @@ public class ApplicationController {
 
         ArrayList<Instance> instances = dataset.getInstances();
         for(Instance i : instances) {
-            tableDataset.getItems().add(i);
+            //tableDataset.getItems().add(i);
         }
     }
 
     public void assignEventListeners() {
         cbDatasetTabAttribute.setOnAction(this::refreshDatasetEvent);
-        cbBoxTabAttribute.setOnAction(this::refreshBoxTabEvent);
-        cbHistogramTabAttribute.setOnAction(this::refreshHistoEvent);
-        btnScatterTabPlot.setOnAction(this::plotScatter);
+        cbBoxTabAttribute.setOnAction(event1 -> {
+            try {
+                refreshBoxTabEvent(event1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        cbHistogramTabAttribute.setOnAction(event -> {
+            try {
+                refreshHistoEvent(event);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        btnScatterTabPlot.setOnAction(actionEvent1 -> {
+            try {
+                plotScatter(actionEvent1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
         btnDatasetImport.setOnAction(actionEvent -> {
             try {
                 importDatasetEvent(actionEvent);
@@ -223,24 +245,35 @@ public class ApplicationController {
         }
     }
 
-    private void plotScatter(ActionEvent actionEvent) {
-        // TODO: plot the scatter graph
+    private void plotScatter(ActionEvent actionEvent) throws IOException {
+        String attr1 = cbScatterTabAttribute1.getValue().toString();
+        String attr2 = cbScatterTabAttribute1.getValue().toString();
+
+        if(dataset.getVariablesNames().contains(attr1) && dataset.getVariablesNames().contains(attr2)) {
+            XYChart chart = Charts.ScatterPlot(dataset, attr1, attr2);
+            Charts.showChart(apScatterTab, chart);
+        }
     }
 
-    private void refreshHistoEvent(Event event) {
+    private void refreshHistoEvent(Event event) throws IOException {
         this.refreshHistoValues();
     }
 
-    private void refreshHistoValues() {
-        // TODO: prepare the histogram
+    private void refreshHistoValues() throws IOException {
+        String attr = cbHistogramTabAttribute.getValue().toString();
+
+        if(dataset.getVariablesNames().contains(attr)) {
+            CategoryChart chart = Charts.Histogram(dataset, attr);
+            Charts.showChart(apHistoTab, chart);
+        }
     }
 
-    private void refreshBoxTabEvent(Event event) {
+    private void refreshBoxTabEvent(Event event) throws IOException {
         cbBoxTabAttribute.setPromptText(cbBoxTabAttribute.getValue().toString());
         this.refreshBoxTabValues();
     }
 
-    private void refreshBoxTabValues() {
+    private void refreshBoxTabValues() throws IOException {
         String cbString = (String)cbBoxTabAttribute.getValue();
         ArrayList<String> columns = dataset.getVariablesNames();
 
@@ -259,8 +292,13 @@ public class ApplicationController {
         this.fillBoxTabTable();
     }
 
-    private void fillBoxTabTable() {
-        // TODO: fill the BoxTab table with outliers
+    private void fillBoxTabTable() throws IOException {
+        String attr = cbBoxTabAttribute.getValue().toString();
+
+        if(dataset.getVariablesNames().contains(attr)) {
+            BoxChart chart = Charts.BoxPlot(dataset, attr);
+            Charts.showChart(apBoxTab, chart);
+        }
     }
 
     private void refreshDatasetEvent(Event event) {

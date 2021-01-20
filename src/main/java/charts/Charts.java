@@ -1,9 +1,14 @@
 package charts;
 
 import datamining.DataSet;
+import javafx.embed.swing.SwingNode;
+import javafx.scene.layout.AnchorPane;
 import org.knowm.xchart.*;
+import org.knowm.xchart.internal.chartpart.Chart;
 import org.knowm.xchart.style.BoxStyler;
+import sun.plugin.javascript.navig.Anchor;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +25,6 @@ public final class Charts {
         chart.getStyler().setBoxplotCalCulationMethod(BoxStyler.BoxplotCalCulationMethod.N_LESS_1_PLUS_1);
         chart.getStyler().setToolTipsEnabled(true);
         chart.addSeries(name, column);
-        BitmapEncoder.saveBitmapWithDPI(chart, "./BoxPlot_300_DPI", BitmapEncoder.BitmapFormat.PNG, 300);
         return chart;
     }
 
@@ -54,5 +58,20 @@ public final class Charts {
         chart.addSeries(name1+ " " + name2, column1, column2);
         BitmapEncoder.saveBitmapWithDPI(chart, "./ScatterPlot_300_DPI", BitmapEncoder.BitmapFormat.PNG, 300);
         return chart;
+    }
+
+    public static void showChart(AnchorPane ap, Chart chart) {
+        JPanel chartPanel = new XChartPanel<>(chart);
+
+        // for embeding swing in javafx
+        SwingNode swingNode = new SwingNode();
+        swingNode.setContent(chartPanel);
+
+        AnchorPane.setLeftAnchor(swingNode, 0.0);
+        AnchorPane.setRightAnchor(swingNode, 0.0);
+        AnchorPane.setTopAnchor(swingNode, 0.0);
+        AnchorPane.setBottomAnchor(swingNode, 0.0);
+
+        ap.getChildren().add(swingNode);
     }
 }
