@@ -10,4 +10,36 @@ public class Instance {
         this.instanceNumber = instanceNumber;
     }
 
+    public ArrayList<Variable> getVariables() {
+        return this.variables;
+    }
+
+    // FOR STATIC TABLE
+    /*public String getNumber() {
+        return Integer.valueOf(variables.get(0).toString()).toString();
+    }
+
+    public String getClass() {
+
+    }
+
+    public String getNumber() {
+
+    }
+
+    public String getNumber() {
+
+    }
+
+    public String getNumber() {
+
+    }
+
+    public String getNumber() {
+
+    }
+
+    public String getNumber() {
+
+    }*/
 }

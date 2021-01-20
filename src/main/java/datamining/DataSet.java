@@ -3,7 +3,9 @@ package datamining;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -13,6 +15,16 @@ public class DataSet {
     HashMap<String, Integer> variablesNames = new HashMap<>();
     Integer variablesNumber;
     Integer instancesNumber;
+    String[] staticNames = {"#", "class", "t3_resin", "total_thyroxin", "total_triio", "tsh", "max_diff_tsh"};
+
+    public ArrayList<String> getStaticNames() {
+
+        ArrayList<String> arr = new ArrayList<>();
+
+        arr.addAll(Arrays.asList(staticNames));
+
+        return arr;
+    }
 
     public DataSet(String filePath) throws IOException {
         this.filePath = filePath;

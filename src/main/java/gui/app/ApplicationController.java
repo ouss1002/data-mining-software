@@ -5,6 +5,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import datamining.DataSet;
 import datamining.Instance;
+import datamining.Variable;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +24,7 @@ import org.knowm.xchart.BoxChart;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.XYChart;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +32,7 @@ import java.util.ArrayList;
 public class ApplicationController {
 
     @FXML
-    private TableView tableDataset;
+    private TableView<ObservableList<String>> tableDataset;
 
     @FXML
     private TableView tableBoxTab;
@@ -135,6 +139,7 @@ public class ApplicationController {
             cbScatterTabAttribute1.setItems(attrs);
             cbScatterTabAttribute2.setItems(attrs);
             this.fillDatasetTable();
+            System.out.println("ok");
         }
         this.assignEventListeners();
     }
@@ -144,7 +149,7 @@ public class ApplicationController {
     }
 
     public ObservableList<String>  getAttributes() {
-        ArrayList<String> names = dataset.getVariablesNames();
+        ArrayList<String> names = dataset.getStaticNames();
         ObservableList<String> choices = FXCollections.observableArrayList(names);
 
         return choices;
@@ -152,7 +157,7 @@ public class ApplicationController {
 
     public void refreshDatasetValues() {
         String cbString = (String)cbDatasetTabAttribute.getValue();
-        ArrayList<String> columns = dataset.getVariablesNames();
+        ArrayList<String> columns = dataset.getStaticNames();
 
         if(columns.contains(cbString)) {
             lblDatasetType.setText("FLOAT");
@@ -182,25 +187,34 @@ public class ApplicationController {
         lblBoxTabMax.setText("");
     }
 
+    public void fillDatasetTable2() {
+        JTable table = new JTable();
+    }
+
     public void fillDatasetTable() {
-        ArrayList<String> arr = dataset.getVariablesNames();
+        ArrayList<String> columnNames = dataset.getStaticNames();
         ArrayList<TableColumn> columns = new ArrayList<>();
-        TableColumn nameColumn;
 
-        for(String str : arr) {
-            nameColumn = new TableColumn(str);
-            nameColumn.setCellFactory(new PropertyValueFactory<>(str));
-            columns.add(nameColumn);
+        for(String str : columnNames) {
+            TableColumn tc = new TableColumn(str);
+            tc.setCellValueFactory(new PropertyValueFactory<>(str));
+            columns.add(tc);
         }
 
-        for(TableColumn tc : columns) {
-            tableDataset.getColumns().add(tc);
+        for(TableColumn t : columns) {
+            tableDataset.getColumns().add(t);
         }
 
-        ArrayList<Instance> instances = dataset.getInstances();
-        for(Instance i : instances) {
-            //tableDataset.getItems().add(i);
+        for(Instance i : dataset.getInstances()) {
+            ArrayList<String> arr = new ArrayList<>();
+            for(Variable v : i.getVariables()) {
+                arr.add(v.getDouble().toString());
+            }
+            ObservableList<String> sp = FXCollections.observableArrayList(arr);
+            System.out.println(sp);
+            tableDataset.getItems().add(sp);
         }
+
     }
 
     public void assignEventListeners() {
@@ -249,7 +263,7 @@ public class ApplicationController {
         String attr1 = cbScatterTabAttribute1.getValue();
         String attr2 = cbScatterTabAttribute2.getValue();
 
-        if(dataset.getVariablesNames().contains(attr1) && dataset.getVariablesNames().contains(attr2)) {
+        if(dataset.getStaticNames().contains(attr1) && dataset.getStaticNames().contains(attr2)) {
             XYChart chart = Charts.ScatterPlot(dataset, attr1, attr2);
             Charts.showChart(apScatterTab, chart);
         }
@@ -262,7 +276,7 @@ public class ApplicationController {
     private void refreshHistoValues() throws IOException {
         String attr = cbHistogramTabAttribute.getValue().toString();
 
-        if(dataset.getVariablesNames().contains(attr)) {
+        if(dataset.getStaticNames().contains(attr)) {
             CategoryChart chart = Charts.Histogram(dataset, attr);
             Charts.showChart(apHistoTab, chart);
         }
@@ -275,7 +289,7 @@ public class ApplicationController {
 
     private void refreshBoxTabValues() throws IOException {
         String cbString = (String)cbBoxTabAttribute.getValue();
-        ArrayList<String> columns = dataset.getVariablesNames();
+        ArrayList<String> columns = dataset.getStaticNames();
 
         if(columns.contains(cbString)) {
             lblBoxTabMin.setText(dataset.getMin(cbString).toString());
@@ -295,7 +309,7 @@ public class ApplicationController {
     private void fillBoxTabTable() throws IOException {
         String attr = cbBoxTabAttribute.getValue().toString();
 
-        if(dataset.getVariablesNames().contains(attr)) {
+        if(dataset.getStaticNames().contains(attr)) {
             BoxChart chart = Charts.BoxPlot(dataset, attr);
             Charts.showChart(apBoxTab, chart);
         }
