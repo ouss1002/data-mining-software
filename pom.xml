@@ -25,10 +25,11 @@
             <artifactId>jfoenix</artifactId>
             <version>8.0.1</version>
         </dependency>
+
         <dependency>
-            <groupId>org.jfree</groupId>
-            <artifactId>jfreechart</artifactId>
-            <version>1.5.2</version>
+            <groupId>org.knowm.xchart</groupId>
+            <artifactId>xchart</artifactId>
+            <version>3.8.0</version>
         </dependency>
     </dependencies>
 
