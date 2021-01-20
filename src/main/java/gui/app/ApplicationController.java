@@ -7,7 +7,6 @@ import datamining.DataSet;
 import datamining.Instance;
 import datamining.Variable;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -34,8 +33,8 @@ public class ApplicationController {
     @FXML
     private TableView<ObservableList<String>> tableDataset;
 
-    @FXML
-    private TableView tableBoxTab;
+    //@FXML
+    //private TableView tableBoxTab;
 
     @FXML
     private JFXComboBox cbDatasetTabAttribute;
@@ -112,6 +111,12 @@ public class ApplicationController {
     @FXML
     private Tab tabScatter;
 
+    @FXML private TableView<OutliersTableItem> tableBoxTab;
+    @FXML private TableColumn<OutliersTableItem, SimpleStringProperty> instanceColumn;
+    @FXML private TableColumn<OutliersTableItem, SimpleStringProperty> valueColumn;
+    // Observable list to show all rules in tableview
+    ObservableList<OutliersTableItem> outliers = FXCollections.observableArrayList();
+
     public FileChooser fileChooserObject = new FileChooser();
     public DataSet dataset;
 
@@ -121,6 +126,10 @@ public class ApplicationController {
 
     public void initialize() throws IOException {
         fileChooserObject.getExtensionFilters().add(new FileChooser.ExtensionFilter("files", "*.txt"));
+
+        instanceColumn.setCellValueFactory(new PropertyValueFactory<>("instanceColumn"));
+        valueColumn.setCellValueFactory(new PropertyValueFactory<>("valueColumn"));
+
 
         prepare();
     }
@@ -285,6 +294,18 @@ public class ApplicationController {
     private void refreshBoxTabEvent(Event event) throws IOException {
         cbBoxTabAttribute.setPromptText(cbBoxTabAttribute.getValue().toString());
         this.refreshBoxTabValues();
+        this.refreshBoxTabTable(cbBoxTabAttribute.getValue().toString());
+    }
+
+    private void refreshBoxTabTable(String name) {
+        ArrayList<Double> outliersTMP = dataset.getOutliers(name);
+        Integer i = 1;
+        for (Double outlier: outliersTMP) {
+            outliers.add(new OutliersTableItem(new SimpleStringProperty(String.valueOf(i)), new SimpleStringProperty(String.valueOf(outlier))));
+            tableBoxTab.setItems(outliers);
+            i++;
+        }
+
     }
 
     private void refreshBoxTabValues() throws IOException {
@@ -327,3 +348,5 @@ public class ApplicationController {
         tabScatter.setDisable(false);
     }
 }
+
+
