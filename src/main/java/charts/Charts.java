@@ -6,7 +6,6 @@ import javafx.scene.layout.AnchorPane;
 import org.knowm.xchart.*;
 import org.knowm.xchart.internal.chartpart.Chart;
 import org.knowm.xchart.style.BoxStyler;
-import sun.plugin.javascript.navig.Anchor;
 
 import javax.swing.*;
 import java.io.IOException;
