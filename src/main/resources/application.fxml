@@ -280,8 +280,8 @@
                                                 </Label>
                                                 <TableView fx:id="tableBoxTab" prefHeight="200.0" VBox.vgrow="ALWAYS">
                                                    <columns>
-                                                      <TableColumn fx:id="instanceColumn" prefWidth="75.0" text="Column X" />
-                                                      <TableColumn fx:id="valueColumn" prefWidth="75.0" text="Column X" />
+                                                      <TableColumn fx:id="instanceColumn" prefWidth="75.0" text="Count" />
+                                                      <TableColumn fx:id="valueColumn" prefWidth="75.0" text="Value" />
                                                    </columns>
                                                 </TableView>
                                              </children>

@@ -181,7 +181,11 @@ public class ApplicationController {
 
         if(columns.contains(cbString)) {
             lblDatasetType.setText("FLOAT");
-            lblDatasetMean.setText(dataset.getMean(cbString).toString());
+            String s = dataset.getMean(cbString).toString();
+            String[] l = s.split("\\.");
+            l[1] = l[1].substring(0, 2);
+            s = "" + l[0] + "." + l[1];
+            lblDatasetMean.setText(String.valueOf(s));
             lblDatasetMedian.setText(dataset.getMedian(cbString).toString());
             lblDatasetMode.setText(dataset.getModeString(cbString));
             lblDatasetSymmetry.setText(dataset.isSymmetrical(cbString) ? "YES" : "NO");
