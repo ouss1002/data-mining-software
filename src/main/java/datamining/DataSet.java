@@ -1,5 +1,6 @@
 package datamining;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -56,5 +57,18 @@ public class DataSet {
         }
         return mean / instancesNumber;
     }
+
+
+    public Double getMedian(String name) {
+        ArrayList<Double> column = this.getColumn(name);
+        Collections.sort(column);
+
+        if (this.instancesNumber % 2 == 0) {
+            return (column.get(this.instancesNumber/2) + column.get(this.instancesNumber/2-1)) / 2;
+        } else {
+            return column.get(this.instancesNumber/2);
+        }
+    }
+
 
 }
