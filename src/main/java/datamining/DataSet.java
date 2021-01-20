@@ -1,12 +1,10 @@
 package datamining;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 
 public class DataSet {
@@ -74,7 +72,7 @@ public class DataSet {
         }
     }
 
-    public HashMap<Double, Integer> getMode(String name) {
+    public HashMap<Double, Integer> getModeDictionary(String name) {
         ArrayList<Double> column = this.getColumn(name);
         HashMap<Double, Integer> counting = new HashMap<Double, Integer>();
         HashMap<Double, Integer> countingMax = new HashMap<Double, Integer>();
