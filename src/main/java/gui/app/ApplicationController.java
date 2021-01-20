@@ -17,6 +17,7 @@ import javafx.stage.Stage;
 
 
 import javax.swing.event.ChangeEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -120,14 +121,15 @@ public class ApplicationController {
 
         tableDataset.getItems().clear();
         tableBoxTab.getItems().clear();
-        dataset = new DataSet("ADD FILE PATH HERE");
-        this.enableTabs();
-        ObservableList<String> attrs = this.getAttributes();
-        cbDatasetTabAttribute.setItems(attrs);
-        cbBoxTabAttribute.setItems(attrs);
-        cbHistogramTabAttribute.setItems(attrs);
-        cbScatterTabAttribute1.setItems(attrs);
-        cbScatterTabAttribute2.setItems(attrs);
+        if(dataset != null) {
+            this.enableTabs();
+            ObservableList<String> attrs = this.getAttributes();
+            cbDatasetTabAttribute.setItems(attrs);
+            cbBoxTabAttribute.setItems(attrs);
+            cbHistogramTabAttribute.setItems(attrs);
+            cbScatterTabAttribute1.setItems(attrs);
+            cbScatterTabAttribute2.setItems(attrs);
+        }
 
     }
 
@@ -179,6 +181,21 @@ public class ApplicationController {
         cbBoxTabAttribute.setOnAction(this::refreshBoxTabEvent);
         cbHistogramTabAttribute.setOnAction(this::refreshHistoEvent);
         btnScatterTabPlot.setOnAction(this::plotScatter);
+        btnDatasetImport.setOnAction(actionEvent -> {
+            try {
+                importDatasetEvent(actionEvent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void importDatasetEvent(ActionEvent actionEvent) throws IOException {
+        fileChooserObject.getExtensionFilters().add(new FileChooser.ExtensionFilter("files", "*.txt"));
+        File selectedFile = fileChooserObject.showOpenDialog(null);
+        String path = selectedFile.getAbsolutePath();
+        dataset = new DataSet(path);
+        prepare();
     }
 
     private void plotScatter(ActionEvent actionEvent) {
