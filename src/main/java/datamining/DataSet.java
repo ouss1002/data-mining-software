@@ -103,5 +103,16 @@ public class DataSet {
         }
         return countingMax;
     }
-    
+
+    public String getModeString(String name) {
+        HashMap<Double, Integer> mode = this.getModeDictionary(name);
+        String modeString = "";
+        if (mode.keySet().size() > 0) {
+            return mode.keySet().toString();
+        } else {
+            return "Null";
+        }
+    }
+
+
 }

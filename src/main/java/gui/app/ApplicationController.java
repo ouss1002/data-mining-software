@@ -146,8 +146,8 @@ public class ApplicationController {
             lblDatasetType.setText("FLOAT");
             lblDatasetMean.setText(dataset.getMean(cbString).toString());
             lblDatasetMedian.setText(dataset.getMedian(cbString).toString());
-            lblDatasetMode.setText(dataset.getMode(cbString).toString());
-            lblDatasetSymmetry.setText(dataset.isSymmetrical(cbString).toString() ? "YES" : "NO");
+            lblDatasetMode.setText(dataset.getModeString(cbString));
+            lblDatasetSymmetry.setText(dataset.isSymmetrical(cbString) ? "YES" : "NO");
         }
         else{
             this.emptyDatasetLabels();
