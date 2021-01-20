@@ -154,4 +154,21 @@ public class DataSet {
     public ArrayList<Instance> getInstances() {
         return this.instances;
     }
+
+    public ArrayList<Double> getOutliers(String name) {
+        Double Q1 = this.getQ1(name);
+        Double Q3 = this.getQ3(name);
+        Double lowerBoundry = Q1 - (Q3 - Q1) * 1.5;
+        Double upperBoundry = Q3 + (Q3 - Q1) * 1.5;
+
+        ArrayList<Double> outliers = new ArrayList<>();
+        ArrayList<Double> column = this.getColumn(name);
+
+        for (Double value: column) {
+            if ((value < lowerBoundry || value > upperBoundry) && !outliers.contains(value)) {
+                outliers.add(value);
+            }
+        }
+        return outliers;
+    }
 }
