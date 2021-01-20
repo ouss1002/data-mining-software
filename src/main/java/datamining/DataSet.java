@@ -141,4 +141,10 @@ public class DataSet {
         Collections.sort(column);
         return column.get(this.instancesNumber / 4);
     }
+
+    public Double getQ3(String name) {
+        ArrayList<Double> column = this.getColumn(name);
+        Collections.sort(column);
+        return column.get((this.instancesNumber / 4)*3);
+    }
 }
