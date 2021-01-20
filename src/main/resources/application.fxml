@@ -7,6 +7,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -267,7 +268,12 @@
                                                       <Font name="System Bold" size="16.0" />
                                                    </font>
                                                 </Label>
-                                                <TableView fx:id="tableBoxTab" prefHeight="200.0" VBox.vgrow="ALWAYS" />
+                                                <TableView fx:id="tableBoxTab" prefHeight="200.0" VBox.vgrow="ALWAYS">
+                                                   <columns>
+                                                      <TableColumn fx:id="instanceColumn" prefWidth="75.0" text="Column X" />
+                                                      <TableColumn fx:id="valueColumn" prefWidth="75.0" text="Column X" />
+                                                   </columns>
+                                                </TableView>
                                              </children>
                                           </VBox>
                                        </children>
