@@ -187,34 +187,33 @@ public class ApplicationController {
         lblBoxTabMax.setText("");
     }
 
-    public void fillDatasetTable2() {
-        JTable table = new JTable();
-    }
-
     public void fillDatasetTable() {
-        ArrayList<String> columnNames = dataset.getStaticNames();
-        ArrayList<TableColumn> columns = new ArrayList<>();
+        TableColumn numberColumn = new TableColumn("Number");
+        numberColumn.setCellValueFactory(new PropertyValueFactory<>("number"));
 
-        for(String str : columnNames) {
-            TableColumn tc = new TableColumn(str);
-            tc.setCellValueFactory(new PropertyValueFactory<>(str));
-            columns.add(tc);
+        TableColumn classsColumn = new TableColumn("Classs");
+        classsColumn.setCellValueFactory(new PropertyValueFactory<>("classs"));
+
+        TableColumn t3ResinColumn = new TableColumn("T3Resin");
+        t3ResinColumn.setCellValueFactory(new PropertyValueFactory<>("t3Resin"));
+
+        TableColumn totalThyroxin = new TableColumn("TotalThyroxin");
+        totalThyroxin.setCellValueFactory(new PropertyValueFactory<>("totalThyroxin"));
+
+        TableColumn totalTriio = new TableColumn("TotalTriio");
+        totalTriio.setCellValueFactory(new PropertyValueFactory<>("totalTriio"));
+
+        TableColumn tsh = new TableColumn("Tsh");
+        tsh.setCellValueFactory(new PropertyValueFactory<>("tsh"));
+
+        TableColumn maxDiffTsh = new TableColumn("MaxDiffTsh");
+        maxDiffTsh.setCellValueFactory(new PropertyValueFactory<>("maxDiffTsh"));
+
+        this.tableDataset.getColumns().addAll(numberColumn, classsColumn, t3ResinColumn, totalThyroxin, totalTriio, tsh, maxDiffTsh);
+
+        for(Instance i : this.dataset.getInstances()) {
+            tableDataset.getItems().add((ObservableList<String>) i);
         }
-
-        for(TableColumn t : columns) {
-            tableDataset.getColumns().add(t);
-        }
-
-        for(Instance i : dataset.getInstances()) {
-            ArrayList<String> arr = new ArrayList<>();
-            for(Variable v : i.getVariables()) {
-                arr.add(v.getDouble().toString());
-            }
-            ObservableList<String> sp = FXCollections.observableArrayList(arr);
-            System.out.println(sp);
-            tableDataset.getItems().add(sp);
-        }
-
     }
 
     public void assignEventListeners() {
