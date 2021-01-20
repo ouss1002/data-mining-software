@@ -5,7 +5,6 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import datamining.DataSet;
 import datamining.Instance;
-import datamining.Variable;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,7 +22,6 @@ import org.knowm.xchart.BoxChart;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.XYChart;
 
-import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
