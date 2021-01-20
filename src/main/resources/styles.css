@@ -82,3 +82,41 @@
     -fx-background-insets: 0 0 0 0;
     -fx-padding: 0 0 0 0;
 }
+
+.combo-box,
+.choice-box {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-prompt-text-fill: -fx-secondary;
+    -fx-text-fill: -fx-secondary;
+    -fx-background-color: transparent;
+    -jfx-focus-color: -fx-secondary;
+    -jfx-unfocus-color: -fx-secondary;
+}
+
+.combo-box-base .text {
+    -fx-fill: -fx-secondary;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: -fx-primary;
+}
+
+.combo-box .list-cell:filled:selected .text,
+.choice-box .list-cell:filled:selected .text {
+    -fx-fill: -fx-secondary;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: -fx-secondary;
+}
+
+.combo-box .list-cell:hover .text {
+    -fx-fill: -fx-primary;
+}
+
+
+.combo-box .arrow,
+.choice-box .arrow {
+    -fx-background-color: -fx-secondary;
+}

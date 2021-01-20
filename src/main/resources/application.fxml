@@ -15,7 +15,7 @@
 
 <JFXTabPane minHeight="548.0" minWidth="834.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.app.ApplicationController">
    <tabs>
-      <Tab text="DATASET">
+      <Tab fx:id="tabDataset" text="DATASET">
          <content>
             <AnchorPane>
                <children>
@@ -47,7 +47,7 @@
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblDatasetType" prefHeight="14.0" prefWidth="102.0" text="1000">
+                                                      <Label fx:id="lblDatasetType" prefHeight="14.0" prefWidth="102.0">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
@@ -61,7 +61,7 @@
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblDatasetMean" prefHeight="14.0" prefWidth="102.0" text="1000">
+                                                      <Label fx:id="lblDatasetMean" prefHeight="14.0" prefWidth="102.0">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
@@ -75,7 +75,7 @@
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblDatasetMedian" prefHeight="14.0" prefWidth="102.0" text="1000">
+                                                      <Label fx:id="lblDatasetMedian" prefHeight="14.0" prefWidth="102.0">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
@@ -89,7 +89,7 @@
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblDatasetMode" prefHeight="14.0" prefWidth="102.0" text="1000">
+                                                      <Label fx:id="lblDatasetMode" prefHeight="14.0" prefWidth="102.0">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
@@ -103,7 +103,7 @@
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblDatasetSymmetry" prefHeight="14.0" prefWidth="102.0" text="1000">
+                                                      <Label fx:id="lblDatasetSymmetry" prefHeight="14.0" prefWidth="102.0">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
@@ -135,7 +135,7 @@
                                                       <Font name="System Bold" size="16.0" />
                                                    </font>
                                                 </Label>
-                                                <JFXComboBox fx:id="cbDatasetImport" prefHeight="26.0" prefWidth="126.0" />
+                                                <JFXComboBox fx:id="cbDatasetImport" disable="true" prefHeight="26.0" prefWidth="126.0" />
                                              </children>
                                           </HBox>
                                        </children>
@@ -156,7 +156,7 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab text="BOXPLOT">
+      <Tab fx:id="tabBoxPlot" disable="true" text="BOXPLOT">
          <content>
             <AnchorPane>
                <children>
@@ -188,7 +188,7 @@
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblBoxTabMin" prefHeight="14.0" prefWidth="69.0" text="100">
+                                                      <Label fx:id="lblBoxTabMin" prefHeight="14.0" prefWidth="69.0">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
@@ -202,7 +202,7 @@
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblBoxTabQ1" prefHeight="14.0" prefWidth="69.0" text="100">
+                                                      <Label fx:id="lblBoxTabQ1" prefHeight="14.0" prefWidth="69.0">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
@@ -216,7 +216,7 @@
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblBoxTabMedian" prefHeight="14.0" prefWidth="69.0" text="100">
+                                                      <Label fx:id="lblBoxTabMedian" prefHeight="14.0" prefWidth="69.0">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
@@ -230,7 +230,7 @@
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblBoxTabQ3" prefHeight="14.0" prefWidth="69.0" text="100">
+                                                      <Label fx:id="lblBoxTabQ3" prefHeight="14.0" prefWidth="69.0">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
@@ -244,7 +244,7 @@
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
                                                       </Label>
-                                                      <Label fx:id="lblBoxTabMax" prefHeight="14.0" prefWidth="69.0" text="100">
+                                                      <Label fx:id="lblBoxTabMax" prefHeight="14.0" prefWidth="69.0">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
@@ -284,7 +284,7 @@
                </children>
             </AnchorPane>
          </content></Tab>
-      <Tab text="HISTOGRAM">
+      <Tab fx:id="tabHisto" disable="true" text="HISTOGRAM">
          <content>
             <AnchorPane>
                <children>
@@ -329,7 +329,7 @@
                </children>
             </AnchorPane>
          </content></Tab>
-      <Tab text="SCATTERPLOT">
+      <Tab fx:id="tabScatter" disable="true" text="SCATTERPLOT">
          <content>
             <AnchorPane>
                <children>
