@@ -125,4 +125,16 @@ public class DataSet {
         return minValue;
     }
 
+    public Double getMax(String name) {
+        ArrayList<Double> column = this.getColumn(name);
+        Double maxValue = column.get(0);
+        for (Double value: column) {
+            if (value > maxValue) {
+                maxValue = value;
+            }
+        }
+        return maxValue;
+    }
+
+
 }
