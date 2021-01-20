@@ -18,7 +18,7 @@ public final class Charts {
 
     }
 
-    public static BoxChart BoxPlot(DataSet dataset, String name) throws IOException {
+    public static BoxChart BoxPlot(DataSet dataset, String name) {
         ArrayList<Double> column = dataset.getColumn(name);
         BoxChart chart = new BoxChartBuilder().title("Box Plot").build();
         chart.getStyler().setBoxplotCalCulationMethod(BoxStyler.BoxplotCalCulationMethod.N_LESS_1_PLUS_1);
@@ -27,7 +27,7 @@ public final class Charts {
         return chart;
     }
 
-    public static CategoryChart Histogram(DataSet dataset, String name) throws IOException {
+    public static CategoryChart Histogram(DataSet dataset, String name) {
         ArrayList<Double> column = dataset.getColumn(name);
         HashMap<Double, Integer> counting = new HashMap<>();
 
@@ -44,7 +44,7 @@ public final class Charts {
         return chart;
     }
 
-    public static XYChart ScatterPlot(DataSet dataset, String name1, String name2) throws IOException {
+    public static XYChart ScatterPlot(DataSet dataset, String name1, String name2) {
         ArrayList<Double> column1 = dataset.getColumn(name1);
         ArrayList<Double> column2 = dataset.getColumn(name2);
         XYChart chart = new XYChartBuilder().width(600).height(500).title("Scatter Plot").xAxisTitle("X").yAxisTitle("Y").build();
@@ -60,7 +60,6 @@ public final class Charts {
     public static void showChart(AnchorPane ap, Chart chart) {
         JPanel chartPanel = new XChartPanel<>(chart);
 
-        // for embeding swing in javafx
         SwingNode swingNode = new SwingNode();
         swingNode.setContent(chartPanel);
 
