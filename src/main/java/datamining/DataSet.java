@@ -70,5 +70,30 @@ public class DataSet {
         }
     }
 
+    public HashMap<Double, Integer> getMode(String name) {
+        ArrayList<Double> column = this.getColumn(name);
+        HashMap<Double, Integer> counting = new HashMap<Double, Integer>();
+        HashMap<Double, Integer> countingMax = new HashMap<Double, Integer>();
+
+        for (Double c: column) {
+            if (!counting.containsKey(c)) {
+                counting.put(c, 0);
+            }
+            counting.put(c, counting.get(c) + 1);
+        }
+
+        int maxAppearance = 1;
+        for (Double key: counting.keySet()) {
+            if (counting.get(key) > maxAppearance) {
+                maxAppearance = counting.get(key);
+                countingMax.clear();
+                countingMax.put(key, counting.get(key));
+            } else if (counting.get(key) == maxAppearance) {
+                countingMax.put(key, counting.get(key));
+            }
+        }
+        return countingMax;
+    }
+
 
 }
