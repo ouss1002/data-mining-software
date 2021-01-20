@@ -1,7 +1,6 @@
 package charts;
 
 import datamining.DataSet;
-import javafx.scene.chart.ScatterChart;
 import org.knowm.xchart.*;
 import org.knowm.xchart.style.BoxStyler;
 
