@@ -24,10 +24,10 @@ import java.util.ArrayList;
 public class ApplicationController {
 
     @FXML
-    private TableView<?> tableDataset;
+    private TableView tableDataset;
 
     @FXML
-    private TableView<?> tableBoxTab;
+    private TableView tableBoxTab;
 
     @FXML
     private JFXComboBox cbDatasetTabAttribute;
