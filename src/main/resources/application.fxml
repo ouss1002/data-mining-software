@@ -356,7 +356,7 @@
                                                 </HBox>
                                                 <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
                                                    <children>
-                                                      <Label text="Attribute1:">
+                                                      <Label text="Attribute2:">
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
                                                          </font>
