@@ -136,5 +136,9 @@ public class DataSet {
         return maxValue;
     }
 
-
+    public Double getQ1(String name) {
+        ArrayList<Double> column = this.getColumn(name);
+        Collections.sort(column);
+        return column.get(this.instancesNumber / 4);
+    }
 }
