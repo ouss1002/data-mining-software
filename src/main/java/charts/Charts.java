@@ -1,10 +1,8 @@
 package charts;
 
 import datamining.DataSet;
-import org.knowm.xchart.BoxChart;
-import org.knowm.xchart.BoxChartBuilder;
-import org.knowm.xchart.CategoryChart;
-import org.knowm.xchart.CategoryChartBuilder;
+import javafx.scene.chart.ScatterChart;
+import org.knowm.xchart.*;
 import org.knowm.xchart.style.BoxStyler;
 
 import java.util.ArrayList;
@@ -24,7 +22,7 @@ public final class Charts {
         chart.addSeries(name, column);
         return chart;
     }
-    
+
     public static CategoryChart Histogram(DataSet dataset, String name) {
         ArrayList<Double> column = dataset.getColumn(name);
         HashMap<Double, Integer> counting = new HashMap<>();
@@ -37,7 +35,22 @@ public final class Charts {
         }
         CategoryChart chart = new CategoryChartBuilder().title("Histogram").build();
         chart.getStyler().setToolTipsEnabled(false);
+        chart.getStyler().setLegendVisible(false);
         chart.addSeries(name, new ArrayList<>(counting.keySet()), new ArrayList<>(counting.values()));
+        return chart;
+    }
+
+    public static XYChart ScatterPlot(DataSet dataset, String name1, String name2) {
+        ArrayList<Double> column1 = dataset.getColumn(name1);
+        ArrayList<Double> column2 = dataset.getColumn(name2);
+        XYChart chart = new XYChartBuilder().width(600).height(500).title("Scatter Plot").xAxisTitle("X").yAxisTitle("Y").build();
+
+        chart.getStyler().setDefaultSeriesRenderStyle(XYSeries.XYSeriesRenderStyle.Scatter);
+        chart.getStyler().setLegendVisible(false);
+        chart.getStyler().setMarkerSize(13);
+
+        chart.addSeries(name1+ " " + name2, column1, column2);
+
         return chart;
     }
 }
