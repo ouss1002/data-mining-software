@@ -5,13 +5,18 @@ import com.jfoenix.controls.JFXComboBox;
 import datamining.DataSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 
+import javax.swing.event.ChangeEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -45,10 +50,10 @@ public class ApplicationController {
     private JFXButton btnDatasetImport;
 
     @FXML
-    private JFXComboBox<?> cbDatasetImport;
+    private JFXComboBox cbDatasetImport;
 
     @FXML
-    private JFXComboBox<?> cbBoxTabAttribute;
+    private JFXComboBox cbBoxTabAttribute;
 
     @FXML
     private Label lblBoxTabMin;
@@ -66,13 +71,13 @@ public class ApplicationController {
     private Label lblBoxTabMax;
 
     @FXML
-    private JFXComboBox<?> cbHistogramTabAttribute;
+    private JFXComboBox cbHistogramTabAttribute;
 
     @FXML
-    private JFXComboBox<?> cbScatterTabAttribute1;
+    private JFXComboBox cbScatterTabAttribute1;
 
     @FXML
-    private JFXComboBox<?> cbScatterTabAttribute2;
+    private JFXComboBox cbScatterTabAttribute2;
 
     @FXML
     private JFXButton btnScatterTabPlot;
@@ -85,6 +90,18 @@ public class ApplicationController {
 
     @FXML
     private AnchorPane apHistoTab;
+
+    @FXML
+    private Tab tabDataset;
+
+    @FXML
+    private Tab tabBoxPlot;
+
+    @FXML
+    private Tab tabHisto;
+
+    @FXML
+    private Tab tabScatter;
 
     public FileChooser fileChooserObject = new FileChooser();
     public DataSet dataset;
@@ -103,7 +120,13 @@ public class ApplicationController {
 
         tableDataset.getItems().clear();
         dataset = new DataSet("ADD FILE PATH HERE");
-        cbDatasetTabAttribute.setItems(this.getAttributes());
+        this.enableTabs();
+        ObservableList<String> attrs = this.getAttributes();
+        cbDatasetTabAttribute.setItems(attrs);
+        cbBoxTabAttribute.setItems(attrs);
+        cbHistogramTabAttribute.setItems(attrs);
+        cbScatterTabAttribute1.setItems(attrs);
+        cbScatterTabAttribute2.setItems(attrs);
 
     }
 
@@ -114,9 +137,45 @@ public class ApplicationController {
         return choices;
     }
 
+    public void refreshValues() {
+        String cbString = (String)cbDatasetTabAttribute.getValue();
+        ArrayList<String> columns = dataset.getVariablesNames();
+
+        if(columns.contains(cbString)) {
+            lblDatasetType.setText("FLOAT");
+            lblDatasetMean.setText(dataset.getMean(cbString).toString());
+            lblDatasetMedian.setText(dataset.getMedian(cbString).toString());
+            lblDatasetMode.setText(dataset.getMode(cbString).toString());
+            lblDatasetSymmetry.setText(dataset.isSymmetrical(cbString).toString() ? "YES" : "NO");
+        }
+        else{
+            this.emptyLabels();
+        }
+    }
+
+    public void emptyLabels() {
+        lblDatasetType.setText("");
+        lblDatasetMean.setText("");
+        lblDatasetMedian.setText("");
+        lblDatasetMode.setText("");
+        lblDatasetSymmetry.setText("");
+    }
+
     public void fillDatasetTable() {
         // TODO: fill the table after importing the dataset
     }
 
+    public void assignEventListeners() {
+        cbDatasetTabAttribute.setOnAction(this::refreshEvent);
+    }
 
+    private void refreshEvent(Event event) {
+        this.refreshValues();
+    }
+
+    public void enableTabs() {
+        tabBoxPlot.setDisable(false);
+        tabHisto.setDisable(false);
+        tabScatter.setDisable(false);
+    }
 }
