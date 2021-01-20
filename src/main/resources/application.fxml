@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<JFXTabPane minHeight="548.0" minWidth="834.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.app.ApplicationController">
+<JFXTabPane minHeight="700.0" minWidth="1200.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.app.ApplicationController">
    <tabs>
       <Tab fx:id="tabDataset" text="DATASET">
          <content>
@@ -24,7 +24,17 @@
                      <children>
                         <AnchorPane HBox.hgrow="ALWAYS">
                            <children>
-                              <TableView fx:id="tableDataset" layoutX="176.0" layoutY="118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <TableView fx:id="tableDataset" layoutX="176.0" layoutY="118.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <columns>
+                                    <TableColumn fx:id="numberColumn" prefWidth="96.79998922348022" text="Number" />
+                                    <TableColumn fx:id="classsColumn" prefWidth="95.20001983642578" text="Class" />
+                                    <TableColumn fx:id="t3ResinColumn" prefWidth="140.8000030517578" text="T3 Resin" />
+                                    <TableColumn fx:id="totalThyroxinColumn" prefWidth="130.4000244140625" text="Total Thyroxin" />
+                                    <TableColumn fx:id="totalTriioColumn" prefWidth="136.79995727539062" text="Total Triio" />
+                                    <TableColumn fx:id="tshColumn" prefWidth="137.60003662109375" text="TSH" />
+                                    <TableColumn fx:id="maxDiffTshColumn" prefWidth="191.20001220703125" text="MaxDiffTsh" />
+                                 </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                         <AnchorPane>

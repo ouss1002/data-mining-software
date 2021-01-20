@@ -120,7 +120,7 @@ public class ApplicationController {
     @FXML private TableColumn<DatasetTableItem, SimpleStringProperty> tshColumn;
     @FXML private TableColumn<DatasetTableItem, SimpleStringProperty> maxDiffTshColumn;
     // Observable list to show all rules in tableview
-    ObservableList<OutliersTableItem> datas = FXCollections.observableArrayList();
+    ObservableList<DatasetTableItem> datas = FXCollections.observableArrayList();
 
     public FileChooser fileChooserObject = new FileChooser();
     public DataSet dataset;
@@ -210,15 +210,15 @@ public class ApplicationController {
     public void fillDatasetTable() {
         for (Instance i : dataset.getInstances()) {
             datas.add(new DatasetTableItem(
-                    new SimpleStringProperty(String.valueOf(i.getVariables().get(0))),
-                    new SimpleStringProperty(String.valueOf(i.getVariables().get(1))),
-                    new SimpleStringProperty(String.valueOf(i.getVariables().get(2))),
-                    new SimpleStringProperty(String.valueOf(i.getVariables().get(3))),
-                    new SimpleStringProperty(String.valueOf(i.getVariables().get(4))),
-                    new SimpleStringProperty(String.valueOf(i.getVariables().get(5))),
-                    new SimpleStringProperty(String.valueOf(i.getVariables().get(6)))
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(0).getInteger())),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(1).getDouble())),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(2).getDouble())),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(3).getDouble())),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(4).getDouble())),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(5).getDouble())),
+                    new SimpleStringProperty(String.valueOf(i.getVariables().get(6).getDouble()))
             ));
-            tableBoxTab.setItems(datas);
+            tableDataset.setItems(datas);
         }
     }
 
