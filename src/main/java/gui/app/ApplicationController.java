@@ -246,8 +246,8 @@ public class ApplicationController {
     }
 
     private void plotScatter(ActionEvent actionEvent) throws IOException {
-        String attr1 = cbScatterTabAttribute1.getValue().toString();
-        String attr2 = cbScatterTabAttribute1.getValue().toString();
+        String attr1 = cbScatterTabAttribute1.getValue();
+        String attr2 = cbScatterTabAttribute2.getValue();
 
         if(dataset.getVariablesNames().contains(attr1) && dataset.getVariablesNames().contains(attr2)) {
             XYChart chart = Charts.ScatterPlot(dataset, attr1, attr2);
