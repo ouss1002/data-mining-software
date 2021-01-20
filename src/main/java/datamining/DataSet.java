@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 public class DataSet {
@@ -11,6 +13,7 @@ public class DataSet {
     ArrayList<Instance> instances = new ArrayList<Instance>();
     HashMap<String, Integer> variablesNames = new HashMap<String, Integer>();
     Integer variablesNumber;
+    Integer instancesNumber;
 
     public DataSet(String filePath) throws IOException {
         this.filePath = filePath;
@@ -32,8 +35,8 @@ public class DataSet {
             variablesNames.put(names[i], i);
         }
 
-
         variablesNumber = variablesNames.size();
+        instancesNumber = instances.size();
 
     }
 
@@ -43,6 +46,15 @@ public class DataSet {
             column.add(instance.variables.get(this.variablesNames.get(name)).getDouble());
         }
         return column;
+    }
+
+    public Double getMean(String name) {
+        ArrayList<Double> column = this.getColumn(name);
+        Double mean = 0.0;
+        for (Double value: column) {
+            mean += value;
+        }
+        return mean / instancesNumber;
     }
 
 }
