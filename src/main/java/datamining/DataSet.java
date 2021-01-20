@@ -41,6 +41,10 @@ public class DataSet {
 
     }
 
+    public ArrayList<String> getVariablesNames() {
+        return new ArrayList<String>(variablesNames.keySet());
+    }
+
     public ArrayList<Double> getColumn(String name) {
         ArrayList<Double> column = new ArrayList<Double>();
         for (Instance instance: this.instances) {
@@ -94,6 +98,7 @@ public class DataSet {
         }
         return countingMax;
     }
+
 
 
 }
