@@ -15,4 +15,11 @@ public class Instance {
         return this.variables;
     }
 
+    @Override
+    public String toString() {
+        return "Instance{" + "\n" +
+                "\tvariables=" + variables + "\n" +
+                "\tinstanceNumber=" + instanceNumber + "\n" +
+                '}';
+    }
 }
