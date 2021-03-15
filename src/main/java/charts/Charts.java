@@ -8,7 +8,6 @@ import org.knowm.xchart.internal.chartpart.Chart;
 import org.knowm.xchart.style.BoxStyler;
 
 import javax.swing.*;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 

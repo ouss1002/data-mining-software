@@ -3,7 +3,6 @@ package datamining;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -96,8 +95,8 @@ public class DataSet {
 
     public HashMap<Double, Integer> getModeDictionary(String name) {
         ArrayList<Double> column = this.getColumn(name);
-        HashMap<Double, Integer> counting = new HashMap<Double, Integer>();
-        HashMap<Double, Integer> countingMax = new HashMap<Double, Integer>();
+        HashMap<Double, Integer> counting = new HashMap<>();
+        HashMap<Double, Integer> countingMax = new HashMap<>();
 
         for (Double c: column) {
             if (!counting.containsKey(c)) {
