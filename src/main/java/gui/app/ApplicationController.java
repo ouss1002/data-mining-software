@@ -170,6 +170,7 @@ public class ApplicationController {
 
     public ObservableList<String>  getAttributes() {
         ArrayList<String> names = dataset.getStaticNames();
+        names.remove(0);
         ObservableList<String> choices = FXCollections.observableArrayList(names);
 
         return choices;
