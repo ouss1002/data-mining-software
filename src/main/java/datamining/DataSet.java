@@ -182,4 +182,8 @@ public class DataSet {
         }
         return outliers;
     }
+
+    public Instance getSingleInstance(int i) {
+        return this.instances.get(i - 1);
+    }
 }
