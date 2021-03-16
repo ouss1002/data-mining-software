@@ -41,8 +41,6 @@ public class KMeans {
             iters++;
 
             if(KMeans.isSame(newClusters, oldClusters)) {
-                System.out.println(newClusters);
-                System.out.println(oldClusters);
                 break;
             }
             oldCentroids = (HashMap<Integer, Centroid>) newCentroids.clone();
