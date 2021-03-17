@@ -45,9 +45,23 @@ public class Apriori {
 
         ItemSet subItemSet = new ItemSet(size - 1);
 
-        return ;
+        return ! getAllSubsets(itemSet, size - 1, 0, subItemSet, l);
     }
 
+    private static boolean getAllSubsets(ItemSet itemset, int length, int startPosition, ItemSet subItemSet, FrequentItemSets l){
+        if (length == 0)
+            return l.containsKey(subItemSet);
+
+        boolean frequent = true;
+
+        for (int i=startPosition; i <= itemset.getSize()-length; i++){
+            subItemSet.replaceItem(itemset.getItem(i), subItemSet.getSize() - length);
+            frequent = getAllSubsets(itemset, length-1, i+1, subItemSet, l);
+            if(! frequent)
+                return false;
+        }
+        return frequent;
+    }
     public static FrequentItemSets generateFirstFrequentItemSet() {
         FrequentItemSets l1 = new FrequentItemSets();
         for (Integer key: transactionDB.keySet()) {
