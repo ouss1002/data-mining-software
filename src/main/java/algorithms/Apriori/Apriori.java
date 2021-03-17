@@ -15,8 +15,30 @@ public class Apriori {
 
     public static FrequentItemSets apriori(Integer minSupport, Double minConfidence) {
         FrequentItemSets l = generateFirstFrequentItemSet();
+        while (l.getSize() > 0) {
+            CandidateItemSets candidates = aprioriGen(l);
+
+        }
+        return l;
     }
 
+    public static CandidateItemSets aprioriGen(FrequentItemSets l) {
+        CandidateItemSets candidates = new CandidateItemSets();
+        for (int i = 0; i < l.getSize() - 1; i++) {
+            ItemSet firstItemSet = l.getItemSet(i);
+            for (int j = i + 1; j < l.getSize(); j++) {
+                ItemSet secondItemSet = l.getItemSet(i);
+                for (int k = 0; k < secondItemSet.getSize(); k++) {
+                    ItemSet currentItemSet = new ItemSet(firstItemSet);
+                    currentItemSet.addItem(secondItemSet.getItem(k));
+
+                }
+            }
+        }
+        return candidates;
+    }
+
+    
     public static FrequentItemSets generateFirstFrequentItemSet() {
         FrequentItemSets l1 = new FrequentItemSets();
         for (Integer key: transactionDB.keySet()) {
