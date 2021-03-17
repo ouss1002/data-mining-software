@@ -32,13 +32,22 @@ public class Apriori {
                     ItemSet currentItemSet = new ItemSet(firstItemSet);
                     currentItemSet.addItem(secondItemSet.getItem(k));
 
+                    if(! hasInfrequentSubSet(currentItemSet, l))
+                        candidates.addCandidate(new ItemSet(currentItemSet));
                 }
             }
         }
         return candidates;
     }
 
-    
+    private static boolean hasInfrequentSubSet(ItemSet itemSet, FrequentItemSets l) {
+        int size = itemSet.getSize();
+
+        ItemSet subItemSet = new ItemSet(size - 1);
+
+        return ;
+    }
+
     public static FrequentItemSets generateFirstFrequentItemSet() {
         FrequentItemSets l1 = new FrequentItemSets();
         for (Integer key: transactionDB.keySet()) {
