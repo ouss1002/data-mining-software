@@ -13,6 +13,26 @@ public class Apriori {
     public static LinkedHashMap<Integer, ArrayList<String>> transactionDB = new LinkedHashMap<>();
     static ArrayList<Instance> classInstances = new ArrayList<>();
 
+    public static FrequentItemSets apriori(Integer minSupport, Double minConfidence) {
+        FrequentItemSets l = generateFirstFrequentItemSet();
+    }
+
+    public static FrequentItemSets generateFirstFrequentItemSet() {
+        FrequentItemSets l1 = new FrequentItemSets();
+        for (Integer key: transactionDB.keySet()) {
+            for (String item: transactionDB.get(key)) {
+                ItemSet keyItem = new ItemSet();
+                keyItem.addItem(item);
+                if (! l1.containsKey(keyItem)) {
+                    l1.addItemSet(keyItem, 1);
+                } else {
+                    l1.addItemSet(keyItem, l1.getValue(keyItem) + 1);
+                }
+            }
+        }
+        return l1;
+    }
+
     public static void generateTransactionDB(ArrayList<Instance> instances) {
         classInstances = instances;
         for (Instance instance : classInstances) {
