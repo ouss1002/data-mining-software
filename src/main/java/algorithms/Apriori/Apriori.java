@@ -17,7 +17,27 @@ public class Apriori {
         FrequentItemSets l = generateFirstFrequentItemSet();
         while (l.getSize() > 0) {
             CandidateItemSets candidates = aprioriGen(l);
-
+            for (Integer key: transactionDB.keySet()) {
+                ArrayList<String> t = transactionDB.get(key);
+                for (ItemSet candidate: candidates.getCandidateItemSets()) {
+                    boolean exist = true;
+                    for (String item: candidate.getItemSet()) {
+                        if (!t.contains(item)) {
+                            exist = false;
+                        }
+                    }
+                    if (exist)
+                        candidate.setSupportCount(candidate.getSupportCount() + 1);
+                }
+            }
+            int i = 0;
+            while (i < candidates.getCandidateItemSets().size()) {
+                if (candidates.getCandidate(i).getSupportCount() < minSupport)
+                    candidates.removeCandidate(i);
+                else
+                    i++;
+            }
+            l.setItemSets(candidates);
         }
         return l;
     }
