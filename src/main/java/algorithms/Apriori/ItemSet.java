@@ -9,7 +9,7 @@ public class ItemSet {
 
     public ItemSet() {}
     public ItemSet(ItemSet otherItemSet) {
-        items = otherItemSet.getItemSet();
+        items = (ArrayList<String>) otherItemSet.getItemSet().clone();
     }
     public Integer getSize() {
         return items.size();
@@ -36,6 +36,14 @@ public class ItemSet {
 
     public ArrayList<String> getItemSet() {
         return items;
+    }
+
+    public boolean containsItem(String item) {
+        return items.contains(item);
+    }
+
+    public boolean equals(ArrayList<String> itemsTMP) {
+        return items.containsAll(itemsTMP);
     }
 
     public void addItem(String item) {
