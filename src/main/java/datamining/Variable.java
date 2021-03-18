@@ -6,11 +6,11 @@ public class Variable {
     public Variable(String value) {
         this.value = value;
     }
-    public Double getDouble() {
+    public double getDouble() {
         return Double.parseDouble(value);
     }
-    public Integer getInteger() {
-        return Integer.parseInt(value);
+    public int getInteger() {
+        return (int) this.getDouble();
     }
     public String get() {
         return value;

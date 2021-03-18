@@ -1,5 +1,7 @@
 package datamining;
 
+import javafx.beans.property.StringProperty;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -23,6 +25,15 @@ public class DataSet {
         arr.addAll(Arrays.asList(staticNames));
 
         return arr;
+    }
+
+    public DataSet(DataSet ds) {
+        this.filePath = ds.filePath;
+        this.instances = new ArrayList<>();
+        this.variablesNames = ds.variablesNames;
+        this.variablesNumber = ds.variablesNumber;
+        this.instancesNumber = ds.instancesNumber;
+        this.staticNames = ds.staticNames;
     }
 
     public DataSet(String filePath) throws IOException {
@@ -80,7 +91,6 @@ public class DataSet {
         }
         return mean / instancesNumber;
     }
-
 
     public Double getMedian(String name) {
         ArrayList<Double> column = this.getColumn(name);
@@ -185,5 +195,114 @@ public class DataSet {
 
     public Instance getSingleInstance(int i) {
         return this.instances.get(i - 1);
+    }
+
+    public DataSet normalize() {
+        DataSet ret = new DataSet(this);
+        ArrayList<Double> col01 = (ArrayList<Double>) getColumn("#").clone();
+        ArrayList<Double> col02 = (ArrayList<Double>) getColumn("class").clone();
+        ArrayList<Double> col1 = (ArrayList<Double>) getColumn("t3_resin").clone();
+        ArrayList<Double> col2 = (ArrayList<Double>) getColumn("total_thyroxin").clone();
+        ArrayList<Double> col3 = (ArrayList<Double>) getColumn("total_triio").clone();
+        ArrayList<Double> col4 = (ArrayList<Double>) getColumn("tsh").clone();
+        ArrayList<Double> col5 = (ArrayList<Double>) getColumn("max_diff_tsh").clone();
+
+        double numberOfElements = instances.size();
+
+        double sumCol1 = 0;
+        double sumCol2 = 0;
+        double sumCol3 = 0;
+        double sumCol4 = 0;
+        double sumCol5 = 0;
+
+        double meanCol1;
+        double meanCol2;
+        double meanCol3;
+        double meanCol4;
+        double meanCol5;
+
+        double stdv1 = 0;
+        double stdv2 = 0;
+        double stdv3 = 0;
+        double stdv4 = 0;
+        double stdv5 = 0;
+
+        for(double ele : col1) {
+            sumCol1 += ele;
+        }
+        for(double ele : col2) {
+            sumCol2 += ele;
+        }
+        for(double ele : col3) {
+            sumCol3 += ele;
+        }
+        for(double ele : col4) {
+            sumCol4 += ele;
+        }
+        for(double ele : col5) {
+            sumCol5 += ele;
+        }
+
+        meanCol1 = sumCol1 / numberOfElements;
+        meanCol2 = sumCol2 / numberOfElements;
+        meanCol3 = sumCol3 / numberOfElements;
+        meanCol4 = sumCol4 / numberOfElements;
+        meanCol5 = sumCol5 / numberOfElements;
+
+        for(double ele : col1) {
+            stdv1 += (ele - meanCol1) * (ele - meanCol1);
+        }
+        stdv1 /= numberOfElements;
+        stdv1 = Math.sqrt(stdv1);
+
+
+        for(double ele : col2) {
+            stdv2 += (ele - meanCol2) * (ele - meanCol2);
+        }
+        stdv2 /= numberOfElements;
+        stdv2 = Math.sqrt(stdv2);
+
+
+        for(double ele : col3) {
+            stdv3 += (ele - meanCol3) * (ele - meanCol3);
+        }
+        stdv3 /= numberOfElements;
+        stdv3 = Math.sqrt(stdv3);
+
+
+        for(double ele : col4) {
+            stdv4 += (ele - meanCol4) * (ele - meanCol4);
+        }
+        stdv4 /= numberOfElements;
+        stdv4 = Math.sqrt(stdv4);
+
+        for(double ele : col5) {
+            stdv5 += (ele - meanCol5) * (ele - meanCol5);
+        }
+        stdv5 /= numberOfElements;
+        stdv5 = Math.sqrt(stdv5);
+
+        for(int i = 0; i < numberOfElements; i++) {
+            Variable var01 = new Variable(String.valueOf(col01.get(i)));
+            Variable var02 = new Variable(String.valueOf(col02.get(i)));
+            Variable var1 = new Variable(String.valueOf((col1.get(i) - meanCol1) / stdv1));
+            Variable var2 = new Variable(String.valueOf((col2.get(i) - meanCol2) / stdv2));
+            Variable var3 = new Variable(String.valueOf((col3.get(i) - meanCol3) / stdv3));
+            Variable var4 = new Variable(String.valueOf((col4.get(i) - meanCol4) / stdv4));
+            Variable var5 = new Variable(String.valueOf((col5.get(i) - meanCol5) / stdv5));
+
+            ArrayList<Variable> vars = new ArrayList<>();
+            vars.add(var01);
+            vars.add(var02);
+            vars.add(var1);
+            vars.add(var2);
+            vars.add(var3);
+            vars.add(var4);
+            vars.add(var5);
+
+            ret.getInstances().add(new Instance(vars, i + 1));
+        }
+
+        return ret;
     }
 }
