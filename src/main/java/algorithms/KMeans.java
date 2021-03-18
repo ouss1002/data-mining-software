@@ -50,7 +50,7 @@ public class KMeans {
         return newClusters;
     }
 
-    private static Centroid getRandomCentroid(DataSet dataset) {
+    public static Centroid getRandomCentroid(DataSet dataset) {
         ArrayList<Double> vars = new ArrayList<>();
         double random;
         double min, max;
@@ -91,7 +91,7 @@ public class KMeans {
         return ret;
     }
 
-    private static boolean isSame(HashMap<Integer, ArrayList<Integer>> a, HashMap<Integer, ArrayList<Integer>> b) {
+    public static boolean isSame(HashMap<Integer, ArrayList<Integer>> a, HashMap<Integer, ArrayList<Integer>> b) {
         for(int i = 0; i < a.size(); i++) {
             ArrayList<Integer> as,bs;
             as = a.get(i);
@@ -112,7 +112,7 @@ public class KMeans {
         return true;
     }
 
-    private static ArrayList<Object> constructClusters(DataSet ds, HashMap<Integer, Centroid> centroids) {
+    public static ArrayList<Object> constructClusters(DataSet ds, HashMap<Integer, Centroid> centroids) {
         HashMap<Integer, ArrayList<Integer>> retClusters = initializeClusters(centroids.size());
         double score = 0;
 
@@ -143,7 +143,7 @@ public class KMeans {
         return ret;
     }
 
-    private static HashMap<Integer, Centroid> updateCentroids(DataSet ds, HashMap<Integer, Centroid> centroids, HashMap<Integer, ArrayList<Integer>> clusters) {
+    public static HashMap<Integer, Centroid> updateCentroids(DataSet ds, HashMap<Integer, Centroid> centroids, HashMap<Integer, ArrayList<Integer>> clusters) {
 
         for(int i = 0; i < centroids.size(); i++) {
             ArrayList<Integer> elements = clusters.get(i);
@@ -154,7 +154,7 @@ public class KMeans {
         return centroids;
     }
 
-    private static Centroid getMeanCentroidFromElements(DataSet ds, ArrayList<Integer> elements) {
+    public static Centroid getMeanCentroidFromElements(DataSet ds, ArrayList<Integer> elements) {
         Centroid ret;
         ArrayList<Double> values = new ArrayList<>();
         double[] sum = new double[]{0, 0, 0, 0, 0};
@@ -181,7 +181,7 @@ public class KMeans {
         return new Centroid(values);
     }
 
-    private static HashMap<Integer, ArrayList<Integer>> initializeClusters(int num) {
+    public static HashMap<Integer, ArrayList<Integer>> initializeClusters(int num) {
         HashMap<Integer, ArrayList<Integer>> clusters = new HashMap<>();
 
         for(int i = 0; i < num; i++) {
@@ -191,11 +191,105 @@ public class KMeans {
         return clusters;
     }
 
+    public static ArrayList<ArrayList<Double>> getMatrixFMeasure(DataSet dataset, HashMap<Integer, ArrayList<Integer>> clusters) {
+        ArrayList<ArrayList<Double>> ret = new ArrayList<>();
+        for(int i = 0; i < clusters.size(); i++) {
+            ArrayList<Double> line = new ArrayList<>();
+            for(int j = 1; j < 4; j++) {
+                double precision = KMeans.getPrecision(dataset, clusters, i, j);
+                double recall = KMeans.getRecall(dataset, clusters, i, j);
+                double fmeasure = (2 * precision * recall) / (precision + recall);
+                line.add(fmeasure);
+                System.out.println(fmeasure);
+            }
+            ret.add(line);
+        }
+        return ret;
+    }
+
+    public static double getTotalFMeasure(DataSet dataset, HashMap<Integer, ArrayList<Integer>> clusters) {
+        int numClass1 = 150;
+        int numClass2 = 35;
+        int numClass3 = 30;
+        ArrayList<ArrayList<Double>> mat = KMeans.getMatrixFMeasure(dataset, clusters);
+        ArrayList<Double> maxes = new ArrayList<>();
+
+        for(int j = 0; j < mat.get(0).size(); j++) {
+            double max = -1;
+            for(ArrayList<Double> arr : mat) {
+                double ele = arr.get(j);
+                if(ele > max) {
+                    max = ele;
+                }
+            }
+            maxes.add(max);
+        }
+        double fm1 = maxes.get(0);
+        double fm2 = maxes.get(1);
+        double fm3 = maxes.get(2);
+
+        fm1 *= numClass1;
+        fm2 *= numClass2;
+        fm3 *= numClass3;
+
+        fm1 /= dataset.getInstances().size();
+        fm2 /= dataset.getInstances().size();
+        fm3 /= dataset.getInstances().size();
+
+        double ret = fm1 + fm2 + fm3;
+        return ret;
+    }
+
+    public static double getPrecision(DataSet ds, HashMap<Integer, ArrayList<Integer>> clusters, int cluster, int classe) {
+        ArrayList<Integer> elements = KMeans.getArrayFromClass(ds, classe);
+        ArrayList<Integer> clusteredElements = clusters.get(cluster);
+
+        int nj = clusteredElements.size();
+        int nij = 0;
+
+        for(int i : clusteredElements) {
+            if(!elements.contains(i)) {
+                nij++;
+            }
+        }
+        return nij / nj;
+    }
+
+    public static double getRecall(DataSet ds, HashMap<Integer, ArrayList<Integer>> clusters, int cluster, int classe) {
+        ArrayList<Integer> elements = KMeans.getArrayFromClass(ds, classe);
+        ArrayList<Integer> clusteredElements = clusters.get(cluster);
+
+        int ni = elements.size();
+        int nij = 0;
+
+        for(int i : clusteredElements) {
+            if(!elements.contains(i)) {
+                nij++;
+            }
+        }
+        return nij / ni;
+    }
+
+    public static ArrayList<Integer> getArrayFromClass(DataSet ds, int classe) {
+        ArrayList<Integer> ret = new ArrayList<>();
+
+        for(Instance instance : ds.getInstances()) {
+            if(instance.getVariables().get(1).getDouble() == classe) {
+                ret.add(instance.getInstanceNumber());
+            }
+        }
+
+        return ret;
+    }
+
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
-        HashMap<Integer, ArrayList<Integer>> kmeans = getKMeans(ds, 3);
+        ds = ds.normalize();
+        HashMap<Integer, ArrayList<Integer>> kmeans = getKMeans(ds, 1);
         for(int i : kmeans.keySet()) {
             System.out.println(i + ": " + kmeans.get(i).size());
         }
+        double fm = KMeans.getTotalFMeasure(ds, kmeans);
+        System.out.println(fm);
     }
 }

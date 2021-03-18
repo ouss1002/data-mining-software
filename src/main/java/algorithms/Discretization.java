@@ -23,6 +23,7 @@ public class Discretization {
         Double limdown = copy.get(0);
         Double limup = copy.get(copy.size() - 1);
         Double decal = (limup - limdown) / bins;
+        System.out.println("decal: " + decal);
 
         ArrayList<Double> boundaries = new ArrayList<>();
         for(int i = 0; i < bins; i++) {
@@ -100,11 +101,11 @@ public class Discretization {
 //        ar.add((double) 10);
 //        System.out.println(Discretization.discretize(ar, 5));
 
-
-
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ArrayList<Instance> test = Discretization.discretizeDataset(ds, 3);
         System.out.println(test);
+        System.out.println(ds.getMin("max_diff_tsh"));
+        System.out.println(ds.getMax("max_diff_tsh"));
     }
 
 }
