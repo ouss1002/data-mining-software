@@ -191,83 +191,88 @@ public class KMeans {
         return clusters;
     }
 
-    public static ArrayList<ArrayList<Double>> getMatrixFMeasure(DataSet dataset, HashMap<Integer, ArrayList<Integer>> clusters) {
-        ArrayList<ArrayList<Double>> ret = new ArrayList<>();
-        for(int i = 0; i < clusters.size(); i++) {
-            ArrayList<Double> line = new ArrayList<>();
-            for(int j = 1; j < 4; j++) {
-                double precision = KMeans.getPrecision(dataset, clusters, i, j);
-                double recall = KMeans.getRecall(dataset, clusters, i, j);
+    public static double[][] getMatrixFMeasure(DataSet ds, HashMap<Integer, ArrayList<Integer>> kmeans) {
+        int lines =  kmeans.keySet().size();
+        int cols = 3;
+        double[][] ret = new double[lines][cols];
+
+        for(int l = 0; l < lines; l++) {
+            for(int c = 0; c < cols; c++) {
+                double precision = KMeans.getPrecision(ds, kmeans, l, c);
+                double recall = KMeans.getRecall(ds, kmeans, l, c);
                 double fmeasure = (2 * precision * recall) / (precision + recall);
-                line.add(fmeasure);
-                System.out.println(fmeasure);
+                if(Double.isNaN(fmeasure)) {
+                    fmeasure = 0;
+                }
+                ret[l][c] = fmeasure;
             }
-            ret.add(line);
         }
         return ret;
     }
 
-    public static double getTotalFMeasure(DataSet dataset, HashMap<Integer, ArrayList<Integer>> clusters) {
-        int numClass1 = 150;
-        int numClass2 = 35;
-        int numClass3 = 30;
-        ArrayList<ArrayList<Double>> mat = KMeans.getMatrixFMeasure(dataset, clusters);
-        ArrayList<Double> maxes = new ArrayList<>();
+    public static double getTotalFMeasure(DataSet ds, HashMap<Integer, ArrayList<Integer>> kmeans) {
+        int lines =  kmeans.keySet().size();
+        int cols = 3;
+        double[][] mat = new double[lines][cols];
+        int[] classes = new int[lines];
+        double[] maxes = new double[lines];
+        double ret;
 
-        for(int j = 0; j < mat.get(0).size(); j++) {
-            double max = -1;
-            for(ArrayList<Double> arr : mat) {
-                double ele = arr.get(j);
-                if(ele > max) {
-                    max = ele;
+        for(int l = 0; l < lines; l++) {
+            double max = 0;
+            int classSet = 0;
+            for(int c = 0; c < cols; c++) {
+                double precision = KMeans.getPrecision(ds, kmeans, l, c);
+                double recall = KMeans.getRecall(ds, kmeans, l, c);
+                double fmeasure = (2 * precision * recall) / (precision + recall);
+                if(Double.isNaN(fmeasure)) {
+                    fmeasure = 0;
+                }
+                mat[l][c] = fmeasure;
+                if(fmeasure > max) {
+                    max = fmeasure;
+                    classSet = c + 1;
                 }
             }
-            maxes.add(max);
+            maxes[l] = max;
+            classes[l] = classSet;
         }
-        double fm1 = maxes.get(0);
-        double fm2 = maxes.get(1);
-        double fm3 = maxes.get(2);
+        ret = 0;
+        for(int i = 0; i < lines; i++) {
+            ret += (maxes[i] * KMeans.getArrayFromClass(ds, classes[i]).size()) / ds.getInstances().size();
+        }
 
-        fm1 *= numClass1;
-        fm2 *= numClass2;
-        fm3 *= numClass3;
-
-        fm1 /= dataset.getInstances().size();
-        fm2 /= dataset.getInstances().size();
-        fm3 /= dataset.getInstances().size();
-
-        double ret = fm1 + fm2 + fm3;
         return ret;
     }
 
-    public static double getPrecision(DataSet ds, HashMap<Integer, ArrayList<Integer>> clusters, int cluster, int classe) {
-        ArrayList<Integer> elements = KMeans.getArrayFromClass(ds, classe);
-        ArrayList<Integer> clusteredElements = clusters.get(cluster);
+    public static double getPrecision(DataSet ds, HashMap<Integer, ArrayList<Integer>> kmeans, int line, int colon) {
+        ArrayList<Integer> elements = KMeans.getArrayFromClass(ds, colon + 1);
+        ArrayList<Integer> clusteredElements = kmeans.get(line);
 
-        int nj = clusteredElements.size();
         int nij = 0;
-
-        for(int i : clusteredElements) {
-            if(!elements.contains(i)) {
+        int nj = clusteredElements.size();
+        for(int ele : clusteredElements) {
+            if(elements.contains(ele)) {
                 nij++;
             }
         }
-        return nij / nj;
+        double precision = ((double)nij) / nj;
+        return precision;
     }
 
-    public static double getRecall(DataSet ds, HashMap<Integer, ArrayList<Integer>> clusters, int cluster, int classe) {
-        ArrayList<Integer> elements = KMeans.getArrayFromClass(ds, classe);
-        ArrayList<Integer> clusteredElements = clusters.get(cluster);
+    public static double getRecall(DataSet ds, HashMap<Integer, ArrayList<Integer>> kmeans, int line, int colon) {
+        ArrayList<Integer> elements = KMeans.getArrayFromClass(ds, colon + 1);
+        ArrayList<Integer> clusteredElements = kmeans.get(line);
 
-        int ni = elements.size();
         int nij = 0;
-
-        for(int i : clusteredElements) {
-            if(!elements.contains(i)) {
+        int ni = elements.size();
+        for(int ele : clusteredElements) {
+            if(elements.contains(ele)) {
                 nij++;
             }
         }
-        return nij / ni;
+        double recall = ((double)nij) / ni;
+        return recall;
     }
 
     public static ArrayList<Integer> getArrayFromClass(DataSet ds, int classe) {
@@ -282,14 +287,21 @@ public class KMeans {
         return ret;
     }
 
+
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ds = ds.normalize();
-        HashMap<Integer, ArrayList<Integer>> kmeans = getKMeans(ds, 1);
+        HashMap<Integer, ArrayList<Integer>> kmeans = getKMeans(ds, 3);
         for(int i : kmeans.keySet()) {
             System.out.println(i + ": " + kmeans.get(i).size());
         }
-        double fm = KMeans.getTotalFMeasure(ds, kmeans);
-        System.out.println(fm);
+        double[][] fm = KMeans.getMatrixFMeasure(ds, kmeans);
+        for(int line = 0; line < kmeans.keySet().size(); line++) {
+            for(int col = 0; col < 3; col++) {
+                System.out.print("" + fm[line][col] + ", ");
+            }
+            System.out.print("\n");
+        }
+        System.out.print("finally: " + KMeans.getTotalFMeasure(ds, kmeans));
     }
 }

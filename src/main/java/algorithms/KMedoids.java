@@ -57,7 +57,6 @@ public class KMedoids {
 //            scores.add(md.getErrorWithAllInstances(dataset, medoids.get(key)));
 //        }
         double theScore = getScore(dataset, medoids);
-        System.out.println(theScore);
 
         return medoids;
     }
@@ -132,12 +131,135 @@ public class KMedoids {
 //
 //    }
 
+    public static double[][] getMatrixFMeasure(DataSet ds, HashMap<Integer, ArrayList<Integer>> kmedoids) {
+        int lines =  kmedoids.keySet().size();
+        int cols = 3;
+        double[][] ret = new double[lines][cols];
+        ArrayList<Integer> keys = new ArrayList<>();
+
+        for(int key : kmedoids.keySet()) {
+            keys.add(key);
+        }
+
+        for(int l = 0; l < lines; l++) {
+            int key = keys.get(l);
+            for(int c = 0; c < cols; c++) {
+                double precision = KMedoids.getPrecision(ds, kmedoids, key, c);
+                double recall = KMedoids.getRecall(ds, kmedoids, key, c);
+                double fmeasure = (2 * precision * recall) / (precision + recall);
+                if(Double.isNaN(fmeasure)) {
+                    fmeasure = 0;
+                }
+                ret[l][c] = fmeasure;
+            }
+        }
+        return ret;
+    }
+    
+    public static double getTotalFMeasure(DataSet ds, HashMap<Integer, ArrayList<Integer>> kmedoids) {
+        int lines =  kmedoids.keySet().size();
+        int cols = 3;
+        double[][] mat = new double[lines][cols];
+        ArrayList<Integer> keys = new ArrayList<>();
+        HashMap<Integer, Integer> last = new HashMap<>();
+        HashMap<Integer, Double> last2 = new HashMap<>();
+        double[] maxes = new double[lines];
+        int[] classes = new int[lines];
+        double ret;
+
+        for(int key : kmedoids.keySet()) {
+            keys.add(key);
+        }
+
+        for(int l = 0; l < lines; l++) {
+            int key = keys.get(l);
+            double max = 0;
+            int classSet = 0;
+            for(int c = 0; c < cols; c++) {
+                double precision = KMedoids.getPrecision(ds, kmedoids, key, c);
+                double recall = KMedoids.getRecall(ds, kmedoids, key, c);
+                double fmeasure = (2 * precision * recall) / (precision + recall);
+                if(Double.isNaN(fmeasure)) {
+                    fmeasure = 0;
+                }
+                mat[l][c] = fmeasure;
+                if(fmeasure > max) {
+                    max = fmeasure;
+                    classSet = c + 1;
+                }
+            }
+            maxes[l] = max;
+            classes[l] = classSet;
+            last.put(key, classSet);
+            last2.put(key, max);
+        }
+        ret = 0;
+        for(int key : last.keySet()) {
+            ret += (last2.get(key) * KMedoids.getArrayFromClass(ds, last.get(key)).size()) / ds.getInstances().size();
+        }
+
+        return ret;
+    }
+
+    public static double getPrecision(DataSet ds, HashMap<Integer, ArrayList<Integer>> kmedoids, int key, int colon) {
+        ArrayList<Integer> elements = KMedoids.getArrayFromClass(ds, colon + 1);
+        ArrayList<Integer> clusteredElements = kmedoids.get(key);
+
+        int nij = 0;
+        int nj = clusteredElements.size();
+        for(int ele : clusteredElements) {
+            if(elements.contains(ele)) {
+                nij++;
+            }
+        }
+        double precision = ((double)nij) / nj;
+        return precision;
+    }
+
+    public static double getRecall(DataSet ds, HashMap<Integer, ArrayList<Integer>> kmedoids, int key, int colon) {
+        ArrayList<Integer> elements = KMedoids.getArrayFromClass(ds, colon + 1);
+        ArrayList<Integer> clusteredElements = kmedoids.get(key);
+
+        int nij = 0;
+        int ni = elements.size();
+        for(int ele : clusteredElements) {
+            if(elements.contains(ele)) {
+                nij++;
+            }
+        }
+        double recall = ((double)nij) / ni;
+        return recall;
+    }
+
+    public static ArrayList<Integer> getArrayFromClass(DataSet ds, int classe) {
+        ArrayList<Integer> ret = new ArrayList<>();
+
+        for(Instance instance : ds.getInstances()) {
+            if(instance.getVariables().get(1).getDouble() == classe) {
+                ret.add(instance.getInstanceNumber());
+            }
+        }
+
+        return ret;
+    }
+
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ds = ds.normalize();
-        HashMap<Integer, ArrayList<Integer>> kmeans = KMedoids.getKMedoids(ds, 5);
-        for(int i : kmeans.keySet()) {
-            System.out.println(i + ": " + kmeans.get(i).size());
+        for(int bla = 0; bla < 10; bla++) {
+            HashMap<Integer, ArrayList<Integer>> kmedoids = KMedoids.getKMedoids(ds, 3);
+//            for(int i : kmedoids.keySet()) {
+//                System.out.println(i + ": " + kmedoids.get(i).size());
+//            }
+
+            double[][] fm = KMedoids.getMatrixFMeasure(ds, kmedoids);
+//            for(int i = 0; i < 3; i++) {
+//                for(int j = 0; j < 3; j++){
+//                    System.out.print("" + fm[i][j] + ", ");
+//                }
+//                System.out.print("\n");
+//            }
+            System.out.print("finally: " + KMedoids.getTotalFMeasure(ds, kmedoids));
         }
     }
 
