@@ -19,8 +19,16 @@ public class CandidateItemSets {
         return candidates.get(index);
     }
 
+    public boolean containsItemSet(ItemSet candidate) {
+        for (ItemSet candidateTMP: candidates) {
+            if (candidateTMP.equals(candidate.getItemSet()))
+                return true;
+        }
+        return false;
+    }
+
     public void addCandidate(ItemSet candidate) {
-        if(! candidates.contains(candidate))
+        if(! containsItemSet(candidate))
             candidates.add(candidate);
     }
 }

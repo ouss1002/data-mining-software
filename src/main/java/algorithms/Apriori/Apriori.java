@@ -1,20 +1,22 @@
 package algorithms.Apriori;
 
+import algorithms.Discretization;
+import datamining.DataSet;
 import datamining.Instance;
 import datamining.Variable;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashMap;
 
 public class Apriori {
     public static LinkedHashMap<Integer, ArrayList<String>> transactionDB = new LinkedHashMap<>();
     static ArrayList<Instance> classInstances = new ArrayList<>();
 
-    public static FrequentItemSets apriori(Integer minSupport, Double minConfidence) {
-        FrequentItemSets l = generateFirstFrequentItemSet();
+    public static ArrayList<FrequentItemSets> apriori(Integer minSupport, Double minConfidence) {
+        ArrayList<FrequentItemSets> frequentItemSetsList = new ArrayList<>();
+        FrequentItemSets l = generateFirstFrequentItemSet(minSupport);
+        frequentItemSetsList.add(new FrequentItemSets(l));
         while (l.getSize() > 0) {
             CandidateItemSets candidates = aprioriGen(l);
             for (Integer key: transactionDB.keySet()) {
@@ -38,8 +40,9 @@ public class Apriori {
                     i++;
             }
             l.setItemSets(candidates);
+            frequentItemSetsList.add(new FrequentItemSets(l));
         }
-        return l;
+        return frequentItemSetsList;
     }
 
     public static CandidateItemSets aprioriGen(FrequentItemSets l) {
@@ -47,7 +50,7 @@ public class Apriori {
         for (int i = 0; i < l.getSize() - 1; i++) {
             ItemSet firstItemSet = l.getItemSet(i);
             for (int j = i + 1; j < l.getSize(); j++) {
-                ItemSet secondItemSet = l.getItemSet(i);
+                ItemSet secondItemSet = l.getItemSet(j);
                 for (int k = 0; k < secondItemSet.getSize(); k++) {
                     ItemSet currentItemSet = new ItemSet(firstItemSet);
                     currentItemSet.addItem(secondItemSet.getItem(k));
@@ -61,39 +64,47 @@ public class Apriori {
     }
 
     private static boolean hasInfrequentSubSet(ItemSet itemSet, FrequentItemSets l) {
-        int size = itemSet.getSize();
+        int size = l.getItemSets().get(0).getSize() + 1;
 
+        if (itemSet.getSize() < size)
+            return true;
         ItemSet subItemSet = new ItemSet(size - 1);
-
         return ! getAllSubsets(itemSet, size - 1, 0, subItemSet, l);
     }
 
     private static boolean getAllSubsets(ItemSet itemset, int length, int startPosition, ItemSet subItemSet, FrequentItemSets l){
-        if (length == 0)
-            return l.containsKey(subItemSet);
-
-        boolean frequent = true;
-
+        if (length == 0) {
+            return l.containsItemSet(subItemSet);
+        }
         for (int i=startPosition; i <= itemset.getSize()-length; i++){
             subItemSet.replaceItem(itemset.getItem(i), subItemSet.getSize() - length);
-            frequent = getAllSubsets(itemset, length-1, i+1, subItemSet, l);
+            boolean frequent = getAllSubsets(itemset, length-1, i+1, subItemSet, l);
             if(! frequent)
                 return false;
         }
-        return frequent;
+        return true;
     }
-    public static FrequentItemSets generateFirstFrequentItemSet() {
+    public static FrequentItemSets generateFirstFrequentItemSet(Integer minSupport) {
         FrequentItemSets l1 = new FrequentItemSets();
         for (Integer key: transactionDB.keySet()) {
             for (String item: transactionDB.get(key)) {
                 ItemSet keyItem = new ItemSet();
                 keyItem.addItem(item);
-                if (! l1.containsKey(keyItem)) {
+                keyItem.setSupportCount(1);
+                Integer index = l1.containsItem(item);
+                if (index == -1) {
                     l1.addItemSet(keyItem, 1);
                 } else {
-                    l1.addItemSet(keyItem, l1.getValue(keyItem) + 1);
+                    l1.updateSupportCount(index, l1.getItemSet(index).getSupportCount() + 1);
                 }
             }
+        }
+        int i = 0;
+        while (i < l1.getSize()) {
+            if (l1.getItemSet(i).getSupportCount() < minSupport)
+                l1.removeItemSet(l1.getItemSet(i));
+            else
+                i++;
         }
         return l1;
     }
@@ -110,8 +121,23 @@ public class Apriori {
         }
     }
 
-    public static void main(String[] args){
-        //generateTransactionDB();
+    public static void main(String[] args)  throws IOException {
+        DataSet ds = new DataSet("C:\\Users\\a\\Desktop\\Source Code\\GIT repositories\\Data science\\data-mining-software\\src\\main\\resources\\Thyroid_Dataset.txt");
+        ArrayList<Instance> instances = Discretization.discretizeDataset(ds, 5);
+        generateTransactionDB(instances);
+        ArrayList<FrequentItemSets> frequentItemSetsList = apriori(129, 0.6);
+        AssociationRules.generateAssociationRules(frequentItemSetsList, 90);
+        ArrayList<Rule> rules = AssociationRules.getRules();
+
+        for (FrequentItemSets frequentItemSets: frequentItemSetsList) {
+            for (ItemSet itemSet: frequentItemSets.getItemSets()) {
+                System.out.println(itemSet.getItemSet());
+            }
+        }
+        System.out.println();
+        for (Rule rule: rules) {
+            System.out.println(rule.getConditions().getItemSet() + " ==> " + rule.getConsequences().getItemSet() + " ::= " + rule.getConfidence());
+        }
     }
 }
 
