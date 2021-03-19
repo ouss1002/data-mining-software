@@ -101,7 +101,7 @@ public class Discretization {
 //        ar.add((double) 10);
 //        System.out.println(Discretization.discretize(ar, 5));
 
-        DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
+        DataSet ds = new DataSet("C:\\Users\\a\\Desktop\\Source Code\\GIT repositories\\Data science\\data-mining-software\\src\\main\\resources\\Thyroid_Dataset.txt");
         ArrayList<Instance> test = Discretization.discretizeDataset(ds, 3);
         System.out.println(test);
         System.out.println(ds.getMin("max_diff_tsh"));

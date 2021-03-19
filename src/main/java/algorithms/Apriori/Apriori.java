@@ -6,9 +6,7 @@ import datamining.Instance;
 import datamining.Variable;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.LinkedHashMap;
 
 public class Apriori {
@@ -124,16 +122,21 @@ public class Apriori {
     }
 
     public static void main(String[] args)  throws IOException {
-
         DataSet ds = new DataSet("C:\\Users\\a\\Desktop\\Source Code\\GIT repositories\\Data science\\data-mining-software\\src\\main\\resources\\Thyroid_Dataset.txt");
         ArrayList<Instance> instances = Discretization.discretizeDataset(ds, 5);
         generateTransactionDB(instances);
         ArrayList<FrequentItemSets> frequentItemSetsList = apriori(129, 0.6);
+        AssociationRules.generateAssociationRules(frequentItemSetsList, 90);
+        ArrayList<Rule> rules = AssociationRules.getRules();
 
         for (FrequentItemSets frequentItemSets: frequentItemSetsList) {
             for (ItemSet itemSet: frequentItemSets.getItemSets()) {
                 System.out.println(itemSet.getItemSet());
             }
+        }
+        System.out.println();
+        for (Rule rule: rules) {
+            System.out.println(rule.getConditions().getItemSet() + " ==> " + rule.getConsequences().getItemSet() + " ::= " + rule.getConfidence());
         }
     }
 }
