@@ -58,6 +58,16 @@ public class FrequentItemSets {
         return itemsetsMap.get(key);
     }
 
+    public Integer getValueByString(ItemSet key) {
+        for (ItemSet itemSet: itemsets) {
+            if (itemSet.equals(key.getItemSet())) {
+                return getValue(itemSet);
+            }
+        }
+        return -1;
+    }
+
+
     public void addItemSet(ItemSet itemSet,Integer supportCount) {
         itemsetsMap.put(itemSet, supportCount);
         if (! itemsets.contains(itemSet)) {
