@@ -56,4 +56,29 @@ public class ItemSet {
         return items.get(index);
     }
 
+    public void removeItem(String item) {
+        items.remove(item);
+    }
+
+    public ArrayList<ItemSet> getAllSubItemSets(){
+        ArrayList<ItemSet> allSubsets = new ArrayList<>();
+        int n = items.size();
+        for (int i = 0; i < (1<<n); i++){
+            ItemSet currSubset = new ItemSet();
+            for (int j = 0; j < n; j++)
+                if ((i & (1 << j)) > 0)
+                    currSubset.addItem(getItem(j));
+            if(currSubset.getSize() > 0 && currSubset.getSize() < n)
+                allSubsets.add(currSubset);
+        }
+        return allSubsets;
+    }
+
+    public ItemSet substract(ItemSet otherItemSet) {
+        ItemSet currItemSet = new ItemSet(this);
+        for(String item : otherItemSet.getItemSet())
+            currItemSet.removeItem(item);
+        return currItemSet;
+    }
+
 }
