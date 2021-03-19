@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTabPane?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
@@ -167,7 +168,7 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab fx:id="tabBoxPlot" disable="true" text="BOXPLOT">
+      <Tab fx:id="tabBoxPlot" text="BOXPLOT">
          <content>
             <AnchorPane>
                <children>
@@ -300,7 +301,7 @@
                </children>
             </AnchorPane>
          </content></Tab>
-      <Tab fx:id="tabHisto" disable="true" text="HISTOGRAM">
+      <Tab fx:id="tabHisto" text="HISTOGRAM">
          <content>
             <AnchorPane>
                <children>
@@ -345,7 +346,7 @@
                </children>
             </AnchorPane>
          </content></Tab>
-      <Tab fx:id="tabScatter" disable="true" text="SCATTERPLOT">
+      <Tab fx:id="tabScatter" text="SCATTERPLOT">
          <content>
             <AnchorPane>
                <children>
@@ -391,6 +392,272 @@
                                                       <Insets top="20.0" />
                                                    </VBox.margin>
                                                 </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="tabApriori" text="APRIORI">
+         <content>
+            <AnchorPane>
+               <children>
+                  <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="apScatterTab1" HBox.hgrow="ALWAYS" />
+                        <AnchorPane HBox.hgrow="NEVER">
+                           <children>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <AnchorPane>
+                                       <children>
+                                          <VBox alignment="TOP_CENTER">
+                                             <children>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                   <children>
+                                                      <Label text="Attribute1:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXComboBox fx:id="cbScatterTabAttribute11" prefHeight="22.0" prefWidth="113.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                   <children>
+                                                      <Label text="Attribute2:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXComboBox fx:id="cbScatterTabAttribute21" prefHeight="22.0" prefWidth="113.0" />
+                                                   </children>
+                                                </HBox>
+                                                <JFXButton fx:id="btnScatterTabPlot1" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="PLOT" textFill="RED">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <VBox.margin>
+                                                      <Insets top="20.0" />
+                                                   </VBox.margin>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="tabKMeans" text="KMEANS">
+         <content>
+            <AnchorPane>
+               <children>
+                  <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="apScatterTab2" HBox.hgrow="ALWAYS" />
+                        <AnchorPane HBox.hgrow="NEVER">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="506.0" prefWidth="226.0" AnchorPane.bottomAnchor="144.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane>
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" prefHeight="620.0" prefWidth="226.0" AnchorPane.bottomAnchor="-295.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane maxWidth="200.0" prefHeight="266.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="162.0" text="Number of Clusters:">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXSlider fx:id="sliderKMeansNumClusters" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                                <JFXButton fx:id="btnKMeansBuildClusters" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="Build Clusters" textFill="RED">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <VBox.margin>
+                                                      <Insets top="20.0" />
+                                                   </VBox.margin>
+                                                </JFXButton>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0" />
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="tabKMedoids" text="KMEDOIDS">
+         <content>
+            <AnchorPane>
+               <children>
+                  <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="apScatterTab3" HBox.hgrow="ALWAYS" />
+                        <AnchorPane HBox.hgrow="NEVER">
+                           <children>
+                              <VBox alignment="CENTER">
+                                 <children>
+                                    <AnchorPane>
+                                       <children>
+                                          <VBox alignment="TOP_CENTER">
+                                             <children>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                   <children>
+                                                      <Label text="Attribute1:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXComboBox fx:id="cbScatterTabAttribute13" prefHeight="22.0" prefWidth="113.0" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                   <children>
+                                                      <Label text="Attribute2:">
+                                                         <font>
+                                                            <Font name="System Bold" size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <JFXComboBox fx:id="cbScatterTabAttribute23" prefHeight="22.0" prefWidth="113.0" />
+                                                   </children>
+                                                </HBox>
+                                                <JFXButton fx:id="btnScatterTabPlot3" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="PLOT" textFill="RED">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <VBox.margin>
+                                                      <Insets top="20.0" />
+                                                   </VBox.margin>
+                                                </JFXButton>
+                                             </children>
+                                             <padding>
+                                                <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
+                                             </padding>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane />
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </Tab>
+      <Tab fx:id="tabClarans" text="CLARANS">
+         <content>
+            <AnchorPane>
+               <children>
+                  <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane fx:id="apScatterTab4" HBox.hgrow="ALWAYS" />
+                        <AnchorPane>
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="506.0" prefWidth="226.0" AnchorPane.bottomAnchor="144.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane>
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" prefHeight="620.0" prefWidth="226.0" AnchorPane.bottomAnchor="-295.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane maxWidth="200.0" prefHeight="266.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="162.0" text="Number of Clusters:">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXSlider fx:id="sliderClaransNumClusters" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                                <JFXButton fx:id="btnKMeansBuildClusters1" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="Build Clusters" textFill="RED">
+                                                   <font>
+                                                      <Font name="System Bold" size="14.0" />
+                                                   </font>
+                                                   <cursor>
+                                                      <Cursor fx:constant="HAND" />
+                                                   </cursor>
+                                                   <VBox.margin>
+                                                      <Insets top="20.0" />
+                                                   </VBox.margin>
+                                                </JFXButton>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0" />
                                              </children>
                                              <padding>
                                                 <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
