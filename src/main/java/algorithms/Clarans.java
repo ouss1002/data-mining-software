@@ -224,7 +224,7 @@ public class Clarans {
         int cols = 3;
         double[][] mat = new double[lines][cols];
         ArrayList<Integer> keys = new ArrayList<>();
-        double[] maxes = new double[lines];
+        double[] maxes = new double[cols];
         double ret;
 
         for(int key : clarans.keySet()) {

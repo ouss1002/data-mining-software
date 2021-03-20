@@ -42,7 +42,7 @@ public class KMedoids {
                 Medoid orgMD = new Medoid(dataset, key);
                 double score = orgMD.getErrorWithAllInstances(dataset, medoids.get(key));
                 for(Instance inst : dataset.getInstances()) {
-                    if(medoids.keySet().contains(inst.getInstanceNumber()) || newMedoids.contains(inst.getInstanceNumber())) {
+                    if(medoids.containsKey(inst.getInstanceNumber()) || newMedoids.contains(inst.getInstanceNumber())) {
                         continue;
                     }
                     Medoid tempMD = new Medoid(dataset, inst.getInstanceNumber());
@@ -54,11 +54,12 @@ public class KMedoids {
                 }
                 newMedoids.add(replacement);
             }
-            System.out.println("new: " + newMedoids);
+
             if(medoids.keySet().containsAll(newMedoids)) {
                 break;
             }
             medoids.clear();
+            System.out.println(newMedoids);
             for(int k : newMedoids) {
                 medoids.put(k, new ArrayList<>());
             }
@@ -260,20 +261,20 @@ public class KMedoids {
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ds = ds.normalize();
-        for(int bla = 0; bla < 1; bla++) {
+        for(int bla = 0; bla < 10; bla++) {
             HashMap<Integer, ArrayList<Integer>> kmedoids = KMedoids.getKMedoids(ds, 3);
-            for(int i : kmedoids.keySet()) {
-                System.out.println(i + ": " + kmedoids.get(i).size());
-            }
+//            for(int i : kmedoids.keySet()) {
+//                System.out.println(i + ": " + kmedoids.get(i).size());
+//            }
 
-            double[][] fm = KMedoids.getMatrixFMeasure(ds, kmedoids);
-            for(int i = 0; i < 3; i++) {
-                for(int j = 0; j < 3; j++){
-                    System.out.print("" + fm[i][j] + ", ");
-                }
-                System.out.print("\n");
-            }
-            System.out.print("finally: " + KMedoids.getTotalFMeasure(ds, kmedoids));
+//            double[][] fm = KMedoids.getMatrixFMeasure(ds, kmedoids);
+//            for(int i = 0; i < 3; i++) {
+//                for(int j = 0; j < 3; j++){
+//                    System.out.print("" + fm[i][j] + ", ");
+//                }
+//                System.out.print("\n");
+//            }
+            System.out.println("finally: " + KMedoids.getTotalFMeasure(ds, kmedoids));
         }
     }
 }

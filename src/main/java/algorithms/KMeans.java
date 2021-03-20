@@ -35,7 +35,7 @@ public class KMeans {
         HashMap<Integer, ArrayList<Integer>> oldClusters = new HashMap<>();
 
         for(int i = 0; i < numClusters; i++) {
-            Centroid centroid = KMeans.getRandomCentroid(dataset);
+            Centroid centroid = KMeans.getRandomCentroid2(dataset);
             newCentroids.put(i, centroid);
             oldCentroids.put(i, centroid);
 
@@ -69,6 +69,26 @@ public class KMeans {
         KMeans.estimation = score;
 
         return newClusters;
+    }
+
+    private static Centroid getRandomCentroid2(DataSet dataset) {
+        double rand = Math.random();
+        int inst = (int)(rand * dataset.getInstances().size());
+        if(inst == 0) {
+            inst = 1;
+        }
+        Instance randInstance = dataset.getSingleInstance(inst);
+        ArrayList<Double> vars = new ArrayList<>();
+
+        vars.add(randInstance.getVariables().get(2).getDouble());
+        vars.add(randInstance.getVariables().get(3).getDouble());
+        vars.add(randInstance.getVariables().get(4).getDouble());
+        vars.add(randInstance.getVariables().get(5).getDouble());
+        vars.add(randInstance.getVariables().get(6).getDouble());
+
+        Centroid ret = new Centroid(vars);
+
+        return ret;
     }
 
     public static Centroid getRandomCentroid(DataSet dataset) {
