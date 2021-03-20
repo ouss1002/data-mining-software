@@ -619,7 +619,7 @@
                                                                   </Label>
                                                                </children>
                                                             </HBox>
-                                                            <JFXSlider fx:id="sliderAprioriMinSupport" disable="true" majorTickUnit="10.0" minorTickCount="1" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="50.0">
+                                                            <JFXSlider fx:id="sliderAprioriMinSupport" blockIncrement="50.0" disable="true" majorTickUnit="27.0" max="215.0" minorTickCount="1" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="100.0">
                                                                <cursor>
                                                                   <Cursor fx:constant="HAND" />
                                                                </cursor>
@@ -649,7 +649,7 @@
                                                                   </Label>
                                                                </children>
                                                             </HBox>
-                                                            <JFXSlider fx:id="sliderAprioriMinConfidence" disable="true" majorTickUnit="10.0" minorTickCount="1" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="50.0">
+                                                            <JFXSlider fx:id="sliderAprioriMinConfidence" blockIncrement="50.0" disable="true" majorTickUnit="27.0" max="215.0" minorTickCount="1" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="100.0">
                                                                <cursor>
                                                                   <Cursor fx:constant="HAND" />
                                                                </cursor>
