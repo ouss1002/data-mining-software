@@ -6,14 +6,28 @@ import datamining.Variable;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class KMeans {
+    public static double fmeasure = 0;
+    public static double[][] fmeasureMatrix = null;
+    public static int mat_lines = 0;
+    public static int mat_cols = 3;
+    public static double estimation = 0;
+    public static long time = 0;
+    public static int numClusters = 0;
+    public static HashMap<Integer, ArrayList<Integer>> clusters = null;
+
 
     public static HashMap<Integer, ArrayList<Integer>> getKMeans(DataSet dataset, Integer numClusters) {
+        long start;
+        long finish;
+
+        KMeans.numClusters = numClusters;
+        KMeans.mat_lines = numClusters;
+        KMeans.mat_cols = 3;
+
+        start = System.nanoTime();
 
         HashMap<Integer, Centroid> newCentroids = new HashMap<>();
         HashMap<Integer, Centroid> oldCentroids = new HashMap<>();
@@ -29,8 +43,8 @@ public class KMeans {
             oldClusters.put(i, new ArrayList<>());
         }
         int iters = 0;
+        double score = 0;
         while(true) {
-            double score = 0;
 
             ArrayList<Object> retFromFunction = KMeans.constructClusters(dataset, newCentroids);
             newClusters = (HashMap<Integer, ArrayList<Integer>>) retFromFunction.get(0);
@@ -46,7 +60,14 @@ public class KMeans {
             oldCentroids = (HashMap<Integer, Centroid>) newCentroids.clone();
             oldClusters = (HashMap<Integer, ArrayList<Integer>>) newClusters.clone();
         }
-        System.out.println("iters: " + iters);
+//        System.out.println("iters: " + iters);
+//        System.out.println("score: " + score);
+
+        finish = System.nanoTime();
+        KMeans.clusters = newClusters;
+        KMeans.time = (finish - start) / 1000000;
+        KMeans.estimation = score;
+
         return newClusters;
     }
 
@@ -241,7 +262,10 @@ public class KMeans {
         for(int i = 0; i < lines; i++) {
             ret += (maxes[i] * KMeans.getArrayFromClass(ds, classes[i]).size()) / ds.getInstances().size();
         }
-
+        System.out.println(Arrays.toString(maxes));
+        System.out.println(Arrays.toString(classes));
+        KMeans.fmeasureMatrix = mat;
+        KMeans.fmeasure = ret;
         return ret;
     }
 
@@ -291,17 +315,9 @@ public class KMeans {
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ds = ds.normalize();
-        HashMap<Integer, ArrayList<Integer>> kmeans = getKMeans(ds, 3);
-        for(int i : kmeans.keySet()) {
-            System.out.println(i + ": " + kmeans.get(i).size());
-        }
-        double[][] fm = KMeans.getMatrixFMeasure(ds, kmeans);
-        for(int line = 0; line < kmeans.keySet().size(); line++) {
-            for(int col = 0; col < 3; col++) {
-                System.out.print("" + fm[line][col] + ", ");
-            }
-            System.out.print("\n");
-        }
-        System.out.print("finally: " + KMeans.getTotalFMeasure(ds, kmeans));
+        HashMap<Integer, ArrayList<Integer>> kmeans;
+        kmeans = KMeans.getKMeans(ds, 3);
+        System.out.println("finally: " + KMeans.getTotalFMeasure(ds, kmeans));
+        System.out.println(Arrays.deepToString(KMeans.fmeasureMatrix));
     }
 }

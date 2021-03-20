@@ -9,8 +9,25 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 public class KMedoids {
+    public static double fmeasure = 0;
+    public static double[][] fmeasureMatrix = null;
+    public static int mat_lines = 0;
+    public static int mat_cols = 3;
+    public static double estimation = 0;
+    public static long time = 0;
+    public static int numClusters = 0;
+    public static HashMap<Integer, ArrayList<Integer>> clusters = null;
 
     public static HashMap<Integer, ArrayList<Integer>> getKMedoids(DataSet dataset, int numMedoids) {
+        long start;
+        long finish;
+
+        KMedoids.numClusters = numMedoids;
+        KMedoids.mat_lines = numMedoids;
+        KMedoids.mat_cols = 3;
+
+        start = System.nanoTime();
+
         HashMap<Integer, ArrayList<Integer>> medoids;
         medoids = KMedoids.initMedoids(dataset, numMedoids);
         medoids = KMedoids.buildClusters(dataset, medoids);
@@ -56,7 +73,12 @@ public class KMedoids {
 //            Medoid md = new Medoid(dataset, key);
 //            scores.add(md.getErrorWithAllInstances(dataset, medoids.get(key)));
 //        }
-        double theScore = getScore(dataset, medoids);
+        double theScore = KMedoids.getScore(dataset, medoids);
+
+        finish = System.nanoTime();
+        KMedoids.time = (finish - start) / 1000000;
+        KMedoids.estimation = theScore;
+        KMedoids.clusters = medoids;
 
         return medoids;
     }
@@ -198,6 +220,8 @@ public class KMedoids {
             ret += (last2.get(key) * KMedoids.getArrayFromClass(ds, last.get(key)).size()) / ds.getInstances().size();
         }
 
+        KMedoids.fmeasureMatrix = mat;
+        KMedoids.fmeasure = ret;
         return ret;
     }
 
@@ -247,7 +271,7 @@ public class KMedoids {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ds = ds.normalize();
         for(int bla = 0; bla < 10; bla++) {
-            HashMap<Integer, ArrayList<Integer>> kmedoids = KMedoids.getKMedoids(ds, 3);
+            HashMap<Integer, ArrayList<Integer>> kmedoids = KMedoids.getKMedoids(ds, 1);
 //            for(int i : kmedoids.keySet()) {
 //                System.out.println(i + ": " + kmedoids.get(i).size());
 //            }

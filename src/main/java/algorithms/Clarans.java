@@ -8,14 +8,30 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Clarans {
+    public static double fmeasure = 0;
+    public static double[][] fmeasureMatrix = null;
+    public static int mat_lines = 0;
+    public static int mat_cols = 3;
+    public static double estimation = 0;
+    public static long time = 0;
+    public static double numClusters = 0;
+    public static HashMap<Integer, ArrayList<Integer>> clusters = null;
 
     public static HashMap<Integer, ArrayList<Integer>> getClarans(DataSet dataset, int numMedoids, int numIterations, int numRepetitions) {
+        long start;
+        long finish;
+
+        Clarans.numClusters = numMedoids;
+        Clarans.mat_lines = numMedoids;
+        Clarans.mat_cols = 3;
+
+        start = System.nanoTime();
+
         HashMap<Integer, ArrayList<Integer>> medoids;
         ArrayList<HashMap<Integer, ArrayList<Integer>>> history = new ArrayList<>();
 
         for(int i = 0; i < numRepetitions; i++) {
             medoids = Clarans.initMedoids(dataset, numMedoids);
-            System.out.println(medoids.keySet());
             medoids = Clarans.buildClusters(dataset, medoids);
             for(int j = 0; j < numIterations; j++) {
                 int rand = Clarans.getRandomMedoid(numMedoids);
@@ -65,6 +81,11 @@ public class Clarans {
                 result = mds;
             }
         }
+
+        finish = System.nanoTime();
+        Clarans.time = (finish - start) / 1000000;
+        Clarans.estimation = theScore;
+        Clarans.clusters = result;
 
         return result;
     }
@@ -206,6 +227,9 @@ public class Clarans {
             ret += (last2.get(key) * Clarans.getArrayFromClass(ds, last.get(key)).size()) / ds.getInstances().size();
         }
 
+        Clarans.fmeasureMatrix = mat;
+        Clarans.fmeasure = ret;
+
         return ret;
     }
 
@@ -254,12 +278,12 @@ public class Clarans {
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ds = ds.normalize();
-        for(int bla = 0; bla < 10; bla++) {
-            HashMap<Integer, ArrayList<Integer>> clarans = Clarans.getClarans(ds, 3, 10, 10);
+//        for(int bla = 0; bla < 10; bla++) {
+//            HashMap<Integer, ArrayList<Integer>> clarans = Clarans.getClarans(ds, 3, 1, 1);
 //            for(int i : clarans.keySet()) {
 //                System.out.println(i + ": " + clarans.get(i).size());
 //            }
-
+//
 //            double[][] fm = Clarans.getMatrixFMeasure(ds, clarans);
 //            for(int i = 0; i < 3; i++) {
 //                for(int j = 0; j < 3; j++){
@@ -267,8 +291,10 @@ public class Clarans {
 //                }
 //                System.out.print("\n");
 //            }
-            System.out.print("finally: " + Clarans.getTotalFMeasure(ds, clarans));
-        }
+//            System.out.println("finally: " + Clarans.getTotalFMeasure(ds, clarans));
+//        }
+        HashMap<Integer, ArrayList<Integer>> clarans = Clarans.getClarans(ds, 3, 1, 1);
+        System.out.println("finally: " + Clarans.getTotalFMeasure(ds, clarans));
     }
 
 }

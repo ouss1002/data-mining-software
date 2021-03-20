@@ -1,8 +1,15 @@
 package gui.app;
 
+import algorithms.Apriori.*;
+import algorithms.Clarans;
+import algorithms.Discretization;
+import algorithms.KMeans;
+import algorithms.KMedoids;
 import charts.Charts;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXSlider;
+import com.jfoenix.controls.JFXTextArea;
 import datamining.DataSet;
 import datamining.Instance;
 import javafx.beans.property.SimpleStringProperty;
@@ -11,25 +18,35 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import org.knowm.xchart.BoxChart;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.XYChart;
 
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class ApplicationController {
 
     @FXML
-    private JFXComboBox cbDatasetTabAttribute;
+    private Tab tabDataset;
+
+    @FXML
+    private JFXComboBox<String> cbDatasetTabAttribute;
 
     @FXML
     private Label lblDatasetType;
@@ -50,10 +67,16 @@ public class ApplicationController {
     private JFXButton btnDatasetImport;
 
     @FXML
-    private JFXComboBox cbDatasetImport;
+    private JFXComboBox<String> cbDatasetImport;
 
     @FXML
-    private JFXComboBox cbBoxTabAttribute;
+    private Tab tabBoxPlot;
+
+    @FXML
+    private AnchorPane apBoxTab;
+
+    @FXML
+    private JFXComboBox<String> cbBoxTabAttribute;
 
     @FXML
     private Label lblBoxTabMin;
@@ -71,7 +94,28 @@ public class ApplicationController {
     private Label lblBoxTabMax;
 
     @FXML
+    private TableView<OutliersTableItem> tableBoxTab;
+
+    @FXML
+    private TableColumn<?, ?> instanceColumn;
+
+    @FXML
+    private TableColumn<?, ?> valueColumn;
+
+    @FXML
+    private Tab tabHisto;
+
+    @FXML
+    private AnchorPane apHistoTab;
+
+    @FXML
     private JFXComboBox<String> cbHistogramTabAttribute;
+
+    @FXML
+    private Tab tabScatter;
+
+    @FXML
+    private AnchorPane apScatterTab;
 
     @FXML
     private JFXComboBox<String> cbScatterTabAttribute1;
@@ -83,29 +127,146 @@ public class ApplicationController {
     private JFXButton btnScatterTabPlot;
 
     @FXML
-    private AnchorPane apBoxTab;
+    private Tab tabApriori;
 
     @FXML
-    private AnchorPane apScatterTab;
+    private AnchorPane apScatterTab1;
 
     @FXML
-    private AnchorPane apHistoTab;
+    private JFXComboBox<String> cbScatterTabAttribute11;
 
     @FXML
-    private Tab tabDataset;
+    private JFXComboBox<String> cbScatterTabAttribute21;
 
     @FXML
-    private Tab tabBoxPlot;
+    private JFXButton btnScatterTabPlot1;
 
     @FXML
-    private Tab tabHisto;
+    private Tab tabKMeans;
 
     @FXML
-    private Tab tabScatter;
+    private AnchorPane apScatterTab2;
 
-    @FXML private TableView<OutliersTableItem> tableBoxTab;
-    @FXML private TableColumn<OutliersTableItem, SimpleStringProperty> instanceColumn;
-    @FXML private TableColumn<OutliersTableItem, SimpleStringProperty> valueColumn;
+    @FXML
+    private Label lblKMeansExecTime;
+
+    @FXML
+    private Label lblKMeansEstimation;
+
+    @FXML
+    private Label lblKMeansFMeasure;
+
+    @FXML
+    private JFXTextArea textAreaKMeans;
+
+    @FXML
+    private VBox vbKMeans;
+
+    @FXML
+    private JFXSlider sliderKMeansNumClusters;
+
+    @FXML
+    private JFXButton btnKMeansBuildClusters;
+
+    @FXML
+    private Tab tabKMedoids;
+
+    @FXML
+    private AnchorPane apScatterTab21;
+
+    @FXML
+    private Label lblKMedoidsExecTime;
+
+    @FXML
+    private Label lblKMedoidsEstimation;
+
+    @FXML
+    private Label lblKMedoidsFMeasure;
+
+    @FXML
+    private JFXTextArea textAreaKMedoids;
+
+    @FXML
+    private VBox vbKMedoids;
+
+    @FXML
+    private JFXSlider sliderKMedoidsNumClusters;
+
+    @FXML
+    private JFXButton btnKMedoidsBuildClusters;
+
+    @FXML
+    private Tab tabClarans;
+
+    @FXML
+    private AnchorPane apScatterTab211;
+
+    @FXML
+    private Label lblClaransExecTime;
+
+    @FXML
+    private Label lblClaransEstimation;
+
+    @FXML
+    private Label lblClaransFMeasure;
+
+    @FXML
+    private JFXTextArea textAreaClarans;
+
+    @FXML
+    private VBox vbClarans;
+
+    @FXML
+    private JFXSlider sliderClaransNumClusters;
+
+    @FXML
+    private JFXSlider sliderClaransNumSearches;
+
+    @FXML
+    private JFXSlider sliderClaransNumTries;
+
+    @FXML
+    private JFXButton btnClaransBuildClusters;
+
+    @FXML
+    private Label lblAprioriDiscretization;
+
+    @FXML
+    private Label lblAprioriFreqPatterns;
+
+    @FXML
+    private Label lblAprioriAssocRules;
+
+    @FXML
+    private Label lblAprioriFullTime;
+
+    @FXML
+    private JFXTextArea textAreaAprioriFreqSets;
+
+    @FXML
+    private JFXTextArea textAreaAssocRules;
+
+    @FXML
+    private JFXSlider sliderAprioriNumBins;
+
+    @FXML
+    private JFXButton btnClaransBuildClusters11;
+
+    @FXML
+    private JFXSlider sliderAprioriMinSupport;
+
+    @FXML
+    private JFXButton btnAprioriFreqPatterns;
+
+    @FXML
+    private JFXButton btnAprioriAssocRules;
+
+    @FXML
+    private JFXSlider sliderAprioriMinConfidence;
+
+    @FXML
+    private JFXButton btnAprioriDiscretize;
+
     // Observable list to show all rules in tableview
     ObservableList<OutliersTableItem> outliers = FXCollections.observableArrayList();
 
@@ -122,6 +283,10 @@ public class ApplicationController {
 
     public FileChooser fileChooserObject = new FileChooser();
     public DataSet dataset;
+    public DataSet normalizedDataset;
+    public ArrayList<Rule> rules;
+
+    long start, finish;
 
     public ApplicationController() {
 
@@ -255,6 +420,238 @@ public class ApplicationController {
                 e.printStackTrace();
             }
         });
+        btnKMeansBuildClusters.setOnAction(actionEvent -> {
+            startKMeans();
+        });
+        btnKMedoidsBuildClusters.setOnAction(actionEvent -> {
+            startKMedoids();
+        });
+        btnClaransBuildClusters.setOnAction(actionEvent -> {
+            startClarans();
+        });
+        btnAprioriDiscretize.setOnAction(actionEvent -> {
+            startDiscretize();
+            btnAprioriFreqPatterns.setDisable(false);
+            sliderAprioriMinSupport.setDisable(false);
+        });
+        btnAprioriFreqPatterns.setOnAction(actionEvent -> {
+            startFreqPatterns();
+            btnAprioriAssocRules.setDisable(false);
+            sliderAprioriMinConfidence.setDisable(false);
+        });
+        btnAprioriFreqPatterns.setOnAction(actionEvent -> {
+            startAssocRules();
+        });
+    }
+
+    private void startAssocRules() {
+        start = System.nanoTime();
+        Apriori.generateTransactionDB(Apriori.discretizedInstances);
+        int value = (int) sliderAprioriMinConfidence.getValue();
+        AssociationRules.generateAssociationRules(Apriori.frequentItemSetsList, value);
+        Apriori.rules = AssociationRules.getRules();
+        finish = System.nanoTime();
+        Apriori.timeFreqPat = (finish - start) / 1000000;
+        lblAprioriFreqPatterns.setText(Apriori.timeFreqPat + "ms");
+
+        lblAprioriFullTime.setText((Apriori.timeDiscretization + Apriori.timeFreqPat + Apriori.timeAssocRules) + "ms");
+
+        fillAssocTable();
+    }
+
+    private void fillAssocTable() {
+        StringBuilder printed = new StringBuilder();
+        for (Rule rule: Apriori.rules) {
+            printed.append(rule.getConditions().getItemSet()).append(" ==> ").append(rule.getConsequences().getItemSet()).append(" ::= ").append(rule.getConfidence()).append("\n");
+        }
+        String ret = printed.toString();
+        textAreaAssocRules.setText(ret);
+    }
+
+    private void startFreqPatterns() {
+        start = System.nanoTime();
+        Apriori.generateTransactionDB(Apriori.discretizedInstances);
+        int value = (int) sliderAprioriMinSupport.getValue();
+        Apriori.frequentItemSetsList = Apriori.apriori(value, 0.6);
+        finish = System.nanoTime();
+        Apriori.timeFreqPat = (finish - start) / 1000000;
+        lblAprioriFreqPatterns.setText(Apriori.timeFreqPat + "ms");
+        fillFreqTable();
+    }
+
+    private void fillFreqTable() {
+        StringBuilder printed = new StringBuilder();
+        for (FrequentItemSets frequentItemSets: Apriori.frequentItemSetsList) {
+            for (ItemSet itemSet: frequentItemSets.getItemSets()) {
+                printed.append(itemSet.getItemSet()).append("\n");
+            }
+        }
+        String ret = String.valueOf(printed);
+        textAreaAprioriFreqSets.setText(ret);
+    }
+
+    private void startDiscretize() {
+
+        start = System.nanoTime();
+        int value = (int) sliderAprioriNumBins.getValue();
+        Apriori.discretizedInstances = Discretization.discretizeDataset(dataset, value);
+        finish = System.nanoTime();
+        Apriori.timeDiscretization = (finish - start) / 1000000;
+        lblAprioriDiscretization.setText(Apriori.timeDiscretization + "ms");
+    }
+
+    private void startKMeans() {
+        if(normalizedDataset == null) {
+            return;
+        }
+        int value = (int)sliderKMeansNumClusters.getValue();
+
+        HashMap<Integer, ArrayList<Integer>> kmeans = KMeans.getKMeans(this.normalizedDataset, value);
+        double ret = KMeans.getTotalFMeasure(this.normalizedDataset, kmeans);
+        this.fillKMeansResults();
+    }
+    private void startKMedoids() {
+        if(normalizedDataset == null) {
+            return;
+        }
+        int value = (int)sliderKMedoidsNumClusters.getValue();
+
+        HashMap<Integer, ArrayList<Integer>> kmedoids = KMedoids.getKMedoids(this.normalizedDataset, value);
+        double ret = KMedoids.getTotalFMeasure(this.normalizedDataset, kmedoids);
+        this.fillKMedoidsResults();
+    }
+    private void startClarans() {
+        if(normalizedDataset == null) {
+            return;
+        }
+        int value = (int)sliderClaransNumClusters.getValue();
+        int valueSearches = (int)sliderClaransNumSearches.getValue();
+        int valueTries = (int)sliderClaransNumTries.getValue();
+
+        HashMap<Integer, ArrayList<Integer>> clarans = Clarans.getClarans(this.normalizedDataset, value, valueSearches, valueTries);
+        double ret = Clarans.getTotalFMeasure(this.normalizedDataset, clarans);
+        this.fillClaransResults();
+    }
+
+    private void fillKMeansResults() {
+        lblKMeansExecTime.setText(KMeans.time + "ms");
+        lblKMeansEstimation.setText(String.valueOf(Math.floor(KMeans.estimation * 100) / 100));
+        lblKMeansFMeasure.setText(String.valueOf(Math.floor(KMeans.fmeasure * 100) / 100));
+
+        String text = this.generateTextAreaContent(KMeans.clusters);
+        setKMeansTextAreaContent(text);
+
+        HashMap<Integer, Integer> numElements = getNumberOfElements(KMeans.clusters);
+        ArrayList<Label> lbls = constructNumElements(numElements);
+        fillKMeansVBox(lbls);
+    }
+    private void fillKMedoidsResults() {
+        lblKMedoidsExecTime.setText(KMedoids.time + "ms");
+        lblKMedoidsEstimation.setText(String.valueOf(Math.floor(KMedoids.estimation * 100) / 100));
+        lblKMedoidsFMeasure.setText(String.valueOf(Math.floor(KMedoids.fmeasure * 100) / 100));
+
+        String text = this.generateTextAreaContent(KMedoids.clusters);
+        setKMedoidsTextAreaContent(text);
+
+        HashMap<Integer, Integer> numElements = getNumberOfElements(KMedoids.clusters);
+        ArrayList<Label> lbls = constructNumElements(numElements);
+        fillKMedoidsVBox(lbls);
+    }
+    private void fillClaransResults() {
+        lblClaransExecTime.setText(Clarans.time + "ms");
+        lblClaransEstimation.setText(String.valueOf(Math.floor(Clarans.estimation * 100) / 100));
+        lblClaransFMeasure.setText(String.valueOf(Math.floor(Clarans.fmeasure * 100) / 100));
+
+        String text = this.generateTextAreaContent(Clarans.clusters);
+        setClaransTextAreaContent(text);
+
+        HashMap<Integer, Integer> numElements = getNumberOfElements(Clarans.clusters);
+        ArrayList<Label> lbls = constructNumElements(numElements);
+        fillClaransVBox(lbls);
+    }
+
+    private void fillKMeansVBox(ArrayList<Label> lbls) {
+        vbKMeans.getChildren().clear();
+        vbKMeans.getChildren().addAll(lbls);
+        System.out.println(lbls);
+    }
+    private void fillKMedoidsVBox(ArrayList<Label> lbls) {
+        vbKMedoids.getChildren().clear();
+        vbKMedoids.getChildren().addAll(lbls);
+    }
+    private void fillClaransVBox(ArrayList<Label> lbls) {
+        vbClarans.getChildren().clear();
+        vbClarans.getChildren().addAll(lbls);
+    }
+
+    private String generateTextAreaContent(HashMap<Integer, ArrayList<Integer>> clusters) {
+        String instance = "Instance ";
+        String separator = " ==> ";
+
+        ArrayList<Integer> classA = KMeans.getArrayFromClass(normalizedDataset, 1);
+        ArrayList<Integer> classB = KMeans.getArrayFromClass(normalizedDataset, 2);
+        ArrayList<Integer> classC = KMeans.getArrayFromClass(normalizedDataset, 3);
+
+        StringBuilder ret = new StringBuilder();
+
+        for(Instance inst : dataset.getInstances()) {
+            String instClass = "";
+            if(classA.contains(inst.getInstanceNumber())) {
+                instClass = "A";
+            }
+            else if(classB.contains(inst.getInstanceNumber())) {
+                instClass = "B";
+            }
+            else if(classC.contains(inst.getInstanceNumber())){
+                instClass = "C";
+            }
+            String instCluster = "";
+            for(int key : clusters.keySet()) {
+                if(clusters.get(key).contains(inst.getInstanceNumber())) {
+                    instCluster = key + "";
+                    break;
+                }
+            }
+
+            String add = instance + inst.getInstanceNumber() + separator + instClass + "_" + instCluster;
+            ret.append(add);
+            ret.append("\n");
+        }
+
+        return String.valueOf(ret);
+    }
+    private HashMap<Integer, Integer> getNumberOfElements(HashMap<Integer, ArrayList<Integer>> clusters) {
+        HashMap<Integer, Integer> ret = new HashMap<>();
+
+        for(int key : clusters.keySet()) {
+            ret.put(key, clusters.get(key).size());
+        }
+        return ret;
+    }
+    private ArrayList<Label> constructNumElements(HashMap<Integer, Integer> clusters) {
+        ArrayList<Label> lbls = new ArrayList<>();
+
+        for(int key : clusters.keySet()) {
+            Label lbl = new Label();
+            lbl.setText("Cluster " + key + ": " + clusters.get(key));
+            lbl.setFont(Font.font("System", FontWeight.BOLD, 18));
+            lbl.setAlignment(Pos.BASELINE_LEFT);
+            lbl.setPrefHeight(40);
+            lbl.prefWidthProperty().bind(vbKMeans.prefWidthProperty());
+            lbl.prefWidthProperty().bind(vbKMeans.widthProperty());
+            lbls.add(lbl);
+        }
+        return lbls;
+    }
+
+    private void setKMeansTextAreaContent(String text) {
+        textAreaKMeans.setText(text);
+    }
+    private void setKMedoidsTextAreaContent(String text) {
+        textAreaKMedoids.setText(text);
+    }
+    private void setClaransTextAreaContent(String text) {
+        textAreaClarans.setText(text);
     }
 
     private void importDatasetEvent(ActionEvent actionEvent) throws IOException {
@@ -263,13 +660,14 @@ public class ApplicationController {
         if(selectedFile != null) {
             String path = selectedFile.getAbsolutePath();
             dataset = new DataSet(path);
+            normalizedDataset = dataset.normalize();
             prepare();
         }
     }
 
     private void plotScatter(ActionEvent actionEvent) throws IOException {
-        String attr1 = cbScatterTabAttribute1.getValue();
-        String attr2 = cbScatterTabAttribute2.getValue();
+        String attr1 = (String) cbScatterTabAttribute1.getValue();
+        String attr2 = (String) cbScatterTabAttribute2.getValue();
 
         if(dataset.getStaticNames().contains(attr1) && dataset.getStaticNames().contains(attr2)) {
             XYChart chart = Charts.ScatterPlot(dataset, attr1, attr2);
@@ -347,6 +745,10 @@ public class ApplicationController {
         tabBoxPlot.setDisable(false);
         tabHisto.setDisable(false);
         tabScatter.setDisable(false);
+        tabApriori.setDisable(false);
+        tabKMeans.setDisable(false);
+        tabKMedoids.setDisable(false);
+        tabClarans.setDisable(false);
     }
 }
 

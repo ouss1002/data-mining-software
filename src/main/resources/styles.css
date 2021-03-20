@@ -125,3 +125,16 @@
 .choice-box .arrow {
     -fx-background-color: -fx-secondary;
 }
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.text-area {
+    -fx-text-fill: -fx-primary-text;
+}
+
+.resimportant {
+    -fx-text-fill: -fx-secondary;
+}

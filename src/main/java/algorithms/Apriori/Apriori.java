@@ -11,7 +11,15 @@ import java.util.LinkedHashMap;
 
 public class Apriori {
     public static LinkedHashMap<Integer, ArrayList<String>> transactionDB = new LinkedHashMap<>();
-    static ArrayList<Instance> classInstances = new ArrayList<>();
+    public static ArrayList<Instance> classInstances = new ArrayList<>();
+    public static ArrayList<Instance> discretizedInstances;
+    public static ArrayList<FrequentItemSets> frequentItemSetsList;
+    public static ArrayList<Rule> rules;
+
+    public static long timeDiscretization;
+    public static long timeFreqPat;
+    public static long timeAssocRules;
+    public static long timeFull;
 
     public static ArrayList<FrequentItemSets> apriori(Integer minSupport, Double minConfidence) {
         ArrayList<FrequentItemSets> frequentItemSetsList = new ArrayList<>();
@@ -122,12 +130,26 @@ public class Apriori {
     }
 
     public static void main(String[] args)  throws IOException {
-        DataSet ds = new DataSet("C:\\Users\\a\\Desktop\\Source Code\\GIT repositories\\Data science\\data-mining-software\\src\\main\\resources\\Thyroid_Dataset.txt");
-        ArrayList<Instance> instances = Discretization.discretizeDataset(ds, 5);
-        generateTransactionDB(instances);
-        ArrayList<FrequentItemSets> frequentItemSetsList = apriori(129, 0.6);
+        DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
+        long start;
+        long finish;
+
+        start = System.nanoTime();
+        Apriori.discretizedInstances = Discretization.discretizeDataset(ds, 5);
+        finish = System.nanoTime();
+        Apriori.timeDiscretization = (finish - start) / 1000000;
+
+        start = System.nanoTime();
+        Apriori.generateTransactionDB(Apriori.discretizedInstances);
+        Apriori.frequentItemSetsList = Apriori.apriori(129, 0.6);
+        finish = System.nanoTime();
+        Apriori.timeFreqPat = (finish - start) / 1000000;
+
+        start = System.nanoTime();
         AssociationRules.generateAssociationRules(frequentItemSetsList, 90);
-        ArrayList<Rule> rules = AssociationRules.getRules();
+        Apriori.rules = AssociationRules.getRules();
+        finish = System.nanoTime();
+        Apriori.timeAssocRules = (finish - start) / 1000000;
 
         for (FrequentItemSets frequentItemSets: frequentItemSetsList) {
             for (ItemSet itemSet: frequentItemSets.getItemSets()) {

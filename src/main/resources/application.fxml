@@ -4,9 +4,11 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -168,7 +170,7 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab fx:id="tabBoxPlot" text="BOXPLOT">
+      <Tab fx:id="tabBoxPlot" disable="true" text="BOXPLOT">
          <content>
             <AnchorPane>
                <children>
@@ -301,7 +303,7 @@
                </children>
             </AnchorPane>
          </content></Tab>
-      <Tab fx:id="tabHisto" text="HISTOGRAM">
+      <Tab fx:id="tabHisto" disable="true" text="HISTOGRAM">
          <content>
             <AnchorPane>
                <children>
@@ -346,7 +348,7 @@
                </children>
             </AnchorPane>
          </content></Tab>
-      <Tab fx:id="tabScatter" text="SCATTERPLOT">
+      <Tab fx:id="tabScatter" disable="true" text="SCATTERPLOT">
          <content>
             <AnchorPane>
                <children>
@@ -413,52 +415,257 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab fx:id="tabApriori" text="APRIORI">
+      <Tab fx:id="tabApriori" disable="true" text="APRIORI">
          <content>
             <AnchorPane>
                <children>
                   <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane fx:id="apScatterTab1" HBox.hgrow="ALWAYS" />
+                        <AnchorPane fx:id="apScatterTab2111" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="TOP_CENTER" layoutX="216.0" layoutY="198.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane prefHeight="654.0" prefWidth="268.0" HBox.hgrow="NEVER">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" layoutX="41.0" layoutY="127.0" prefHeight="200.0" prefWidth="242.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="35.0" prefWidth="278.0" />
+                                                <AnchorPane prefHeight="46.0" prefWidth="318.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Discretization:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblAprioriDiscretization" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="98.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="318.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Freq. Patterns:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblAprioriFreqPatterns" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="98.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="318.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Assoc. Rules:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblAprioriAssocRules" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="98.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="318.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Full Time:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblAprioriFullTime" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="98.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <HBox alignment="TOP_CENTER" layoutX="274.0" layoutY="277.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <AnchorPane prefHeight="33.0" prefWidth="331.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="176.0" text="Frequent Sets" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="18.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </AnchorPane>
+                                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <ScrollPane hbarPolicy="NEVER" prefHeight="642.0" prefWidth="364.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                     <content>
+                                                                        <JFXTextArea fx:id="textAreaAprioriFreqSets" focusColor="#405aa800" prefHeight="615.0" prefWidth="314.0" text="&#10;" unFocusColor="#4d4d4d00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                        </JFXTextArea>
+                                                                     </content>
+                                                                     <padding>
+                                                                        <Insets left="10.0" />
+                                                                     </padding>
+                                                                  </ScrollPane>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <AnchorPane prefHeight="33.0" prefWidth="331.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="176.0" text="Association Rules" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="18.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </AnchorPane>
+                                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                               <children>
+                                                                  <ScrollPane hbarPolicy="NEVER" prefHeight="642.0" prefWidth="364.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                     <content>
+                                                                        <JFXTextArea fx:id="textAreaAssocRules" focusColor="#405aa800" prefHeight="615.0" prefWidth="314.0" text="&#10;" unFocusColor="#4d4d4d00">
+                                                                           <font>
+                                                                              <Font size="18.0" />
+                                                                           </font>
+                                                                        </JFXTextArea>
+                                                                     </content>
+                                                                     <padding>
+                                                                        <Insets left="10.0" />
+                                                                     </padding>
+                                                                  </ScrollPane>
+                                                               </children>
+                                                            </AnchorPane>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
                         <AnchorPane HBox.hgrow="NEVER">
                            <children>
-                              <VBox alignment="CENTER">
+                              <VBox alignment="TOP_CENTER" prefHeight="638.0" prefWidth="226.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <AnchorPane>
+                                    <AnchorPane prefHeight="623.0" prefWidth="226.0">
                                        <children>
-                                          <VBox alignment="TOP_CENTER">
+                                          <VBox alignment="TOP_CENTER" prefHeight="620.0" prefWidth="226.0" AnchorPane.bottomAnchor="-295.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                <AnchorPane maxWidth="200.0" prefHeight="150.0" prefWidth="200.0">
                                                    <children>
-                                                      <Label text="Attribute1:">
-                                                         <font>
-                                                            <Font name="System Bold" size="16.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <JFXComboBox fx:id="cbScatterTabAttribute11" prefHeight="22.0" prefWidth="113.0" />
+                                                      <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="162.0" text="Number of Bins;">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXSlider fx:id="sliderAprioriNumBins" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="2.0" minorTickCount="0" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="5.0">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXSlider>
+                                                            <JFXButton fx:id="btnAprioriDiscretize" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="Discretize" textFill="RED">
+                                                               <font>
+                                                                  <Font name="System Bold" size="14.0" />
+                                                               </font>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXButton>
+                                                         </children>
+                                                      </VBox>
                                                    </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                </AnchorPane>
+                                                <AnchorPane maxWidth="200.0" prefHeight="150.0" prefWidth="200.0">
                                                    <children>
-                                                      <Label text="Attribute2:">
-                                                         <font>
-                                                            <Font name="System Bold" size="16.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <JFXComboBox fx:id="cbScatterTabAttribute21" prefHeight="22.0" prefWidth="113.0" />
+                                                      <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="162.0" text="Minimum Support:">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXSlider fx:id="sliderAprioriMinSupport" disable="true" majorTickUnit="10.0" minorTickCount="1" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="50.0">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXSlider>
+                                                            <JFXButton fx:id="btnAprioriFreqPatterns" alignment="CENTER" disable="true" prefHeight="50.0" prefWidth="179.0" text="Get Frequent Patterns" textFill="RED">
+                                                               <font>
+                                                                  <Font name="System Bold" size="14.0" />
+                                                               </font>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXButton>
+                                                         </children>
+                                                      </VBox>
                                                    </children>
-                                                </HBox>
-                                                <JFXButton fx:id="btnScatterTabPlot1" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="PLOT" textFill="RED">
-                                                   <font>
-                                                      <Font name="System Bold" size="14.0" />
-                                                   </font>
-                                                   <cursor>
-                                                      <Cursor fx:constant="HAND" />
-                                                   </cursor>
-                                                   <VBox.margin>
-                                                      <Insets top="20.0" />
-                                                   </VBox.margin>
-                                                </JFXButton>
+                                                </AnchorPane>
+                                                <AnchorPane maxWidth="200.0" prefHeight="150.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="172.0" text="Minimum Confidence:">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXSlider fx:id="sliderAprioriMinConfidence" disable="true" majorTickUnit="10.0" minorTickCount="1" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="50.0">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXSlider>
+                                                            <JFXButton fx:id="btnAprioriAssocRules" alignment="CENTER" disable="true" prefHeight="50.0" prefWidth="179.0" text="Get Association Rules" textFill="RED">
+                                                               <font>
+                                                                  <Font name="System Bold" size="14.0" />
+                                                               </font>
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXButton>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
                                              </children>
                                              <padding>
                                                 <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
@@ -480,24 +687,140 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab fx:id="tabKMeans" text="KMEANS">
+      <Tab fx:id="tabKMeans" disable="true" text="KMEANS">
          <content>
             <AnchorPane>
                <children>
                   <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane fx:id="apScatterTab2" HBox.hgrow="ALWAYS" />
+                        <AnchorPane fx:id="apScatterTab2" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="TOP_CENTER" layoutX="216.0" layoutY="198.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane prefHeight="654.0" prefWidth="357.0">
+                                       <children>
+                                          <VBox layoutX="50.0" layoutY="81.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Execution Time:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblKMeansExecTime" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="154.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Estimation:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblKMeansEstimation" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="154.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="F-Measure:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblKMeansFMeasure" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="154.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="654.0" prefWidth="331.0" HBox.hgrow="NEVER">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" layoutX="116.0" layoutY="205.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="33.0" prefWidth="331.0" VBox.vgrow="NEVER">
+                                                   <children>
+                                                      <Label prefHeight="34.0" prefWidth="157.0" text="Clusters:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="595.0" prefWidth="331.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <ScrollPane layoutX="66.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <content>
+                                                            <JFXTextArea fx:id="textAreaKMeans" focusColor="#405aa800" prefHeight="614.0" prefWidth="323.0" unFocusColor="#4d4d4d00">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </JFXTextArea>
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="654.0" prefWidth="232.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <VBox layoutX="50.0" layoutY="81.0" prefHeight="654.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="33.0" prefWidth="331.0">
+                                                   <children>
+                                                      <Label prefHeight="34.0" prefWidth="231.0" text="Eelements per Cluster:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets left="5.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="409.0" prefWidth="258.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox fx:id="vbKMeans" layoutX="79.0" layoutY="198.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
                         <AnchorPane HBox.hgrow="NEVER">
                            <children>
-                              <VBox alignment="TOP_CENTER" prefHeight="506.0" prefWidth="226.0" AnchorPane.bottomAnchor="144.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox alignment="TOP_CENTER" prefHeight="638.0" prefWidth="226.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <AnchorPane>
                                        <children>
                                           <VBox alignment="TOP_CENTER" prefHeight="620.0" prefWidth="226.0" AnchorPane.bottomAnchor="-295.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <AnchorPane maxWidth="200.0" prefHeight="266.0" prefWidth="200.0">
+                                                <AnchorPane maxWidth="200.0" prefHeight="98.0" prefWidth="200.0">
                                                    <children>
-                                                      <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                      <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
                                                             <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
                                                                <children>
@@ -508,7 +831,11 @@
                                                                   </Label>
                                                                </children>
                                                             </HBox>
-                                                            <JFXSlider fx:id="sliderKMeansNumClusters" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                                                            <JFXSlider fx:id="sliderKMeansNumClusters" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXSlider>
                                                          </children>
                                                       </VBox>
                                                    </children>
@@ -546,42 +873,160 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab fx:id="tabKMedoids" text="KMEDOIDS">
+      <Tab fx:id="tabKMedoids" disable="true" text="KMEDOIDS">
          <content>
             <AnchorPane>
                <children>
                   <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane fx:id="apScatterTab3" HBox.hgrow="ALWAYS" />
+                        <AnchorPane fx:id="apScatterTab21" HBox.hgrow="ALWAYS">
+                           <children>
+                              <HBox alignment="TOP_CENTER" layoutX="216.0" layoutY="198.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane prefHeight="654.0" prefWidth="357.0">
+                                       <children>
+                                          <VBox layoutX="50.0" layoutY="81.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Execution Time:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblKMedoidsExecTime" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="154.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Estimation:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblKMedoidsEstimation" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="154.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="F-Measure:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblKMedoidsFMeasure" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="154.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="654.0" prefWidth="331.0" HBox.hgrow="NEVER">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" layoutX="116.0" layoutY="205.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="33.0" prefWidth="331.0" VBox.vgrow="NEVER">
+                                                   <children>
+                                                      <Label prefHeight="34.0" prefWidth="157.0" text="Clusters:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="595.0" prefWidth="331.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <ScrollPane layoutX="66.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <content>
+                                                            <JFXTextArea fx:id="textAreaKMedoids" focusColor="#405aa800" prefHeight="614.0" prefWidth="323.0" unFocusColor="#4d4d4d00">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </JFXTextArea>
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="654.0" prefWidth="232.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <VBox layoutX="50.0" layoutY="81.0" prefHeight="654.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="33.0" prefWidth="331.0">
+                                                   <children>
+                                                      <Label prefHeight="34.0" prefWidth="231.0" text="Eelements per Cluster:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets left="5.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="409.0" prefWidth="258.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox fx:id="vbKMedoids" layoutX="79.0" layoutY="198.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
                         <AnchorPane HBox.hgrow="NEVER">
                            <children>
-                              <VBox alignment="CENTER">
+                              <VBox alignment="TOP_CENTER" prefHeight="638.0" prefWidth="226.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <AnchorPane>
                                        <children>
-                                          <VBox alignment="TOP_CENTER">
+                                          <VBox alignment="TOP_CENTER" prefHeight="620.0" prefWidth="226.0" AnchorPane.bottomAnchor="-295.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
+                                                <AnchorPane maxWidth="200.0" prefHeight="98.0" prefWidth="200.0">
                                                    <children>
-                                                      <Label text="Attribute1:">
-                                                         <font>
-                                                            <Font name="System Bold" size="16.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <JFXComboBox fx:id="cbScatterTabAttribute13" prefHeight="22.0" prefWidth="113.0" />
+                                                      <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="162.0" text="Number of Clusters:">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXSlider fx:id="sliderKMedoidsNumClusters" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXSlider>
+                                                         </children>
+                                                      </VBox>
                                                    </children>
-                                                </HBox>
-                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0">
-                                                   <children>
-                                                      <Label text="Attribute2:">
-                                                         <font>
-                                                            <Font name="System Bold" size="16.0" />
-                                                         </font>
-                                                      </Label>
-                                                      <JFXComboBox fx:id="cbScatterTabAttribute23" prefHeight="22.0" prefWidth="113.0" />
-                                                   </children>
-                                                </HBox>
-                                                <JFXButton fx:id="btnScatterTabPlot3" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="PLOT" textFill="RED">
+                                                </AnchorPane>
+                                                <JFXButton fx:id="btnKMedoidsBuildClusters" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="Build Clusters" textFill="RED">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
@@ -592,6 +1037,7 @@
                                                       <Insets top="20.0" />
                                                    </VBox.margin>
                                                 </JFXButton>
+                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0" />
                                              </children>
                                              <padding>
                                                 <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
@@ -613,22 +1059,138 @@
             </AnchorPane>
          </content>
       </Tab>
-      <Tab fx:id="tabClarans" text="CLARANS">
+      <Tab fx:id="tabClarans" disable="true" text="CLARANS">
          <content>
             <AnchorPane>
                <children>
                   <HBox spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <AnchorPane fx:id="apScatterTab4" HBox.hgrow="ALWAYS" />
-                        <AnchorPane>
+                        <AnchorPane fx:id="apScatterTab211" HBox.hgrow="ALWAYS">
                            <children>
-                              <VBox alignment="TOP_CENTER" prefHeight="506.0" prefWidth="226.0" AnchorPane.bottomAnchor="144.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <HBox alignment="TOP_CENTER" layoutX="216.0" layoutY="198.0" prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <AnchorPane>
+                                    <AnchorPane prefHeight="654.0" prefWidth="357.0">
+                                       <children>
+                                          <VBox layoutX="50.0" layoutY="81.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Execution Time:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblClaransExecTime" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="154.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Estimation:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblClaransEstimation" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="154.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0">
+                                                   <children>
+                                                      <Label fx:id="lblClaransFMeasure" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="154.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="F-Measure:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="358.0" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="654.0" prefWidth="331.0" HBox.hgrow="NEVER">
+                                       <children>
+                                          <VBox alignment="TOP_CENTER" layoutX="116.0" layoutY="205.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="33.0" prefWidth="331.0" VBox.vgrow="NEVER">
+                                                   <children>
+                                                      <Label prefHeight="34.0" prefWidth="157.0" text="Clusters:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="595.0" prefWidth="331.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <ScrollPane layoutX="66.0" layoutY="124.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <content>
+                                                            <JFXTextArea fx:id="textAreaClarans" focusColor="#405aa800" prefHeight="614.0" prefWidth="323.0" unFocusColor="#4d4d4d00">
+                                                               <font>
+                                                                  <Font size="18.0" />
+                                                               </font>
+                                                            </JFXTextArea>
+                                                         </content>
+                                                      </ScrollPane>
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                    <AnchorPane prefHeight="654.0" prefWidth="232.0" HBox.hgrow="ALWAYS">
+                                       <children>
+                                          <VBox layoutX="50.0" layoutY="81.0" prefHeight="654.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <AnchorPane prefHeight="33.0" prefWidth="331.0">
+                                                   <children>
+                                                      <Label prefHeight="34.0" prefWidth="231.0" text="Eelements per Cluster:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                         <padding>
+                                                            <Insets left="5.0" />
+                                                         </padding>
+                                                      </Label>
+                                                   </children>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </AnchorPane>
+                                                <AnchorPane prefHeight="409.0" prefWidth="258.0" VBox.vgrow="ALWAYS">
+                                                   <children>
+                                                      <VBox fx:id="vbClarans" layoutX="79.0" layoutY="198.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </AnchorPane>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane HBox.hgrow="NEVER">
+                           <children>
+                              <VBox alignment="TOP_CENTER" prefHeight="638.0" prefWidth="226.0" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <AnchorPane prefHeight="623.0" prefWidth="226.0">
                                        <children>
                                           <VBox alignment="TOP_CENTER" prefHeight="620.0" prefWidth="226.0" AnchorPane.bottomAnchor="-295.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                              <children>
-                                                <AnchorPane maxWidth="200.0" prefHeight="266.0" prefWidth="200.0">
+                                                <AnchorPane maxWidth="200.0" prefHeight="98.0" prefWidth="200.0">
                                                    <children>
                                                       <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                          <children>
@@ -641,12 +1203,60 @@
                                                                   </Label>
                                                                </children>
                                                             </HBox>
-                                                            <JFXSlider fx:id="sliderClaransNumClusters" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" value="3.0" />
+                                                            <JFXSlider fx:id="sliderClaransNumClusters" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXSlider>
                                                          </children>
                                                       </VBox>
                                                    </children>
                                                 </AnchorPane>
-                                                <JFXButton fx:id="btnKMeansBuildClusters1" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="Build Clusters" textFill="RED">
+                                                <AnchorPane maxWidth="200.0" prefHeight="98.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="162.0" text="Number of Searches:">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXSlider fx:id="sliderClaransNumSearches" blockIncrement="1.0" majorTickUnit="5.0" max="50.0" minorTickCount="1" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="20.0">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXSlider>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                                <AnchorPane maxWidth="200.0" prefHeight="98.0" prefWidth="200.0">
+                                                   <children>
+                                                      <VBox alignment="TOP_CENTER" fillWidth="false" layoutX="25.0" layoutY="14.0" prefHeight="240.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <children>
+                                                            <HBox alignment="CENTER" prefHeight="48.0" prefWidth="200.0">
+                                                               <children>
+                                                                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="162.0" text="Number of Tries:">
+                                                                     <font>
+                                                                        <Font name="System Bold" size="16.0" />
+                                                                     </font>
+                                                                  </Label>
+                                                               </children>
+                                                            </HBox>
+                                                            <JFXSlider fx:id="sliderClaransNumTries" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minorTickCount="0" prefHeight="30.0" prefWidth="194.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="3.0">
+                                                               <cursor>
+                                                                  <Cursor fx:constant="HAND" />
+                                                               </cursor>
+                                                            </JFXSlider>
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </AnchorPane>
+                                                <JFXButton fx:id="btnClaransBuildClusters" alignment="CENTER" prefHeight="50.0" prefWidth="179.0" text="Build Clusters" textFill="RED">
                                                    <font>
                                                       <Font name="System Bold" size="14.0" />
                                                    </font>
@@ -657,7 +1267,6 @@
                                                       <Insets top="20.0" />
                                                    </VBox.margin>
                                                 </JFXButton>
-                                                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="219.0" spacing="5.0" />
                                              </children>
                                              <padding>
                                                 <Insets bottom="5.0" left="2.0" right="5.0" top="2.0" />
