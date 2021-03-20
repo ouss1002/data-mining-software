@@ -236,12 +236,10 @@ public class KMeans {
         int cols = 3;
         double[][] mat = new double[lines][cols];
         int[] classes = new int[lines];
-        double[] maxes = new double[lines];
+        double[] maxes = new double[cols];
         double ret;
 
         for(int l = 0; l < lines; l++) {
-            double max = 0;
-            int classSet = 0;
             for(int c = 0; c < cols; c++) {
                 double precision = KMeans.getPrecision(ds, kmeans, l, c);
                 double recall = KMeans.getRecall(ds, kmeans, l, c);
@@ -250,22 +248,27 @@ public class KMeans {
                     fmeasure = 0;
                 }
                 mat[l][c] = fmeasure;
-                if(fmeasure > max) {
-                    max = fmeasure;
-                    classSet = c + 1;
-                }
             }
-            maxes[l] = max;
-            classes[l] = classSet;
         }
         ret = 0;
-        for(int i = 0; i < lines; i++) {
-            ret += (maxes[i] * KMeans.getArrayFromClass(ds, classes[i]).size()) / ds.getInstances().size();
+        for(int j = 0; j < cols; j++) {
+            double max = 0;
+            for(int i = 0; i < lines; i++) {
+                if(mat[i][j] > max) {
+                    max = mat[i][j];
+                }
+            }
+            maxes[j] = max;
         }
+
+        for(int j = 0; j < cols; j++) {
+            ret += (maxes[j] * KMeans.getArrayFromClass(ds, j + 1).size()) / ds.getInstances().size();
+        }
+
         System.out.println(Arrays.toString(maxes));
-        System.out.println(Arrays.toString(classes));
         KMeans.fmeasureMatrix = mat;
         KMeans.fmeasure = ret;
+
         return ret;
     }
 
@@ -281,6 +284,7 @@ public class KMeans {
             }
         }
         double precision = ((double)nij) / nj;
+
         return precision;
     }
 
@@ -296,6 +300,7 @@ public class KMeans {
             }
         }
         double recall = ((double)nij) / ni;
+
         return recall;
     }
 
@@ -310,7 +315,6 @@ public class KMeans {
 
         return ret;
     }
-
 
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");

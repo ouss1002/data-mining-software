@@ -507,11 +507,11 @@
                                                                   </Label>
                                                                </children>
                                                             </AnchorPane>
-                                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                            <AnchorPane fx:id="apFreqSets" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                <children>
-                                                                  <ScrollPane hbarPolicy="NEVER" prefHeight="642.0" prefWidth="364.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                  <ScrollPane fx:id="spFreqSets" hbarPolicy="NEVER" prefHeight="642.0" prefWidth="329.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                      <content>
-                                                                        <JFXTextArea fx:id="textAreaAprioriFreqSets" focusColor="#405aa800" prefHeight="615.0" prefWidth="314.0" text="&#10;" unFocusColor="#4d4d4d00">
+                                                                        <JFXTextArea fx:id="textAreaAprioriFreqSets" focusColor="#405aa800" prefHeight="599.0" prefWidth="302.0" text="&#10;" unFocusColor="#4d4d4d00">
                                                                            <font>
                                                                               <Font size="18.0" />
                                                                            </font>
@@ -540,11 +540,11 @@
                                                                   </Label>
                                                                </children>
                                                             </AnchorPane>
-                                                            <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                                                            <AnchorPane fx:id="apAssocRules" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                                                <children>
-                                                                  <ScrollPane hbarPolicy="NEVER" prefHeight="642.0" prefWidth="364.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                                  <ScrollPane fx:id="spAssocRules" hbarPolicy="NEVER" prefHeight="642.0" prefWidth="364.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                                      <content>
-                                                                        <JFXTextArea fx:id="textAreaAssocRules" focusColor="#405aa800" prefHeight="615.0" prefWidth="314.0" text="&#10;" unFocusColor="#4d4d4d00">
+                                                                        <JFXTextArea fx:id="textAreaAssocRules" focusColor="#405aa800" prefHeight="597.0" prefWidth="302.0" text="&#10;" unFocusColor="#4d4d4d00">
                                                                            <font>
                                                                               <Font size="18.0" />
                                                                            </font>

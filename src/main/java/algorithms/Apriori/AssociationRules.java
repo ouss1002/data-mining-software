@@ -14,6 +14,7 @@ public class AssociationRules {
 	}
 
 	public static void generateRules(ArrayList<FrequentItemSets> frequentItemSetsList, int minConfidenceThreshold) {
+		rules = new ArrayList<>();
 		for(FrequentItemSets frequentItemSets : frequentItemSetsList) {
 			for (int i = 0; i < frequentItemSets.getSize(); i++) {
 				int suppNominator = frequentItemSets.getValue(frequentItemSets.getItemSet(i));

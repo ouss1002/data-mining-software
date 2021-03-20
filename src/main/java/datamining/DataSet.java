@@ -194,6 +194,11 @@ public class DataSet {
     }
 
     public Instance getSingleInstance(int i) {
+        for(Instance inst : this.getInstances()) {
+            if(inst.getInstanceNumber() == i) {
+                return inst;
+            }
+        }
         return this.instances.get(i - 1);
     }
 

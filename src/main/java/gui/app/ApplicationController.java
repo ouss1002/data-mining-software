@@ -324,6 +324,7 @@ public class ApplicationController {
             cbScatterTabAttribute2.setItems(attrs);
             this.fillDatasetTable();
         }
+
         this.assignEventListeners();
     }
 
@@ -451,10 +452,10 @@ public class ApplicationController {
         AssociationRules.generateRules(Apriori.frequentItemSetsList, value);
         Apriori.rules = AssociationRules.getRules();
         finish = System.nanoTime();
-        Apriori.timeFreqPat = (finish - start) / 1000000;
-        lblAprioriAssocRules.setText(Apriori.timeFreqPat + "ms");
-
-        lblAprioriFullTime.setText((Apriori.timeDiscretization + Apriori.timeFreqPat + Apriori.timeAssocRules) + "ms");
+        Apriori.timeAssocRules = (finish - start) / 1000000;
+        lblAprioriAssocRules.setText(Apriori.timeAssocRules + "ms");
+        Apriori.timeFull = Apriori.timeDiscretization + Apriori.timeFreqPat + Apriori.timeAssocRules;
+        lblAprioriFullTime.setText(Apriori.timeFull + "ms");
 
         fillAssocTable();
     }
@@ -465,6 +466,7 @@ public class ApplicationController {
             printed.append(rule.getConditions().getItemSet()).append(" ==> ").append(rule.getConsequences().getItemSet()).append(" ::= ").append(rule.getConfidence()).append("\n");
         }
         String ret = printed.toString();
+        textAreaAssocRules.clear();
         textAreaAssocRules.setText(ret);
     }
 
@@ -487,6 +489,7 @@ public class ApplicationController {
             }
         }
         String ret = String.valueOf(printed);
+        textAreaAprioriFreqSets.clear();
         textAreaAprioriFreqSets.setText(ret);
     }
 

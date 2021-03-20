@@ -190,10 +190,7 @@ public class Clarans {
         int cols = 3;
         double[][] mat = new double[lines][cols];
         ArrayList<Integer> keys = new ArrayList<>();
-        HashMap<Integer, Integer> last = new HashMap<>();
-        HashMap<Integer, Double> last2 = new HashMap<>();
         double[] maxes = new double[lines];
-        int[] classes = new int[lines];
         double ret;
 
         for(int key : clarans.keySet()) {
@@ -202,8 +199,6 @@ public class Clarans {
 
         for(int l = 0; l < lines; l++) {
             int key = keys.get(l);
-            double max = 0;
-            int classSet = 0;
             for(int c = 0; c < cols; c++) {
                 double precision = Clarans.getPrecision(ds, clarans, key, c);
                 double recall = Clarans.getRecall(ds, clarans, key, c);
@@ -212,19 +207,21 @@ public class Clarans {
                     fmeasure = 0;
                 }
                 mat[l][c] = fmeasure;
-                if(fmeasure > max) {
-                    max = fmeasure;
-                    classSet = c + 1;
-                }
             }
-            maxes[l] = max;
-            classes[l] = classSet;
-            last.put(key, classSet);
-            last2.put(key, max);
         }
         ret = 0;
-        for(int key : last.keySet()) {
-            ret += (last2.get(key) * Clarans.getArrayFromClass(ds, last.get(key)).size()) / ds.getInstances().size();
+        for(int j = 0; j < cols; j++) {
+            double max = 0;
+            for(int i = 0; i < lines; i++) {
+                if(mat[i][j] > max) {
+                    max = mat[i][j];
+                }
+            }
+            maxes[j] = max;
+        }
+
+        for(int j = 0; j < cols; j++) {
+            ret += (maxes[j] * KMeans.getArrayFromClass(ds, j + 1).size()) / ds.getInstances().size();
         }
 
         Clarans.fmeasureMatrix = mat;
@@ -278,21 +275,6 @@ public class Clarans {
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ds = ds.normalize();
-//        for(int bla = 0; bla < 10; bla++) {
-//            HashMap<Integer, ArrayList<Integer>> clarans = Clarans.getClarans(ds, 3, 1, 1);
-//            for(int i : clarans.keySet()) {
-//                System.out.println(i + ": " + clarans.get(i).size());
-//            }
-//
-//            double[][] fm = Clarans.getMatrixFMeasure(ds, clarans);
-//            for(int i = 0; i < 3; i++) {
-//                for(int j = 0; j < 3; j++){
-//                    System.out.print("" + fm[i][j] + ", ");
-//                }
-//                System.out.print("\n");
-//            }
-//            System.out.println("finally: " + Clarans.getTotalFMeasure(ds, clarans));
-//        }
         HashMap<Integer, ArrayList<Integer>> clarans = Clarans.getClarans(ds, 3, 1, 1);
         System.out.println("finally: " + Clarans.getTotalFMeasure(ds, clarans));
     }

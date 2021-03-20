@@ -31,55 +31,47 @@ public class KMedoids {
         HashMap<Integer, ArrayList<Integer>> medoids;
         medoids = KMedoids.initMedoids(dataset, numMedoids);
         medoids = KMedoids.buildClusters(dataset, medoids);
-        Set<Integer> oldKeySet = medoids.keySet();
 
         int count = 0;
 
         while(true) {
             count++;
-            boolean redo = false;
+            ArrayList<Integer> newMedoids = new ArrayList<>();
             for(int key : medoids.keySet()) {
-                redo = false;
+                int replacement = key;
                 Medoid orgMD = new Medoid(dataset, key);
-                double orgScore = orgMD.getErrorWithAllInstances(dataset, medoids.get(key));
-                for(Instance instance : dataset.getInstances()) {
-                    double otherScore = 0;
-                    if(medoids.containsKey(instance.getInstanceNumber())) {
+                double score = orgMD.getErrorWithAllInstances(dataset, medoids.get(key));
+                for(Instance inst : dataset.getInstances()) {
+                    if(medoids.keySet().contains(inst.getInstanceNumber()) || newMedoids.contains(inst.getInstanceNumber())) {
                         continue;
                     }
-                    Medoid otherMD = new Medoid(dataset, instance.getInstanceNumber());
-                    otherScore = otherMD.getErrorWithAllInstances(dataset, medoids.get(key));
-                    if(otherScore < orgScore) {
-                        medoids.remove(key);
-                        medoids.put(otherMD.getInstance().getInstanceNumber(), new ArrayList<>());
-                        redo = true;
-                        break;
+                    Medoid tempMD = new Medoid(dataset, inst.getInstanceNumber());
+                    double tempScore = tempMD.getErrorWithAllInstances(dataset, medoids.get(key));
+                    if(tempScore < score) {
+                        replacement = tempMD.getInstance().getInstanceNumber();
+                        score = tempScore;
                     }
                 }
-                if(redo) {
-                    medoids = KMedoids.buildClusters(dataset, medoids);
-                    break;
-                }
+                newMedoids.add(replacement);
             }
-            if(!redo) {
-                System.out.println(count);
+            System.out.println("new: " + newMedoids);
+            if(medoids.keySet().containsAll(newMedoids)) {
                 break;
             }
+            medoids.clear();
+            for(int k : newMedoids) {
+                medoids.put(k, new ArrayList<>());
+            }
+            medoids = KMedoids.buildClusters(dataset, medoids);
         }
 
-        // calculating scores
-//        ArrayList<Double> scores = new ArrayList<>();
-//        for(int key : medoids.keySet()) {
-//            Medoid md = new Medoid(dataset, key);
-//            scores.add(md.getErrorWithAllInstances(dataset, medoids.get(key)));
-//        }
         double theScore = KMedoids.getScore(dataset, medoids);
 
         finish = System.nanoTime();
         KMedoids.time = (finish - start) / 1000000;
         KMedoids.estimation = theScore;
         KMedoids.clusters = medoids;
-
+        System.out.println("iterations: " + count);
         return medoids;
     }
 
@@ -183,10 +175,7 @@ public class KMedoids {
         int cols = 3;
         double[][] mat = new double[lines][cols];
         ArrayList<Integer> keys = new ArrayList<>();
-        HashMap<Integer, Integer> last = new HashMap<>();
-        HashMap<Integer, Double> last2 = new HashMap<>();
-        double[] maxes = new double[lines];
-        int[] classes = new int[lines];
+        double[] maxes = new double[cols];
         double ret;
 
         for(int key : kmedoids.keySet()) {
@@ -195,8 +184,6 @@ public class KMedoids {
 
         for(int l = 0; l < lines; l++) {
             int key = keys.get(l);
-            double max = 0;
-            int classSet = 0;
             for(int c = 0; c < cols; c++) {
                 double precision = KMedoids.getPrecision(ds, kmedoids, key, c);
                 double recall = KMedoids.getRecall(ds, kmedoids, key, c);
@@ -205,19 +192,22 @@ public class KMedoids {
                     fmeasure = 0;
                 }
                 mat[l][c] = fmeasure;
-                if(fmeasure > max) {
-                    max = fmeasure;
-                    classSet = c + 1;
-                }
             }
-            maxes[l] = max;
-            classes[l] = classSet;
-            last.put(key, classSet);
-            last2.put(key, max);
         }
         ret = 0;
-        for(int key : last.keySet()) {
-            ret += (last2.get(key) * KMedoids.getArrayFromClass(ds, last.get(key)).size()) / ds.getInstances().size();
+
+        for(int j = 0; j < cols; j++) {
+            double max = 0;
+            for(int i = 0; i < lines; i++) {
+                if(mat[i][j] > max) {
+                    max = mat[i][j];
+                }
+            }
+            maxes[j] = max;
+        }
+
+        for(int j = 0; j < cols; j++) {
+            ret += (maxes[j] * KMeans.getArrayFromClass(ds, j + 1).size()) / ds.getInstances().size();
         }
 
         KMedoids.fmeasureMatrix = mat;
@@ -270,21 +260,20 @@ public class KMedoids {
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ds = ds.normalize();
-        for(int bla = 0; bla < 10; bla++) {
-            HashMap<Integer, ArrayList<Integer>> kmedoids = KMedoids.getKMedoids(ds, 1);
-//            for(int i : kmedoids.keySet()) {
-//                System.out.println(i + ": " + kmedoids.get(i).size());
-//            }
+        for(int bla = 0; bla < 1; bla++) {
+            HashMap<Integer, ArrayList<Integer>> kmedoids = KMedoids.getKMedoids(ds, 3);
+            for(int i : kmedoids.keySet()) {
+                System.out.println(i + ": " + kmedoids.get(i).size());
+            }
 
             double[][] fm = KMedoids.getMatrixFMeasure(ds, kmedoids);
-//            for(int i = 0; i < 3; i++) {
-//                for(int j = 0; j < 3; j++){
-//                    System.out.print("" + fm[i][j] + ", ");
-//                }
-//                System.out.print("\n");
-//            }
+            for(int i = 0; i < 3; i++) {
+                for(int j = 0; j < 3; j++){
+                    System.out.print("" + fm[i][j] + ", ");
+                }
+                System.out.print("\n");
+            }
             System.out.print("finally: " + KMedoids.getTotalFMeasure(ds, kmedoids));
         }
     }
-
 }

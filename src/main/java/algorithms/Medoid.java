@@ -29,7 +29,6 @@ public class Medoid {
         for(int i : elements) {
             error += this.getDistanceWith(ds.getSingleInstance(i));
         }
-
         return error;
     }
 
@@ -40,7 +39,7 @@ public class Medoid {
         double sum = 0;
         for(int i = 0; i < importantVals.size(); i++) {
             double val = importantVals.get(i) - thisImportantVals.get(i);
-            sum += val >= 0 ? val : -val;
+            sum += val * val; // >= 0 ? val : -val;
         }
 
         return sum;
