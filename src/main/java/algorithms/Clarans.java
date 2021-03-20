@@ -32,44 +32,50 @@ public class Clarans {
 
         for(int i = 0; i < numRepetitions; i++) {
             medoids = Clarans.initMedoids(dataset, numMedoids);
-            medoids = Clarans.buildClusters(dataset, medoids);
-            for(int j = 0; j < numIterations; j++) {
-                int rand = Clarans.getRandomMedoid(numMedoids);
-                int chosenKey = (int)medoids.keySet().toArray()[rand];
-                ArrayList<Integer> forbidden = new ArrayList<>();
-                for(int key : medoids.keySet()) {
-                    forbidden.add(key);
-                }
-                Medoid md = new Medoid(dataset, chosenKey);
-                double score = 0;
-                int perm = chosenKey;
-                ArrayList<Integer> targetInstances = medoids.get(chosenKey);
-                for(int instanceNumber : targetInstances) {
-                    score += md.getDistanceWith(dataset.getSingleInstance(instanceNumber));
-                }
 
-                double otherScore = 0;
-                for(Instance instance : dataset.getInstances()) {
-                    if(forbidden.contains(instance.getInstanceNumber())) {
-                        continue;
-                    }
-                    Medoid tempMD = new Medoid(dataset, instance.getInstanceNumber());
-                    for(int instanceNumber : targetInstances) {
-                        otherScore += tempMD.getDistanceWith(dataset.getSingleInstance(instanceNumber));
-                    }
-                    if(otherScore < score) {
-                        score = otherScore;
-                        perm = instance.getInstanceNumber();
-                    }
-                }
-                if(perm != chosenKey) {
-                    medoids.put(perm, new ArrayList<>());
-                    medoids.remove(chosenKey);
-                    medoids = Clarans.buildClusters(dataset, medoids);
-                }
-            }
             history.add(medoids);
         }
+
+//        for(int i = 0; i < numRepetitions; i++) {
+//            medoids = Clarans.initMedoids(dataset, numMedoids);
+//            medoids = Clarans.buildClusters(dataset, medoids);
+//            for(int j = 0; j < numIterations; j++) {
+//                int rand = Clarans.getRandomMedoid(numMedoids);
+//                int chosenKey = (int)medoids.keySet().toArray()[rand];
+//                ArrayList<Integer> forbidden = new ArrayList<>();
+//                for(int key : medoids.keySet()) {
+//                    forbidden.add(key);
+//                }
+//                Medoid md = new Medoid(dataset, chosenKey);
+//                double score = 0;
+//                int perm = chosenKey;
+//                ArrayList<Integer> targetInstances = medoids.get(chosenKey);
+//                for(int instanceNumber : targetInstances) {
+//                    score += md.getDistanceWith(dataset.getSingleInstance(instanceNumber));
+//                }
+//
+//                double otherScore = 0;
+//                for(Instance instance : dataset.getInstances()) {
+//                    if(forbidden.contains(instance.getInstanceNumber())) {
+//                        continue;
+//                    }
+//                    Medoid tempMD = new Medoid(dataset, instance.getInstanceNumber());
+//                    for(int instanceNumber : targetInstances) {
+//                        otherScore += tempMD.getDistanceWith(dataset.getSingleInstance(instanceNumber));
+//                    }
+//                    if(otherScore < score) {
+//                        score = otherScore;
+//                        perm = instance.getInstanceNumber();
+//                    }
+//                }
+//                if(perm != chosenKey) {
+//                    medoids.put(perm, new ArrayList<>());
+//                    medoids.remove(chosenKey);
+//                    medoids = Clarans.buildClusters(dataset, medoids);
+//                }
+//            }
+//            history.add(medoids);
+//        }
 
         // calculating scores
         double theScore = -1;
@@ -275,7 +281,7 @@ public class Clarans {
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ds = ds.normalize();
-        HashMap<Integer, ArrayList<Integer>> clarans = Clarans.getClarans(ds, 3, 1, 1);
+        HashMap<Integer, ArrayList<Integer>> clarans = Clarans.getClarans(ds, 3, 30, 10);
         System.out.println("finally: " + Clarans.getTotalFMeasure(ds, clarans));
     }
 
