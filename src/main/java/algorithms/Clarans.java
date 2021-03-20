@@ -32,7 +32,34 @@ public class Clarans {
 
         for(int i = 0; i < numRepetitions; i++) {
             medoids = Clarans.initMedoids(dataset, numMedoids);
-
+            medoids = Clarans.buildClusters(dataset, medoids);
+            for(int j = 0; j < numIterations; j++) {
+                double rand = Math.random() * numMedoids;
+                int chosenKey = (int) Math.floor(rand);
+                if(chosenKey == numMedoids) {
+                    chosenKey--;
+                }
+                int chosenInstance;
+                do {
+                    rand = Math.random() * dataset.getInstances().size() + 1;
+                    chosenInstance = ((int)(rand));
+                    if(chosenInstance == 0) {
+                        chosenInstance++;
+                    }
+                    if(chosenInstance == dataset.getInstances().size() + 1) {
+                        chosenInstance = dataset.getInstances().size();
+                    }
+                } while(medoids.keySet().contains(chosenInstance));
+                Medoid orgMD = new Medoid(dataset, chosenKey);
+                Medoid newMD = new Medoid(dataset, chosenInstance);
+                double orgScore = orgMD.getErrorWithAllInstances(dataset, medoids.get(chosenKey));
+                double newScore = newMD.getErrorWithAllInstances(dataset, medoids.get(chosenKey));
+                if(newScore < orgScore) {
+                    medoids.remove(chosenKey);
+                    medoids.put(chosenInstance, new ArrayList<>());
+                    medoids = Clarans.buildClusters(dataset, medoids);
+                }
+            }
             history.add(medoids);
         }
 

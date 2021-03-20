@@ -449,9 +449,7 @@ public class ApplicationController {
         start = System.nanoTime();
         //Apriori.generateTransactionDB(Apriori.discretizedInstances);
         double value = sliderAprioriMinConfidence.getValue();
-        value = value / 100;
-        int arg = ((int)(value * dataset.getInstances().size()));
-        AssociationRules.generateRules(Apriori.frequentItemSetsList, arg);
+        AssociationRules.generateRules(Apriori.frequentItemSetsList, (int)value);
         Apriori.rules = AssociationRules.getRules();
         finish = System.nanoTime();
         Apriori.timeAssocRules = (finish - start) / 1000000;
@@ -476,9 +474,7 @@ public class ApplicationController {
         start = System.nanoTime();
         Apriori.generateTransactionDB(Apriori.discretizedInstances);
         double value = sliderAprioriMinSupport.getValue();
-        value = value / 100;
-        int arg = ((int)(value * dataset.getInstances().size()));
-        Apriori.frequentItemSetsList = Apriori.apriori(arg);
+        Apriori.frequentItemSetsList = Apriori.apriori((int)value);
         finish = System.nanoTime();
         Apriori.timeFreqPat = (finish - start) / 1000000;
         lblAprioriFreqPatterns.setText(Apriori.timeFreqPat + "ms");
