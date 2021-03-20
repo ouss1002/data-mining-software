@@ -486,6 +486,20 @@
                                                       </Label>
                                                    </children>
                                                 </AnchorPane>
+                                                <AnchorPane prefHeight="46.0" prefWidth="318.0">
+                                                   <children>
+                                                      <Label layoutX="22.0" layoutY="7.0" prefHeight="34.0" prefWidth="157.0" text="Number of Rules:">
+                                                         <font>
+                                                            <Font name="System Bold" size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                      <Label fx:id="lblAprioriNbrRules" layoutX="180.0" layoutY="7.0" prefHeight="34.0" prefWidth="98.0" styleClass="resimportant">
+                                                         <font>
+                                                            <Font size="18.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </AnchorPane>
                                              </children>
                                           </VBox>
                                        </children>

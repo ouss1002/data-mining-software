@@ -267,6 +267,9 @@ public class ApplicationController {
     @FXML
     private JFXButton btnAprioriDiscretize;
 
+    @FXML
+    private Label lblAprioriNbrRules;
+
     // Observable list to show all rules in tableview
     ObservableList<OutliersTableItem> outliers = FXCollections.observableArrayList();
 
@@ -458,6 +461,11 @@ public class ApplicationController {
         lblAprioriFullTime.setText(Apriori.timeFull + "ms");
 
         fillAssocTable();
+        writeNumberOfRules();
+    }
+
+    private void writeNumberOfRules() {
+        lblAprioriNbrRules.setText(String.valueOf(AssociationRules.getRules().size()));
     }
 
     private void fillAssocTable() {
