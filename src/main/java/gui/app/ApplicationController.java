@@ -439,20 +439,20 @@ public class ApplicationController {
             btnAprioriAssocRules.setDisable(false);
             sliderAprioriMinConfidence.setDisable(false);
         });
-        btnAprioriFreqPatterns.setOnAction(actionEvent -> {
+        btnAprioriAssocRules.setOnAction(actionEvent -> {
             startAssocRules();
         });
     }
 
     private void startAssocRules() {
         start = System.nanoTime();
-        Apriori.generateTransactionDB(Apriori.discretizedInstances);
+        //Apriori.generateTransactionDB(Apriori.discretizedInstances);
         int value = (int) sliderAprioriMinConfidence.getValue();
-        AssociationRules.generateAssociationRules(Apriori.frequentItemSetsList, value);
+        AssociationRules.generateRules(Apriori.frequentItemSetsList, value);
         Apriori.rules = AssociationRules.getRules();
         finish = System.nanoTime();
         Apriori.timeFreqPat = (finish - start) / 1000000;
-        lblAprioriFreqPatterns.setText(Apriori.timeFreqPat + "ms");
+        lblAprioriAssocRules.setText(Apriori.timeFreqPat + "ms");
 
         lblAprioriFullTime.setText((Apriori.timeDiscretization + Apriori.timeFreqPat + Apriori.timeAssocRules) + "ms");
 
@@ -472,7 +472,7 @@ public class ApplicationController {
         start = System.nanoTime();
         Apriori.generateTransactionDB(Apriori.discretizedInstances);
         int value = (int) sliderAprioriMinSupport.getValue();
-        Apriori.frequentItemSetsList = Apriori.apriori(value, 0.6);
+        Apriori.frequentItemSetsList = Apriori.apriori(value);
         finish = System.nanoTime();
         Apriori.timeFreqPat = (finish - start) / 1000000;
         lblAprioriFreqPatterns.setText(Apriori.timeFreqPat + "ms");

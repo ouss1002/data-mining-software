@@ -13,23 +13,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Discretization {
-
     public static ArrayList<Integer> discretize(ArrayList<Double> list, int bins) {
-
         ArrayList<Integer> ret = new ArrayList<>();
         ArrayList<Double> copy = (ArrayList<Double>) list.clone();
         Collections.sort(copy);
-
         Double limdown = copy.get(0);
         Double limup = copy.get(copy.size() - 1);
         Double decal = (limup - limdown) / bins;
-        System.out.println("decal: " + decal);
-
+        //.println("decal: " + decal);
         ArrayList<Double> boundaries = new ArrayList<>();
         for(int i = 0; i < bins; i++) {
             boundaries.add(limdown + decal * i);
         }
-
         for(Double ele : list) {
             for(int i = boundaries.size() - 1; i >= 0; i--) {
                 if(ele >= boundaries.get(i)) {
@@ -38,7 +33,6 @@ public class Discretization {
                 }
             }
         }
-
         return ret;
     }
 

@@ -21,7 +21,7 @@ public class Apriori {
     public static long timeAssocRules;
     public static long timeFull;
 
-    public static ArrayList<FrequentItemSets> apriori(Integer minSupport, Double minConfidence) {
+    public static ArrayList<FrequentItemSets> apriori(Integer minSupport) {
         ArrayList<FrequentItemSets> frequentItemSetsList = new ArrayList<>();
         FrequentItemSets l = generateFirstFrequentItemSet(minSupport);
         frequentItemSetsList.add(new FrequentItemSets(l));
@@ -141,12 +141,12 @@ public class Apriori {
 
         start = System.nanoTime();
         Apriori.generateTransactionDB(Apriori.discretizedInstances);
-        Apriori.frequentItemSetsList = Apriori.apriori(129, 0.6);
+        Apriori.frequentItemSetsList = Apriori.apriori(129);
         finish = System.nanoTime();
         Apriori.timeFreqPat = (finish - start) / 1000000;
 
         start = System.nanoTime();
-        AssociationRules.generateAssociationRules(frequentItemSetsList, 90);
+        AssociationRules.generateRules(frequentItemSetsList, 90);
         Apriori.rules = AssociationRules.getRules();
         finish = System.nanoTime();
         Apriori.timeAssocRules = (finish - start) / 1000000;

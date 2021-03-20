@@ -1,21 +1,11 @@
 package algorithms.Apriori;
-
 import java.util.ArrayList;
-
 
 public class AssociationRules {
 	private static ArrayList<Rule> rules = new ArrayList<>();
 
-	public static ArrayList<Rule> getRules() { return rules; }
-
-	public static int numRules() {
-		return rules.size();
-	}
-
-	public static Rule getRule(int position) {
-		if(position >= numRules() || position < 0)
-			return null;
-		return rules.get(position);
+	public static ArrayList<Rule> getRules() {
+		return rules;
 	}
 
 	public static void addRule(Rule rule) {
@@ -23,14 +13,13 @@ public class AssociationRules {
 			rules.add(rule);
 	}
 
-	public static void generateAssociationRules(ArrayList<FrequentItemSets> frequentItemSetsList, int minConfidenceThreshold) {
+	public static void generateRules(ArrayList<FrequentItemSets> frequentItemSetsList, int minConfidenceThreshold) {
 		for(FrequentItemSets frequentItemSets : frequentItemSetsList) {
 			for (int i = 0; i < frequentItemSets.getSize(); i++) {
-				ItemSet currItemSet = frequentItemSets.getItemSet(i);
-				int suppNominator = frequentItemSets.getValue(currItemSet);
-				ArrayList<ItemSet> allSubItemSets = currItemSet.getAllSubItemSets();
+				int suppNominator = frequentItemSets.getValue(frequentItemSets.getItemSet(i));
+				ArrayList<ItemSet> allSubItemSets = frequentItemSets.getItemSet(i).getAllSubItemSets();
 				for (ItemSet subItemSet : allSubItemSets) {
-					ItemSet consequent = currItemSet.substract(subItemSet);
+					ItemSet consequent = frequentItemSets.getItemSet(i).substract(subItemSet);
 					Integer suppDenominator = frequentItemSetsList.get(subItemSet.getSize() - 1).getValueByString(subItemSet);
 					if (suppDenominator == null)
 						continue;
@@ -46,9 +35,5 @@ public class AssociationRules {
 				}
 			}
 		}
-	}
-	@Override
-	public String toString() {
-		return "AssociationRules [rules=" + rules + "]";
 	}
 }
