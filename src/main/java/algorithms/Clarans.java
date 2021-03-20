@@ -39,6 +39,7 @@ public class Clarans {
                 if(chosenKey == numMedoids) {
                     chosenKey--;
                 }
+                chosenKey = (int) medoids.keySet().toArray()[chosenKey];
                 int chosenInstance;
                 do {
                     rand = Math.random() * dataset.getInstances().size() + 1;
@@ -308,7 +309,7 @@ public class Clarans {
     public static void main(String[] args) throws IOException {
         DataSet ds = new DataSet("C:\\Users\\MSI\\Desktop\\Thyroid_Dataset.txt");
         ds = ds.normalize();
-        HashMap<Integer, ArrayList<Integer>> clarans = Clarans.getClarans(ds, 3, 30, 10);
+        HashMap<Integer, ArrayList<Integer>> clarans = Clarans.getClarans(ds, 3, 50, 30);
         System.out.println("finally: " + Clarans.getTotalFMeasure(ds, clarans));
     }
 
